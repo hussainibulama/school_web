@@ -2,22 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import axiosInstance from '../api/axios';
 
-export interface Response {
-  code: number;
-  status: string;
-  message: string;
-  data?: any;
-}
-
-export interface Error {
-  response?: {
-    data?: {
-      code: number;
-      status: string;
-      message: string;
-    };
-  };
-}
 export interface LoginPayload {
   schoolId: string;
   email: string;

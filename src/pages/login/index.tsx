@@ -1,161 +1,121 @@
 import { useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
-import { useInitUser, useLogin } from '../../hooks/useUserHook';
-import { StepOne, StepTwo, StepThree } from './components';
-import { useSnackbar } from '../../hoc/snack-bar';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Box, Divider, Stack, Typography, useTheme, useMediaQuery } from '@mui/material';
+import { Formik, FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { AUTH_STORAGE_KEY } from '../../contants';
 
-interface School {
+import { LogoVireo, TermsAndCondition, LoginForm } from '../../container';
+import { useInitUser, useLogin } from './hook';
+import { useSnackbar } from '../../hoc/snack-bar';
+import { AUTH_STORAGE_KEY } from '../../contants';
+import loginSchema from './loginSchema';
+
+interface LoginValues {
+  email: string;
+  password: string;
   schoolId: string;
-  schoolName: string;
-  schoolLogo?: string;
 }
 
 const Login = () => {
-  const [step, setStep] = useState(1);
-  const [email, setEmail] = useState('');
-  const [schools, setSchools] = useState<School[]>([]);
-  const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
-  const [password, setPassword] = useState('');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  const [schools, setSchools] = useState<any[]>([]);
+  const hasSchools = schools.length > 0;
 
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
 
-  const { mutate: initUser, isPending } = useInitUser();
-  const { mutate: login, isPending: isLoggingIn } = useLogin();
+  const { mutate: initializeEmail, isPending: isInitializing } = useInitUser();
+  const { mutate: loginUser, isPending: isLoggingIn } = useLogin();
 
-  const handleEmailSubmit = (actions: any) => {
-    initUser(email, {
-      onSuccess: (res) => {
-        showSnackbar(res?.message || 'School Found', 'success');
-        setSchools((res.data as School[]) ?? []);
-        setStep(2);
-      },
-      onError: (err) => {
-        console.log(err);
-        showSnackbar(err?.response?.data?.message || 'unexpected error', 'error');
-      },
-      onSettled: () => actions.setSubmitting(false),
-    });
-  };
-
-  const handleLogin = (actions: any) => {
-    if (!email || !selectedSchool?.schoolId || !password) return;
-
-    login(
-      {
-        email,
-        password,
-        schoolId: selectedSchool.schoolId,
-      },
-      {
-        onSuccess: (res: any) => {
+  const handleSubmit = (values: LoginValues, actions: FormikHelpers<LoginValues>) => {
+    if (hasSchools) {
+      // Login flow
+      loginUser(values, {
+        onSuccess: (res) => {
           localStorage.setItem(AUTH_STORAGE_KEY, res?.data?.token);
-          showSnackbar(res?.message || 'Login Successful', 'success');
+          showSnackbar(res?.message || 'Success', 'success');
           navigate('/dashboard');
         },
         onError: (err) => {
-          console.log(err);
-          showSnackbar(err?.response?.data?.message || 'unable to error', 'error');
+          console.error(err);
+          showSnackbar(err?.response?.data?.message || 'Error', 'error');
         },
         onSettled: () => actions.setSubmitting(false),
-      },
-    );
+      });
+    } else {
+      // School initialization flow
+      initializeEmail(values.email, {
+        onSuccess: (res) => {
+          showSnackbar(res?.message || 'Success', 'success');
+          setSchools(res.data ?? []);
+        },
+        onError: (err) => {
+          console.error(err);
+          showSnackbar(err?.response?.data?.message || 'Error', 'error');
+        },
+        onSettled: () => actions.setSubmitting(false),
+      });
+    }
   };
 
   return (
     <Box
       minHeight='100dvh'
-      height='100%'
       width='100%'
       display='flex'
-      flexDirection='column'
-      justifyContent='space-between'
-      sx={{
-        minHeight: '100dvdh',
-        backgroundColor: '#f5f5f7',
-      }}
+      alignItems='center'
+      justifyContent='center'
+      bgcolor={theme.palette.background.default}
     >
-      {/* Main content center */}
-      <Box flex={1} display='flex' alignItems='center' width='100%'>
-        <Stack
-          spacing={2}
-          sx={{
-            width: { xs: '90%', sm: '320px' },
-            mx: 'auto',
-          }}
-        >
-          <AnimatePresence mode='wait'>
-            <motion.div
-              key={step}
-              initial={{ x: 100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -100, opacity: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              {step === 1 && (
-                <StepOne
-                  isPending={isPending}
-                  onSubmit={handleEmailSubmit}
-                  email={email}
-                  onChangeEmail={setEmail}
-                />
-              )}
-              {step === 2 && (
-                <StepTwo
-                  email={email}
-                  schools={schools}
-                  selectedSchool={selectedSchool}
-                  onBack={() => {
-                    setStep(1);
-                    setSelectedSchool(null);
-                  }}
-                  onSelect={setSelectedSchool}
-                  onContinue={() => setStep(3)}
-                />
-              )}
-              {step === 3 && (
-                <StepThree
-                  email={email}
-                  school={selectedSchool}
-                  password={password}
-                  onBack={() => {
-                    setStep(2);
-                    setPassword('');
-                  }}
-                  onChangePassword={setPassword}
-                  onLogin={handleLogin}
-                  isLoading={isLoggingIn}
-                />
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </Stack>
-      </Box>
-
-      {/* Footer */}
-      <Typography
-        variant='body2'
-        color='text.secondary'
-        align='center'
-        sx={{
-          mt: 4,
-          py: 2,
-          fontFamily: `"Inter", sans-serif`,
-          fontSize: '12px',
-        }}
+      <Stack
+        spacing={10}
+        width='100%'
+        maxWidth={900}
+        flexDirection='column'
+        alignItems={isMobile ? 'center' : 'flex-start'}
+        px={3}
       >
-        © {new Date().getFullYear()} Lightweb Ltd. All rights reserved.{' '}
-        <a href='/terms' style={{ textDecoration: 'underline' }}>
-          Terms and condition
-        </a>
-        {' . '}
-        <a href='/privacy-policy' style={{ textDecoration: 'underline' }}>
-          Privacy Policy
-        </a>
-      </Typography>
+        {/* Logo */}
+        <LogoVireo />
+
+        {/* Main Content */}
+        <Stack
+          spacing={5}
+          direction={isMobile ? 'column' : 'row'}
+          width='100%'
+          justifyContent='center'
+          alignItems='stretch'
+        >
+          {/* Form */}
+          <Box width='100%'>
+            <Formik
+              initialValues={{ email: '', password: '', schoolId: '' }}
+              validationSchema={loginSchema(hasSchools)}
+              onSubmit={handleSubmit}
+            >
+              {(formik) => (
+                <LoginForm
+                  {...formik}
+                  isPending={isInitializing || isLoggingIn}
+                  schools={schools}
+                />
+              )}
+            </Formik>
+          </Box>
+
+          {/* Divider */}
+          {!isMobile && <Divider orientation='vertical' flexItem />}
+
+          {/* Optional Right Box */}
+          <Box width='100%' display='flex' alignItems='center' justifyContent='center'>
+            <Typography variant='body1'>Right Box Content</Typography>
+          </Box>
+        </Stack>
+
+        {/* Footer */}
+        <TermsAndCondition />
+      </Stack>
     </Box>
   );
 };

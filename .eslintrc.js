@@ -10,5 +10,6 @@ module.exports = {
   rules: {
     'prettier/prettier': ['error', { singleQuote: true, jsxSingleQuote: true }],
     '@typescript-eslint/no-explicit-any': 'off',
+    'no-unused-vars': 'warn',
   },
 };

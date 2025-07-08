@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === (401 | 403)) {
-      localStorage.removeItem('authToken');
+      localStorage.removeItem(AUTH_STORAGE_KEY);
       window.location.href = '/';
     }
     return Promise.reject(error);
