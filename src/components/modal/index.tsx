@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -9,9 +9,9 @@ import {
   Box,
   Button,
   DialogProps,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import CircularProgress from "@mui/material/CircularProgress";
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface ModalProps extends Partial<DialogProps> {
   open: boolean;
@@ -28,10 +28,10 @@ interface ModalProps extends Partial<DialogProps> {
 const Modal = ({
   open,
   onClose,
-  title = "Modal Title",
+  title = 'Modal Title',
   children,
   onSubmit,
-  submitText = "Submit",
+  submitText = 'Submit',
   isSubmitting = false,
   hideActions = false,
   error,
@@ -42,26 +42,26 @@ const Modal = ({
       open={open}
       onClose={onClose}
       fullWidth
-      maxWidth="xs"
+      maxWidth='xs'
       {...dialogProps}
       sx={{
-        "& .MuiDialog-paper": {
-          width: "100%",
-          maxHeight: "90vh",
-          borderRadius: "8px",
-          margin: "auto",
+        '& .MuiDialog-paper': {
+          width: '100%',
+          maxHeight: '90vh',
+          borderRadius: '8px',
+          margin: 'auto',
 
-          "@media (max-width: 600px)": {
-            width: "90%",
-            height: "auto",
-            margin: "16px auto",
+          '@media (max-width: 600px)': {
+            width: '90%',
+            height: 'auto',
+            margin: '16px auto',
           },
         },
       }}
     >
       <DialogTitle>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
-          <Typography variant="h6">{title}</Typography>
+        <Box display='flex' justifyContent='space-between' alignItems='center'>
+          <Typography variant='h6'>{title}</Typography>
           <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
@@ -72,27 +72,27 @@ const Modal = ({
 
       {!hideActions && (
         <DialogActions>
-          <Box display="flex" width="100%" gap={1}>
+          <Box display='flex' width='100%' gap={1}>
             <Button
               onClick={onClose}
-              color="primary"
+              color='primary'
               disabled={isSubmitting}
               fullWidth
               sx={{
                 flex: 1,
-                background: "white",
+                background: 'white',
                 fontFamily: `"Inter", sans-serif`,
-                fontSize: "0.8rem",
-                textTransform: "capitalize",
-                height: "32px",
-                color: "black",
-                border: "1px solid #ccc",
-                "&:hover": {
-                  backgroundColor: "#f0f0f0", // Light gray on hover
+                fontSize: '0.8rem',
+                textTransform: 'capitalize',
+                height: '32px',
+                color: 'black',
+                border: '1px solid #ccc',
+                '&:hover': {
+                  backgroundColor: '#f0f0f0', // Light gray on hover
                 },
-                "&:disabled": {
-                  backgroundColor: "#e0e0e0", // Disabled background color
-                  color: "#a0a0a0", // Disabled text color
+                '&:disabled': {
+                  backgroundColor: '#e0e0e0', // Disabled background color
+                  color: '#a0a0a0', // Disabled text color
                 },
               }}
             >
@@ -100,31 +100,27 @@ const Modal = ({
             </Button>
             <Button
               onClick={onSubmit}
-              color="primary"
+              color='primary'
               disabled={isSubmitting}
               fullWidth
               sx={{
                 flex: 1,
-                background: error ? "#e57373" : "#4d8cec",
+                background: error ? '#e57373' : '#4d8cec',
                 fontFamily: `"Inter", sans-serif`,
-                fontSize: "0.8rem",
-                textTransform: "capitalize",
-                height: "32px",
-                color: "white",
-                "&:hover": {
-                  backgroundColor: error ? "#d32f2f'" : "#357ab7",
+                fontSize: '0.8rem',
+                textTransform: 'capitalize',
+                height: '32px',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: error ? "#d32f2f'" : '#357ab7',
                 },
-                "&:disabled": {
-                  backgroundColor: "#8aacc8",
+                '&:disabled': {
+                  backgroundColor: '#8aacc8',
                 },
               }}
-              endIcon={
-                isSubmitting ? (
-                  <CircularProgress size={20} color="inherit" />
-                ) : null
-              }
+              endIcon={isSubmitting ? <CircularProgress size={20} color='inherit' /> : null}
             >
-              {isSubmitting ? "Submitting..." : submitText}
+              {isSubmitting ? 'Submitting...' : submitText}
             </Button>
           </Box>
         </DialogActions>

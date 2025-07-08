@@ -1,12 +1,6 @@
-import React from "react";
-import {
-  Box,
-  TextField,
-  Typography,
-  MenuItem,
-  TextFieldProps,
-} from "@mui/material";
-import { ErrorMessage } from "formik";
+import React from 'react';
+import { Box, TextField, Typography, MenuItem, TextFieldProps } from '@mui/material';
+import { ErrorMessage } from 'formik';
 
 interface Option {
   value: string;
@@ -14,10 +8,7 @@ interface Option {
 }
 
 interface FormSelectProps
-  extends Omit<
-    TextFieldProps,
-    "name" | "value" | "onChange" | "onBlur" | "label"
-  > {
+  extends Omit<TextFieldProps, 'name' | 'value' | 'onChange' | 'onBlur' | 'label'> {
   name: string;
   label: string;
   value: string;
@@ -39,19 +30,19 @@ const FormSelect = ({
     <TextField
       select
       fullWidth
-      size="small"
+      size='small'
       name={name}
       label={label}
       value={value}
       onChange={handleChange}
       onBlur={handleBlur}
-      sx={{ backgroundColor: "white", fontFamily: `"Inter", sans-serif` }}
+      sx={{ backgroundColor: 'white', fontFamily: `"Inter", sans-serif` }}
       slotProps={{
         inputLabel: {
-          sx: { fontSize: "0.8rem" },
+          sx: { fontSize: '0.8rem' },
         },
         input: {
-          sx: { fontSize: "0.8rem" },
+          sx: { fontSize: '0.8rem' },
         },
       }}
       {...rest}
@@ -60,7 +51,7 @@ const FormSelect = ({
         <MenuItem
           key={opt.value}
           value={opt.value}
-          sx={{ fontFamily: `"Inter", sans-serif`, fontSize: "0.8rem" }}
+          sx={{ fontFamily: `"Inter", sans-serif`, fontSize: '0.8rem' }}
         >
           {opt.label}
         </MenuItem>
@@ -69,7 +60,7 @@ const FormSelect = ({
     <ErrorMessage
       name={name}
       render={(msg) => (
-        <Typography variant="caption" color="error">
+        <Typography variant='caption' color='error'>
           {msg}
         </Typography>
       )}

@@ -1,10 +1,10 @@
-import { Formik, Form } from "formik";
-import * as Yup from "yup";
-import { Button, Stack, Typography } from "@mui/material";
-import { FormField } from "../../../../components";
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import { Button, Stack, Typography } from '@mui/material';
+import { FormField } from '../../../../components';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email is required"),
+  email: Yup.string().email('Invalid email').required('Email is required'),
 });
 
 interface StepEmailProps {
@@ -13,12 +13,7 @@ interface StepEmailProps {
   onChangeEmail: (value: string) => void;
   onSubmit: (actions: any) => void;
 }
-const StepOne = ({
-  isPending,
-  email,
-  onChangeEmail,
-  onSubmit,
-}: StepEmailProps) => (
+const StepOne = ({ isPending, email, onChangeEmail, onSubmit }: StepEmailProps) => (
   <Formik
     initialValues={{ email }}
     validationSchema={LoginSchema}
@@ -28,32 +23,32 @@ const StepOne = ({
       <Form>
         <Stack spacing={2}>
           <Typography
-            variant="h4"
-            align="center"
-            fontWeight="bold"
+            variant='h4'
+            align='center'
+            fontWeight='bold'
             sx={{
               fontFamily: `"Inter", sans-serif`,
-              color: "rgb(56, 58, 63)",
-              fontSize: "28px",
-              fontWeight: "bold",
+              color: 'rgb(56, 58, 63)',
+              fontSize: '28px',
+              fontWeight: 'bold',
             }}
           >
             Login
           </Typography>
           <Typography
-            variant="body2"
-            align="center"
+            variant='body2'
+            align='center'
             sx={{
               fontFamily: `"Inter", sans-serif`,
-              fontSize: "12px",
-              color: "rgb(56, 58, 63)",
+              fontSize: '12px',
+              color: 'rgb(56, 58, 63)',
             }}
           >
             Enter your email address below to display your schools
           </Typography>
           <FormField
-            name="email"
-            label="Email Address"
+            name='email'
+            label='Email Address'
             value={values.email}
             handleChange={(e) => {
               handleChange(e);
@@ -62,12 +57,12 @@ const StepOne = ({
             handleBlur={handleBlur}
           />
           <Button
-            type="submit"
-            variant="contained"
+            type='submit'
+            variant='contained'
             fullWidth
             disabled={isPending}
             sx={{
-              textTransform: "capitalize",
+              textTransform: 'capitalize',
               fontFamily: `"Inter", sans-serif`,
             }}
           >

@@ -1,15 +1,15 @@
-import axios from "axios";
-import { AUTH_STORAGE_KEY } from "../contants";
+import axios from 'axios';
+import { AUTH_STORAGE_KEY } from '../contants';
 // Your base URL
-const baseURL = "https://0a01-80-2-95-79.ngrok-free.app/api/v1";
+const baseURL = 'http://localhost:3112/api/v1';
 
 // Create axios instance
 const axiosInstance = axios.create({
   baseURL,
   headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    "ngrok-skip-browser-warning": "true",
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    'ngrok-skip-browser-warning': 'true',
   },
 });
 
@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use(
 
     // If token exists, add it to the request headers
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
 
     return config;
@@ -35,8 +35,8 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === (401 | 403)) {
-      localStorage.removeItem("authToken");
-      window.location.href = "/";
+      localStorage.removeItem('authToken');
+      window.location.href = '/';
     }
     return Promise.reject(error);
   },

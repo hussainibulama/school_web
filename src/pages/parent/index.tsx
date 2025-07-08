@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Box,
   Typography,
@@ -9,21 +9,17 @@ import {
   MenuItem,
   IconButton,
   CircularProgress,
-} from "@mui/material";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { CreateStaff, UpdateStaff, ViewStaff } from "./components";
-import {
-  UpdateUserByIdPayload,
-  useParentList,
-  useUpdateUserById,
-} from "../../hooks/useUserHook";
-import SummaryCard from "../../components/summary-card";
-import { ConfirmationModal } from "../../components";
-import { useSnackbar } from "../../hoc/snack-bar";
+} from '@mui/material';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { CreateStaff, UpdateStaff, ViewStaff } from './components';
+import { UpdateUserByIdPayload, useParentList, useUpdateUserById } from '../../hooks/useUserHook';
+import SummaryCard from '../../components/summary-card';
+import { ConfirmationModal } from '../../components';
+import { useSnackbar } from '../../hoc/snack-bar';
 
 type ActionType = {
-  type: "view" | "edit" | "confirm" | undefined;
+  type: 'view' | 'edit' | 'confirm' | undefined;
   userId: string | undefined;
   active?: boolean;
 };
@@ -45,8 +41,8 @@ const Staff = () => {
   const stats = parentList?.reduce(
     (acc: any, user: any) => {
       // Gender count
-      if (user.gender === "m") acc.male++;
-      if (user.gender === "f") acc.female++;
+      if (user.gender === 'm') acc.male++;
+      if (user.gender === 'f') acc.female++;
 
       // Role count
 
@@ -68,41 +64,36 @@ const Staff = () => {
   );
   const summaryData = [
     {
-      title: "Total Parents",
+      title: 'Total Parents',
       value: stats?.total,
       breakdown: [
-        { label: "Female", value: stats?.female },
-        { label: "Male", value: stats?.male },
+        { label: 'Female', value: stats?.female },
+        { label: 'Male', value: stats?.male },
       ],
     },
 
     {
-      title: "",
+      title: '',
       breakdown: [
-        { label: "Active", value: stats?.active },
-        { label: "Deactivated", value: stats?.deactivated },
+        { label: 'Active', value: stats?.active },
+        { label: 'Deactivated', value: stats?.deactivated },
       ],
     },
   ];
   const tableData = parentList?.map((item: any, index: number) => ({
     id: index + 1,
     userId: item?.userId,
-    name: [item?.firstName, item?.middleName, item?.lastName]
-      .filter(Boolean)
-      .join(" "),
+    name: [item?.firstName, item?.middleName, item?.lastName].filter(Boolean).join(' '),
     gender: item?.gender,
     type: item?.role,
     phone: item?.phone,
     email: item?.email,
     created: item?.createdAt,
     active: item?.active,
-    status: item?.active === true ? "Active" : "Deactivated",
+    status: item?.active === true ? 'Active' : 'Deactivated',
   }));
 
-  const handleMenuOpen = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    rowId: number,
-  ) => {
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>, rowId: number) => {
     setAnchorEl(event.currentTarget);
     setMenuRowId(rowId);
   };
@@ -113,12 +104,12 @@ const Staff = () => {
   };
   const handleEditProfile = (userId: string) => {
     setOpenModal(true);
-    setActionType({ type: "edit", userId });
+    setActionType({ type: 'edit', userId });
     handleMenuClose();
   };
   const handleViewProfile = (userId: string) => {
     setOpenModal(true);
-    setActionType({ type: "view", userId });
+    setActionType({ type: 'view', userId });
     handleMenuClose();
   };
   const handleResetAction = () => {
@@ -126,54 +117,51 @@ const Staff = () => {
   };
   const handleDeactivate = (userId: string, active: boolean) => {
     setOpenModal(true);
-    setActionType({ type: "confirm", userId, active });
+    setActionType({ type: 'confirm', userId, active });
     handleMenuClose();
   };
   const deactivateUser = () => {
     updateUser(
       {
-        userId: actionType?.userId || "",
+        userId: actionType?.userId || '',
         active: !actionType?.active,
       } as UpdateUserByIdPayload,
       {
         onSuccess: (res: any) => {
-          showSnackbar(res?.message || "User Deactivated", "success");
+          showSnackbar(res?.message || 'User Deactivated', 'success');
           setOpenModal(false);
           handleResetAction();
         },
         onError: (err) => {
-          showSnackbar(
-            err?.response?.data?.message || "Unable to deactivate user",
-            "error",
-          );
+          showSnackbar(err?.response?.data?.message || 'Unable to deactivate user', 'error');
         },
       },
     );
   };
 
   const columns: GridColDef[] = [
-    { field: "name", headerName: "Name", flex: 1, minWidth: 150 },
-    { field: "gender", headerName: "Gender", flex: 1, minWidth: 80 },
-    { field: "type", headerName: "Type", flex: 1, minWidth: 90 },
-    { field: "phone", headerName: "Phone", flex: 1, minWidth: 120 },
-    { field: "email", headerName: "Email", flex: 1, minWidth: 150 },
-    { field: "created", headerName: "Date Created", flex: 1, minWidth: 150 },
+    { field: 'name', headerName: 'Name', flex: 1, minWidth: 150 },
+    { field: 'gender', headerName: 'Gender', flex: 1, minWidth: 80 },
+    { field: 'type', headerName: 'Type', flex: 1, minWidth: 90 },
+    { field: 'phone', headerName: 'Phone', flex: 1, minWidth: 120 },
+    { field: 'email', headerName: 'Email', flex: 1, minWidth: 150 },
+    { field: 'created', headerName: 'Date Created', flex: 1, minWidth: 150 },
     {
-      field: "status",
-      headerName: "Status",
+      field: 'status',
+      headerName: 'Status',
       flex: 1,
       minWidth: 150,
       renderCell: (params: GridRenderCellParams) => (
         <Chip
           label={params.value}
-          color={params.value === "Active" ? "success" : "error"}
-          size="small"
+          color={params.value === 'Active' ? 'success' : 'error'}
+          size='small'
         />
       ),
     },
     {
-      field: "actions",
-      headerName: "Actions",
+      field: 'actions',
+      headerName: 'Actions',
       flex: 1,
       minWidth: 80,
       sortable: false,
@@ -182,23 +170,11 @@ const Staff = () => {
           <IconButton onClick={(e) => handleMenuOpen(e, params.row.id)}>
             <MoreVertIcon />
           </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={menuRowId === params.row.id}
-            onClose={handleMenuClose}
-          >
-            <MenuItem onClick={() => handleViewProfile(params?.row?.userId)}>
-              View
-            </MenuItem>
-            <MenuItem onClick={() => handleEditProfile(params?.row?.userId)}>
-              Edit
-            </MenuItem>
-            <MenuItem
-              onClick={() =>
-                handleDeactivate(params?.row?.userId, params?.row?.active)
-              }
-            >
-              {params?.row?.active ? "Deactivate" : "Activate"}
+          <Menu anchorEl={anchorEl} open={menuRowId === params.row.id} onClose={handleMenuClose}>
+            <MenuItem onClick={() => handleViewProfile(params?.row?.userId)}>View</MenuItem>
+            <MenuItem onClick={() => handleEditProfile(params?.row?.userId)}>Edit</MenuItem>
+            <MenuItem onClick={() => handleDeactivate(params?.row?.userId, params?.row?.active)}>
+              {params?.row?.active ? 'Deactivate' : 'Activate'}
             </MenuItem>
           </Menu>
         </>
@@ -206,38 +182,32 @@ const Staff = () => {
     },
   ];
   return (
-    <Box width="100%">
+    <Box width='100%'>
       {isLoading && (
         <Box
-          position="absolute"
+          position='absolute'
           top={0}
           left={0}
-          width="100%"
-          height="100%"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
+          width='100%'
+          height='100%'
+          display='flex'
+          alignItems='center'
+          justifyContent='center'
           zIndex={10}
-          bgcolor="rgba(255,255,255,0.6)"
+          bgcolor='rgba(255,255,255,0.6)'
         >
           <CircularProgress />
         </Box>
       )}
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        mb={2}
-        width="100%"
-      >
-        <Typography variant="h6" fontWeight="bold">
+      <Box display='flex' justifyContent='space-between' alignItems='center' mb={2} width='100%'>
+        <Typography variant='h6' fontWeight='bold'>
           Parent List
         </Typography>
         <Button
-          variant="contained"
-          color="primary"
+          variant='contained'
+          color='primary'
           onClick={() => setOpenModal(true)}
-          sx={{ textTransform: "capitalize" }}
+          sx={{ textTransform: 'capitalize' }}
         >
           Create Parent
         </Button>
@@ -245,7 +215,7 @@ const Staff = () => {
 
       {/* Summary Cards */}
       <Box mb={3}>
-        <Grid container spacing={2} sx={{ display: "flex", flexWrap: "wrap" }}>
+        <Grid container spacing={2} sx={{ display: 'flex', flexWrap: 'wrap' }}>
           {summaryData.map((item, index) => (
             <SummaryCard
               key={index}
@@ -258,12 +228,8 @@ const Staff = () => {
       </Box>
 
       {/* Data Grid */}
-      <Box sx={{ height: 400, width: "100%", overflowX: "auto" }}>
-        <DataGrid
-          rows={tableData}
-          columns={columns}
-          disableRowSelectionOnClick
-        />
+      <Box sx={{ height: 400, width: '100%', overflowX: 'auto' }}>
+        <DataGrid rows={tableData} columns={columns} disableRowSelectionOnClick />
       </Box>
       <CreateStaff
         open={openModal && actionType.type === undefined}
@@ -273,7 +239,7 @@ const Staff = () => {
         }}
       />
       <UpdateStaff
-        open={openModal && actionType.type === "edit"}
+        open={openModal && actionType.type === 'edit'}
         userId={actionType.userId}
         onClose={() => {
           setOpenModal(false);
@@ -281,7 +247,7 @@ const Staff = () => {
         }}
       />
       <ViewStaff
-        open={openModal && actionType.type === "view"}
+        open={openModal && actionType.type === 'view'}
         userId={actionType.userId}
         onClose={() => {
           setOpenModal(false);
@@ -289,7 +255,7 @@ const Staff = () => {
         }}
       />
       <ConfirmationModal
-        open={openModal && actionType.type === "confirm"}
+        open={openModal && actionType.type === 'confirm'}
         onClose={() => {
           setOpenModal(false);
           handleResetAction();
@@ -297,9 +263,9 @@ const Staff = () => {
         onConfirm={deactivateUser}
         isSubmitting={isSubmitting}
         error={actionType?.active || false}
-        title={`${actionType?.active ? "Deactivate" : "Activate"}  User`}
-        message={`Are you sure you want to ${actionType?.active ? "deactivate" : "activate"} this user?`}
-        confirmText={actionType?.active ? "Deactivate" : "Activate"}
+        title={`${actionType?.active ? 'Deactivate' : 'Activate'}  User`}
+        message={`Are you sure you want to ${actionType?.active ? 'deactivate' : 'activate'} this user?`}
+        confirmText={actionType?.active ? 'Deactivate' : 'Activate'}
       />
     </Box>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Drawer,
   List,
@@ -10,7 +10,7 @@ import {
   IconButton,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
+} from '@mui/material';
 import {
   Dashboard as DashboardIcon,
   Group as GroupIcon,
@@ -24,44 +24,44 @@ import {
   Message as MessageIcon,
   Description as BroadsheetIcon,
   Quiz as CbtIcon,
-} from "@mui/icons-material";
-import MenuIcon from "@mui/icons-material/Menu"; // Mobile menu icon
-import { NavLink } from "react-router-dom";
+} from '@mui/icons-material';
+import MenuIcon from '@mui/icons-material/Menu'; // Mobile menu icon
+import { NavLink } from 'react-router-dom';
 
 const menuItems = [
-  { label: "Dashboard", path: "", icon: <DashboardIcon /> },
-  { label: "Staff", path: "staff", icon: <GroupIcon /> },
-  { label: "Student", path: "student", icon: <SchoolIcon /> },
-  { label: "Parent", path: "parent", icon: <PeopleIcon /> },
-  { label: "Fees", path: "fees", icon: <PaidIcon /> },
-  { label: "Classes", path: "classes", icon: <ClassIcon /> },
-  { label: "Broadsheet", path: "broadsheet", icon: <BroadsheetIcon /> },
-  { label: "CBT", path: "cbt", icon: <CbtIcon /> },
-  { label: "Lesson Plan", path: "lesson-plan", icon: <LessonPlanIcon /> },
-  { label: "Messaging", path: "messaging", icon: <MessageIcon /> },
-  { label: "Time Table", path: "time-table", icon: <ScheduleIcon /> },
-  { label: "Assessment", path: "assessment", icon: <AssessmentIcon /> },
+  { label: 'Dashboard', path: '', icon: <DashboardIcon /> },
+  { label: 'Staff', path: 'staff', icon: <GroupIcon /> },
+  { label: 'Student', path: 'student', icon: <SchoolIcon /> },
+  { label: 'Parent', path: 'parent', icon: <PeopleIcon /> },
+  { label: 'Fees', path: 'fees', icon: <PaidIcon /> },
+  { label: 'Classes', path: 'classes', icon: <ClassIcon /> },
+  { label: 'Broadsheet', path: 'broadsheet', icon: <BroadsheetIcon /> },
+  { label: 'CBT', path: 'cbt', icon: <CbtIcon /> },
+  { label: 'Lesson Plan', path: 'lesson-plan', icon: <LessonPlanIcon /> },
+  { label: 'Messaging', path: 'messaging', icon: <MessageIcon /> },
+  { label: 'Time Table', path: 'time-table', icon: <ScheduleIcon /> },
+  { label: 'Assessment', path: 'assessment', icon: <AssessmentIcon /> },
 ];
 
 const SideNav = () => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); // Automatically detect mobile screens
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Automatically detect mobile screens
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: 'flex' }}>
       {/* Mobile Drawer Button */}
       {isMobile && (
         <IconButton
           onClick={toggleDrawer}
           sx={{
-            position: "fixed",
-            top: "16px",
-            left: "16px",
+            position: 'fixed',
+            top: '16px',
+            left: '16px',
             zIndex: 1200, // Ensure the button stays above other content
           }}
         >
@@ -76,21 +76,21 @@ const SideNav = () => {
         sx={{
           width: 240,
           flexShrink: 0,
-          "& .MuiDrawer-paper": {
+          '& .MuiDrawer-paper': {
             width: 240,
-            boxSizing: "border-box",
+            boxSizing: 'border-box',
           },
         }}
-        variant={isMobile ? "temporary" : "permanent"} // Temporary for mobile, permanent for desktop
-        anchor="left"
+        variant={isMobile ? 'temporary' : 'permanent'} // Temporary for mobile, permanent for desktop
+        anchor='left'
       >
         {/* Drawer Content */}
         <Box
           sx={{
-            minHeight: "56px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            minHeight: '56px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           Rayla
@@ -100,30 +100,30 @@ const SideNav = () => {
             <ListItem key={item.label} disablePadding>
               <NavLink
                 to={item.path}
-                end={item.path === ""}
+                end={item.path === ''}
                 style={({ isActive }) => ({
-                  textDecoration: "none",
-                  color: isActive ? "#1976d2" : "rgb(32, 33, 36)",
-                  width: "100%",
+                  textDecoration: 'none',
+                  color: isActive ? '#1976d2' : 'rgb(32, 33, 36)',
+                  width: '100%',
                 })}
               >
                 {({ isActive }) => (
                   <ListItemButton
                     sx={{
-                      height: "40px",
-                      paddingLeft: "12px",
-                      paddingRight: "12px",
-                      color: isActive ? "#1976d2" : "rgb(32, 33, 36)",
-                      "& .MuiListItemText-primary": {
+                      height: '40px',
+                      paddingLeft: '12px',
+                      paddingRight: '12px',
+                      color: isActive ? '#1976d2' : 'rgb(32, 33, 36)',
+                      '& .MuiListItemText-primary': {
                         fontFamily: `"Inter", sans-serif`,
-                        fontSize: "0.9rem",
+                        fontSize: '0.9rem',
                       },
-                      "& .MuiListItemIcon-root": {
-                        color: isActive ? "#1976d2" : "rgb(32, 33, 36)",
-                        minWidth: "30px",
-                        marginRight: "8px",
-                        "& svg": {
-                          fontSize: "1rem",
+                      '& .MuiListItemIcon-root': {
+                        color: isActive ? '#1976d2' : 'rgb(32, 33, 36)',
+                        minWidth: '30px',
+                        marginRight: '8px',
+                        '& svg': {
+                          fontSize: '1rem',
                         },
                       },
                     }}

@@ -1,31 +1,24 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
-import { Alert, Slide, SlideProps, Snackbar } from "@mui/material";
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { Alert, Slide, SlideProps, Snackbar } from '@mui/material';
 
-type SnackbarSeverity = "success" | "info" | "warning" | "error";
+type SnackbarSeverity = 'success' | 'info' | 'warning' | 'error';
 
 interface SnackbarContextType {
   showSnackbar: (message: string, severity?: SnackbarSeverity) => void;
 }
 
-const SnackbarContext = createContext<SnackbarContextType | undefined>(
-  undefined,
-);
+const SnackbarContext = createContext<SnackbarContextType | undefined>(undefined);
 
-const TransitionRight = (props: SlideProps) => (
-  <Slide {...props} direction="left" />
-);
+const TransitionRight = (props: SlideProps) => <Slide {...props} direction='left' />;
 
 export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
   const [snackbar, setSnackbar] = useState({
     open: false,
-    message: "",
-    severity: "info" as SnackbarSeverity,
+    message: '',
+    severity: 'info' as SnackbarSeverity,
   });
 
-  const showSnackbar = (
-    message: string,
-    severity: SnackbarSeverity = "info",
-  ) => {
+  const showSnackbar = (message: string, severity: SnackbarSeverity = 'info') => {
     setSnackbar({ open: true, message, severity });
   };
 
@@ -40,7 +33,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
         open={snackbar.open}
         onClose={handleClose}
         autoHideDuration={4000}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         TransitionComponent={TransitionRight}
         sx={{
           right: 0,
@@ -49,11 +42,7 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
           },
         }}
       >
-        <Alert
-          onClose={handleClose}
-          severity={snackbar.severity}
-          sx={{ width: "100%" }}
-        >
+        <Alert onClose={handleClose} severity={snackbar.severity} sx={{ width: '100%' }}>
           {snackbar.message}
         </Alert>
       </Snackbar>
@@ -63,7 +52,6 @@ export const SnackbarProvider = ({ children }: { children: ReactNode }) => {
 
 export const useSnackbar = () => {
   const context = useContext(SnackbarContext);
-  if (!context)
-    throw new Error("useSnackbar must be used within a SnackbarProvider");
+  if (!context) throw new Error('useSnackbar must be used within a SnackbarProvider');
   return context;
 };

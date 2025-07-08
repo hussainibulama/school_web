@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
-import { useInitUser, useLogin } from "../../hooks/useUserHook";
-import { StepOne, StepTwo, StepThree } from "./components";
-import { useSnackbar } from "../../hoc/snack-bar";
-import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { AUTH_STORAGE_KEY } from "../../contants";
+import { useState } from 'react';
+import { Box, Stack, Typography } from '@mui/material';
+import { useInitUser, useLogin } from '../../hooks/useUserHook';
+import { StepOne, StepTwo, StepThree } from './components';
+import { useSnackbar } from '../../hoc/snack-bar';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { AUTH_STORAGE_KEY } from '../../contants';
 
 interface School {
   schoolId: string;
@@ -15,10 +15,10 @@ interface School {
 
 const Login = () => {
   const [step, setStep] = useState(1);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [schools, setSchools] = useState<School[]>([]);
   const [selectedSchool, setSelectedSchool] = useState<School | null>(null);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
@@ -29,16 +29,13 @@ const Login = () => {
   const handleEmailSubmit = (actions: any) => {
     initUser(email, {
       onSuccess: (res) => {
-        showSnackbar(res?.message || "School Found", "success");
+        showSnackbar(res?.message || 'School Found', 'success');
         setSchools((res.data as School[]) ?? []);
         setStep(2);
       },
       onError: (err) => {
         console.log(err);
-        showSnackbar(
-          err?.response?.data?.message || "unexpected error",
-          "error",
-        );
+        showSnackbar(err?.response?.data?.message || 'unexpected error', 'error');
       },
       onSettled: () => actions.setSubmitting(false),
     });
@@ -56,15 +53,12 @@ const Login = () => {
       {
         onSuccess: (res: any) => {
           localStorage.setItem(AUTH_STORAGE_KEY, res?.data?.token);
-          showSnackbar(res?.message || "Login Successful", "success");
-          navigate("/dashboard");
+          showSnackbar(res?.message || 'Login Successful', 'success');
+          navigate('/dashboard');
         },
         onError: (err) => {
           console.log(err);
-          showSnackbar(
-            err?.response?.data?.message || "unable to error",
-            "error",
-          );
+          showSnackbar(err?.response?.data?.message || 'unable to error', 'error');
         },
         onSettled: () => actions.setSubmitting(false),
       },
@@ -73,25 +67,27 @@ const Login = () => {
 
   return (
     <Box
-      minHeight="100dvh"
-      height="100%"
-      width="100%"
-      display="flex"
-      flexDirection="column"
-      justifyContent="space-between"
-      alignItems="center"
-      sx={{ backgroundColor: "#f5f5f7" }}
+      minHeight='100dvh'
+      height='100%'
+      width='100%'
+      display='flex'
+      flexDirection='column'
+      justifyContent='space-between'
+      sx={{
+        minHeight: '100dvdh',
+        backgroundColor: '#f5f5f7',
+      }}
     >
       {/* Main content center */}
-      <Box flex={1} display="flex" alignItems="center" width="100%">
+      <Box flex={1} display='flex' alignItems='center' width='100%'>
         <Stack
           spacing={2}
           sx={{
-            width: { xs: "90%", sm: "320px" },
-            mx: "auto",
+            width: { xs: '90%', sm: '320px' },
+            mx: 'auto',
           }}
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode='wait'>
             <motion.div
               key={step}
               initial={{ x: 100, opacity: 0 }}
@@ -127,7 +123,7 @@ const Login = () => {
                   password={password}
                   onBack={() => {
                     setStep(2);
-                    setPassword("");
+                    setPassword('');
                   }}
                   onChangePassword={setPassword}
                   onLogin={handleLogin}
@@ -141,22 +137,22 @@ const Login = () => {
 
       {/* Footer */}
       <Typography
-        variant="body2"
-        color="text.secondary"
-        align="center"
+        variant='body2'
+        color='text.secondary'
+        align='center'
         sx={{
           mt: 4,
           py: 2,
           fontFamily: `"Inter", sans-serif`,
-          fontSize: "12px",
+          fontSize: '12px',
         }}
       >
-        © {new Date().getFullYear()} Lightweb Ltd. All rights reserved.{" "}
-        <a href="/terms" style={{ textDecoration: "underline" }}>
+        © {new Date().getFullYear()} Lightweb Ltd. All rights reserved.{' '}
+        <a href='/terms' style={{ textDecoration: 'underline' }}>
           Terms and condition
         </a>
-        {" . "}
-        <a href="/privacy-policy" style={{ textDecoration: "underline" }}>
+        {' . '}
+        <a href='/privacy-policy' style={{ textDecoration: 'underline' }}>
           Privacy Policy
         </a>
       </Typography>

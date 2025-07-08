@@ -1,6 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import axiosInstance from "../api/axios";
+import axiosInstance from '../api/axios';
 
 export interface Response {
   code: number;
@@ -60,11 +60,7 @@ export const fetchInitUser = async (email: string): Promise<Response> => {
   return response.data;
 };
 
-export const loginUser = async ({
-  schoolId,
-  email,
-  password,
-}: LoginPayload): Promise<Response> => {
+export const loginUser = async ({ schoolId, email, password }: LoginPayload): Promise<Response> => {
   const response = await axiosInstance.post(`/user/login`, {
     email,
     schoolId,
@@ -74,20 +70,20 @@ export const loginUser = async ({
 };
 
 export const fetchUserInfo = async () => {
-  const { data } = await axiosInstance.get("/user");
+  const { data } = await axiosInstance.get('/user');
   return data;
 };
 
 export const fetchStaffList = async () => {
-  const { data } = await axiosInstance.get("/user/staff");
+  const { data } = await axiosInstance.get('/user/staff');
   return data;
 };
 export const fetchStudentList = async () => {
-  const { data } = await axiosInstance.get("/user/student");
+  const { data } = await axiosInstance.get('/user/student');
   return data;
 };
 export const fetchParentList = async () => {
-  const { data } = await axiosInstance.get("/user/parent");
+  const { data } = await axiosInstance.get('/user/parent');
   return data;
 };
 export const createUser = async ({
@@ -172,7 +168,7 @@ export const useLogin = () => {
 };
 export const useUserInfo = () =>
   useQuery({
-    queryKey: ["fetchUserInfo"],
+    queryKey: ['fetchUserInfo'],
     queryFn: fetchUserInfo,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
@@ -180,21 +176,21 @@ export const useUserInfo = () =>
 
 export const useStaffList = () =>
   useQuery({
-    queryKey: ["fetchStaffList"],
+    queryKey: ['fetchStaffList'],
     queryFn: fetchStaffList,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
   });
 export const useStudentList = () =>
   useQuery({
-    queryKey: ["fetchStudentList"],
+    queryKey: ['fetchStudentList'],
     queryFn: fetchStudentList,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
   });
 export const useParentList = () =>
   useQuery({
-    queryKey: ["fetchParentList"],
+    queryKey: ['fetchParentList'],
     queryFn: fetchParentList,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
@@ -204,7 +200,7 @@ export const useCreateUsers = () => {
   return useMutation<Response, Error, CreateNewUserPayload>({
     mutationFn: createUser,
     onSuccess: () => {
-      ["fetchStaffList", "fetchStudentList", "fetchParentList"].forEach((key) =>
+      ['fetchStaffList', 'fetchStudentList', 'fetchParentList'].forEach((key) =>
         queryClient.invalidateQueries({ queryKey: [key] }),
       );
     },
@@ -212,8 +208,8 @@ export const useCreateUsers = () => {
 };
 export const useFetchUserById = (userId?: string) => {
   return useQuery<Response, Error>({
-    queryKey: ["fetchUserById", userId],
-    queryFn: () => fetchUserById(userId!),
+    queryKey: ['fetchUserById', userId],
+    queryFn: () => fetchUserById(userId ? userId : ''),
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchOnWindowFocus: false,
     enabled: !!userId,
@@ -225,11 +221,11 @@ export const useUpdateUserById = () => {
     mutationFn: updateUserById,
     onSuccess: (_data, variables) => {
       const userId = variables.userId;
-      ["fetchStaffList", "fetchStudentList", "fetchParentList"].forEach((key) =>
+      ['fetchStaffList', 'fetchStudentList', 'fetchParentList'].forEach((key) =>
         queryClient.invalidateQueries({ queryKey: [key] }),
       );
       if (userId) {
-        queryClient.invalidateQueries({ queryKey: ["fetchUserById", userId] });
+        queryClient.invalidateQueries({ queryKey: ['fetchUserById', userId] });
       }
     },
   });

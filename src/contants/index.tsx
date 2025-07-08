@@ -1,1 +1,1 @@
-export const AUTH_STORAGE_KEY = "AUTH_TOKEN_SEC";
+export const AUTH_STORAGE_KEY = 'AUTH_TOKEN_SEC';

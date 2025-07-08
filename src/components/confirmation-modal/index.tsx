@@ -1,5 +1,5 @@
-import { Modal } from "../"; // Adjust the path to where your Modal is located
-import { Typography } from "@mui/material";
+import { Modal } from '../'; // Adjust the path to where your Modal is located
+import { Typography } from '@mui/material';
 
 interface ConfirmationModalProps {
   open: boolean;
@@ -17,9 +17,9 @@ const ConfirmationModal = ({
   onClose,
   onConfirm,
   isSubmitting,
-  title = "",
-  message = "",
-  confirmText = "",
+  title = '',
+  message = '',
+  confirmText = '',
   error,
 }: ConfirmationModalProps) => {
   return (
@@ -32,7 +32,7 @@ const ConfirmationModal = ({
       title={title}
       error={error}
     >
-      <Typography variant="body2">{message}</Typography>
+      <Typography variant='body2'>{message}</Typography>
     </Modal>
   );
 };
