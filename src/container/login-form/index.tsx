@@ -1,6 +1,6 @@
 import { Form } from 'formik';
 import { Button, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { FormField, FormSelect } from '../../components';
+import { FormField, FormSelect, CheckBox } from '../../components';
 
 interface ILoginFormProps {
   isPending: boolean;
@@ -81,6 +81,13 @@ export default function LoginForm({
           handleChange={handleChange}
           handleBlur={handleBlur}
           error={touched.password && Boolean(errors.password)}
+        />
+        <CheckBox
+          name='rememberMe'
+          label={'Remember me'}
+          checked={values.rememberMe}
+          onChange={handleChange}
+          onBlur={handleBlur}
         />
         <Button
           type='submit'

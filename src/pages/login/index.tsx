@@ -1,18 +1,17 @@
 import { useState } from 'react';
-import { Box, Divider, Stack, Typography, useTheme, useMediaQuery } from '@mui/material';
-import { Formik, FormikHelpers } from 'formik';
 import { useNavigate } from 'react-router-dom';
-
-import { LogoVireo, TermsAndCondition, LoginForm } from '../../container';
-import { useInitUser, useLogin } from './hook';
+import { Box, Divider, Stack, useTheme, useMediaQuery } from '@mui/material';
+import { AuthLayout } from '../../components';
+import { Formik, FormikHelpers } from 'formik';
+import { AUTH_STORAGE_KEY, AUTH_EMAIL_PERSIST_KEY } from '../../contants';
+import { LoginForm, NeedHelp } from '../../container';
+import { useInitUser, useLogin } from '../../hooks';
 import { useSnackbar } from '../../hoc/snack-bar';
-import { AUTH_STORAGE_KEY } from '../../contants';
-import loginSchema from './loginSchema';
+import { LoginSchema } from '../../schema';
+import { LoginPayload } from '../../interface';
 
-interface LoginValues {
-  email: string;
-  password: string;
-  schoolId: string;
+interface LoginValues extends LoginPayload {
+  rememberMe: boolean;
 }
 
 const Login = () => {
@@ -29,12 +28,17 @@ const Login = () => {
   const { mutate: loginUser, isPending: isLoggingIn } = useLogin();
 
   const handleSubmit = (values: LoginValues, actions: FormikHelpers<LoginValues>) => {
+    if (values.rememberMe) {
+      //Persist email rememberMe
+      localStorage.setItem(AUTH_EMAIL_PERSIST_KEY, values?.email);
+    }
     if (hasSchools) {
       // Login flow
       loginUser(values, {
         onSuccess: (res) => {
           localStorage.setItem(AUTH_STORAGE_KEY, res?.data?.token);
           showSnackbar(res?.message || 'Success', 'success');
+          actions.resetForm();
           navigate('/dashboard');
         },
         onError: (err) => {
@@ -47,7 +51,7 @@ const Login = () => {
       // School initialization flow
       initializeEmail(values.email, {
         onSuccess: (res) => {
-          showSnackbar(res?.message || 'Success', 'success');
+          showSnackbar('User found, please select school to proceed', 'success');
           setSchools(res.data ?? []);
         },
         onError: (err) => {
@@ -59,64 +63,46 @@ const Login = () => {
     }
   };
 
+  const rememberEmail = localStorage.getItem(AUTH_EMAIL_PERSIST_KEY);
+
   return (
-    <Box
-      minHeight='100dvh'
-      width='100%'
-      display='flex'
-      alignItems='center'
-      justifyContent='center'
-      bgcolor={theme.palette.background.default}
-    >
+    <AuthLayout title='Log in to your account'>
+      {/* Main Content */}
       <Stack
-        spacing={10}
+        spacing={5}
+        direction={isMobile ? 'column' : 'row'}
         width='100%'
-        maxWidth={900}
-        flexDirection='column'
-        alignItems={isMobile ? 'center' : 'flex-start'}
-        px={3}
+        justifyContent='center'
+        alignItems='stretch'
       >
-        {/* Logo */}
-        <LogoVireo />
+        {/* Form */}
+        <Box width='100%'>
+          <Formik
+            enableReinitialize
+            initialValues={{
+              email: rememberEmail || '',
+              password: '',
+              schoolId: '',
+              rememberMe: !!rememberEmail,
+            }}
+            validationSchema={LoginSchema(hasSchools)}
+            onSubmit={handleSubmit}
+          >
+            {(formik) => (
+              <LoginForm {...formik} isPending={isInitializing || isLoggingIn} schools={schools} />
+            )}
+          </Formik>
+        </Box>
 
-        {/* Main Content */}
-        <Stack
-          spacing={5}
-          direction={isMobile ? 'column' : 'row'}
-          width='100%'
-          justifyContent='center'
-          alignItems='stretch'
-        >
-          {/* Form */}
-          <Box width='100%'>
-            <Formik
-              initialValues={{ email: '', password: '', schoolId: '' }}
-              validationSchema={loginSchema(hasSchools)}
-              onSubmit={handleSubmit}
-            >
-              {(formik) => (
-                <LoginForm
-                  {...formik}
-                  isPending={isInitializing || isLoggingIn}
-                  schools={schools}
-                />
-              )}
-            </Formik>
-          </Box>
+        {/* Divider */}
+        {!isMobile && <Divider orientation='vertical' flexItem />}
 
-          {/* Divider */}
-          {!isMobile && <Divider orientation='vertical' flexItem />}
-
-          {/* Optional Right Box */}
-          <Box width='100%' display='flex' alignItems='center' justifyContent='center'>
-            <Typography variant='body1'>Right Box Content</Typography>
-          </Box>
-        </Stack>
-
-        {/* Footer */}
-        <TermsAndCondition />
+        {/* Optional Right Box */}
+        <Box width='100%' display='flex' justifyContent='center'>
+          <NeedHelp />
+        </Box>
       </Stack>
-    </Box>
+    </AuthLayout>
   );
 };
 

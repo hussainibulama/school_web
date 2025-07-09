@@ -1,4 +1,5 @@
 import { Typography, useTheme, Link } from '@mui/material';
+import { APP_NAME } from '../../contants';
 
 const linkStyle = {
   color: '#ada8a6',
@@ -23,7 +24,7 @@ export default function TermsAndCondition() {
         fontSize: '14px',
       }}
     >
-      &copy; {new Date().getFullYear()} Lightweb Ltd. All rights reserved.{' '}
+      &copy; {new Date().getFullYear()} {APP_NAME}. All rights reserved.{' '}
       <Link href='/terms' underline='always' sx={linkStyle}>
         Terms and condition
       </Link>{' '}

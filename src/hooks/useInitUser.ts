@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import axiosInstance from '../../../api/axios';
+import axiosInstance from '../api/axios';
 
 const fetchInitUser = async (email: string): Promise<Response> => {
   const response = await axiosInstance.get(`/user/init/${email}`);

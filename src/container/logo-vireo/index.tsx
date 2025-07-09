@@ -1,5 +1,6 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import { Logo } from '../../assets';
+import { APP_NAME } from '../../contants';
 
 export default function LogoVireo() {
   const theme = useTheme();
@@ -28,7 +29,7 @@ export default function LogoVireo() {
           paddingLeft: '5px',
         }}
       >
-        Vireo
+        {APP_NAME}
       </Typography>
     </Box>
   );

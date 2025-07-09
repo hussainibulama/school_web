@@ -1,11 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import axiosInstance from '../../../api/axios';
+import axiosInstance from '../api/axios';
+import { LoginPayload } from '../interface';
 
-interface LoginPayload {
-  schoolId: string;
-  email: string;
-  password: string;
-}
 const loginUser = async ({ schoolId, email, password }: LoginPayload): Promise<Response> => {
   const response = await axiosInstance.post(`/user/login`, {
     email,
