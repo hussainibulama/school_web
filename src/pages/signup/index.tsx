@@ -62,7 +62,7 @@ const Signup = () => {
   };
 
   return (
-    <AuthLayout title='Get Started as a School'>
+    <AuthLayout title='Get started as a school'>
       {/* Main Content */}
       <Stack
         spacing={5}
