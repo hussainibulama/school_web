@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { ArrowDropDownCircle, Menu as MenuIcon } from '@mui/icons-material';
-import { useUserInfo } from '../../hooks/useUserHook';
+import { useUserInfo } from '../../hooks';
 
 const TopNav = () => {
   const { data: user } = useUserInfo();

@@ -27,7 +27,7 @@ import {
 } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu'; // Mobile menu icon
 import { NavLink } from 'react-router-dom';
-
+import { LogoVireo } from '../../container';
 const menuItems = [
   { label: 'Dashboard', path: '', icon: <DashboardIcon /> },
   { label: 'Staff', path: 'staff', icon: <GroupIcon /> },
@@ -87,13 +87,12 @@ const SideNav = () => {
         {/* Drawer Content */}
         <Box
           sx={{
-            minHeight: '56px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            p: 2,
           }}
         >
-          Rayla
+          <LogoVireo />
         </Box>
         <List>
           {menuItems.map((item) => (
@@ -115,7 +114,7 @@ const SideNav = () => {
                       paddingRight: '12px',
                       color: isActive ? '#1976d2' : 'rgb(32, 33, 36)',
                       '& .MuiListItemText-primary': {
-                        fontFamily: `"Inter", sans-serif`,
+                        ontFamily: theme.typography.fontFamily,
                         fontSize: '0.9rem',
                       },
                       '& .MuiListItemIcon-root': {

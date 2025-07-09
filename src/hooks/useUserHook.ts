@@ -2,12 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import axiosInstance from '../api/axios';
 
-export interface LoginPayload {
-  schoolId: string;
-  email: string;
-  password: string;
-}
-
 export interface CreateNewUserPayload {
   email: string;
   password: string;
@@ -39,24 +33,6 @@ export interface UpdateUserByIdPayload {
   dob?: string;
   active?: boolean;
 }
-export const fetchInitUser = async (email: string): Promise<Response> => {
-  const response = await axiosInstance.get(`/user/init/${email}`);
-  return response.data;
-};
-
-export const loginUser = async ({ schoolId, email, password }: LoginPayload): Promise<Response> => {
-  const response = await axiosInstance.post(`/user/login`, {
-    email,
-    schoolId,
-    password,
-  });
-  return response.data;
-};
-
-export const fetchUserInfo = async () => {
-  const { data } = await axiosInstance.get('/user');
-  return data;
-};
 
 export const fetchStaffList = async () => {
   const { data } = await axiosInstance.get('/user/staff');
@@ -139,24 +115,6 @@ export const updateUserById = async ({
   });
   return response.data;
 };
-export const useInitUser = () => {
-  return useMutation<Response, Error, string>({
-    mutationFn: fetchInitUser,
-  });
-};
-
-export const useLogin = () => {
-  return useMutation<Response, Error, LoginPayload>({
-    mutationFn: loginUser,
-  });
-};
-export const useUserInfo = () =>
-  useQuery({
-    queryKey: ['fetchUserInfo'],
-    queryFn: fetchUserInfo,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-    refetchOnWindowFocus: false,
-  });
 
 export const useStaffList = () =>
   useQuery({

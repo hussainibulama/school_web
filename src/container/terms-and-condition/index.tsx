@@ -5,7 +5,7 @@ const linkStyle = {
   color: '#ada8a6',
   textDecoration: 'underline',
   '&:hover': {
-    color: '#c2bdbb',
+    color: '#706966',
   },
 };
 
