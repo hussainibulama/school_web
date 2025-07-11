@@ -1,5 +1,4 @@
 export { default as CreateStaff } from './create-staff';
-export { default as ViewStaff } from './view-staff';
 export { default as UpdateStaff } from './update-staff';
 export { default as StatusProgress } from './status-progress';
 export { default as GenderProgress } from './gender-progress';

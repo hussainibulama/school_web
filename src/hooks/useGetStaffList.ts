@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../api/axios';
-import { FETCH_STAFF_LIST } from '../contants';
+import { FETCH_STAFF_LIST, QUERY_STALE_TIME } from '../contants';
 
 const fetchStaffList = async () => {
   const { data } = await axiosInstance.get('/user/staff');
@@ -10,7 +10,7 @@ export default function useGetStaffList() {
   return useQuery({
     queryKey: [FETCH_STAFF_LIST],
     queryFn: fetchStaffList,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: QUERY_STALE_TIME,
     refetchOnWindowFocus: false,
   });
 }

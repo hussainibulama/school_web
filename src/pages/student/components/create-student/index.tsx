@@ -1,57 +1,46 @@
 import { useState } from 'react';
-import { Modal } from '../../../../components';
-import { Button, Typography, Box, Avatar } from '@mui/material';
-import { Person } from '@mui/icons-material';
-import { useFormik, FormikProvider } from 'formik';
-import * as Yup from 'yup';
-import { FormField, FormSelect } from '../../../../components';
-import { useCreateUsers, CreateNewUserPayload } from '../../../../hooks/useUserHook';
+import { CustomStepper, Modal } from '../../../../components';
+import {
+  Typography,
+  Box,
+  Stack,
+  useMediaQuery,
+  useTheme,
+  Button,
+  CircularProgress,
+} from '@mui/material';
+import { useFormik } from 'formik';
+
+import { useCreateUsers } from '../../../../hooks';
 
 import { useSnackbar } from '../../../../hoc/snack-bar';
+import { CreateStudentSchema, getStudentInitialValues } from '../../../../schema';
+import { CreateStudentForm, UserFormPreview } from '../../../../container';
+import { RoundedIcon } from '../../../../assets';
 
-const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required('First name is required'),
-  middleName: Yup.string(),
-  lastName: Yup.string().required('Last name is required'),
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().min(6).required('Password is required'),
-  phone: Yup.string().required('Phone number is required'),
-  gender: Yup.string().oneOf(['m', 'f'], 'Invalid gender').required('Gender is required'),
+const CreateStudent = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  address: Yup.string(),
-
-  dob: Yup.date().max(new Date(), 'Date of birth cannot be in the future'),
-});
-
-const initialValues: CreateNewUserPayload = {
-  firstName: '',
-  middleName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  phone: '',
-  gender: '',
-  role: 'student',
-  address: '',
-  dob: '',
-};
-
-const CreateStaff = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
-  const { mutate: createUser, isPending: isSubmitting } = useCreateUsers();
+  const { mutate: createUser, isPending } = useCreateUsers();
   const { showSnackbar } = useSnackbar();
+  const [activeStep, setActiveStep] = useState<number>(0);
   const [preview, setPreview] = useState<string | null>(null);
 
   const formik = useFormik({
-    initialValues,
-    validationSchema,
+    initialValues: getStudentInitialValues(),
+    validationSchema: CreateStudentSchema,
     onSubmit: async (values, actions) => {
+      if (activeStep === 0) {
+        setActiveStep((prev) => prev + 1);
+        return;
+      }
       const filteredValues = Object.fromEntries(
         Object.entries(values).filter(
           ([_, value]) => value !== '' && value !== null && value !== undefined,
         ),
       );
-
-      createUser(filteredValues as CreateNewUserPayload, {
+      createUser(filteredValues as any, {
         onSuccess: (res: any) => {
           showSnackbar(res?.message || 'User created successfully', 'success');
           handleClose();
@@ -66,6 +55,7 @@ const CreateStaff = ({ open, onClose }: { open: boolean; onClose: () => void }) 
   const handleClose = () => {
     formik.resetForm();
     setPreview(null);
+    setActiveStep(0);
     onClose();
   };
 
@@ -73,164 +63,97 @@ const CreateStaff = ({ open, onClose }: { open: boolean; onClose: () => void }) 
     <Modal
       open={open}
       onClose={handleClose}
-      title='Create Student'
-      submitText={'Add Student'}
+      title=''
       onSubmit={formik.handleSubmit}
-      isSubmitting={isSubmitting}
+      hideActions
+      dividers={false}
+      maxWidth={'md'}
+      slotProps={{
+        paper: {
+          sx: {
+            backgroundColor: 'rgb(245, 245, 247)',
+          },
+        },
+      }}
     >
-      <FormikProvider value={formik}>
-        <form>
-          {/* Image Upload Section */}
-          <Box display='flex' alignItems='center' mb={4}>
-            <Avatar src={preview || undefined} sx={{ width: 64, height: 64, mr: 2 }}>
-              {!preview && <Person />}
-            </Avatar>
-
-            <Box display='flex' flexDirection='column' justifyContent='center'>
-              <Button
-                variant='outlined'
-                component='label'
-                sx={{
-                  background: '#4d8cec',
-                  fontFamily: `"Inter", sans-serif`,
-                  fontSize: '12px',
-                  textTransform: 'capitalize',
-                  height: '28px',
-                  color: 'white',
-                  alignSelf: 'flex-start',
-                  '&:hover': {
-                    backgroundColor: '#357ab7',
-                  },
-                  '&:disabled': {
-                    backgroundColor: '#8aacc8',
-                  },
-                }}
-              >
-                Upload Photo
-                <input
-                  type='file'
-                  accept='image/*'
-                  hidden
-                  onChange={(e) => {
-                    const file = e.currentTarget.files?.[0];
-                    if (file) {
-                      setPreview(URL.createObjectURL(file));
-                    }
-                  }}
-                />
-              </Button>
-              <Typography sx={{ fontSize: '10px' }}>
-                At least 132 x 132px PNG or JPEG file.
-              </Typography>
-            </Box>
+      <Stack
+        spacing={5}
+        direction={isMobile ? 'column' : 'row'}
+        width='100%'
+        justifyContent='center'
+        alignItems='stretch'
+      >
+        {/* Step  Section */}
+        <Box width={isMobile ? '100%' : '40%'}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              textAlign: 'center',
+              gap: 1,
+              bgcolor: 'white',
+              borderRadius: 10,
+              color: 'rgb(216, 216, 227)',
+              height: 50,
+              width: 'fit-content',
+              paddingRight: 2,
+            }}
+            mb={5}
+          >
+            <RoundedIcon width='60px' height='60px' style={{ marginLeft: '-5px' }} />
+            <Typography variant='body2' color={'#68aa22'} fontWeight={900} fontSize={'1rem'}>
+              Create new student
+            </Typography>
           </Box>
 
-          {/* Form Fields */}
-          <Box display='flex' flexWrap='wrap' gap={2} justifyContent='center'>
-            {/* Email Full Width */}
-            <Box flexBasis='100%'>
-              <FormField
-                name='email'
-                label='Email'
-                type='email'
-                value={formik.values.email}
-                handleChange={formik.handleChange}
-                handleBlur={formik.handleBlur}
-                slotProps={{
-                  inputLabel: { shrink: true, sx: { fontSize: '14px' } },
-                  input: { sx: { fontSize: '14px' } },
-                }}
-                sx={{
-                  '& .MuiInputBase-root': { height: 36 },
-                  '& .MuiInputBase-input': { padding: '8px 12px' },
-                }}
-              />
-            </Box>
+          <CustomStepper activeStep={activeStep} steps={['Bio Data', 'Review ']} />
+        </Box>
 
-            {[
-              { name: 'firstName', label: 'First Name' },
-              { name: 'middleName', label: 'Middle Name' },
-              { name: 'lastName', label: 'Last Name' },
-              { name: 'phone', label: 'Phone Number' },
-              {
-                name: 'gender',
-                label: 'Gender',
-                type: 'select',
-                options: [
-                  { value: 'm', label: 'Male' },
-                  { value: 'f', label: 'Female' },
-                ],
-              },
-              {
-                name: 'dob',
-                label: 'Date of Birth',
-                type: 'date',
-              },
-              { name: 'password', label: 'Password', type: 'password' },
-            ].map((field) => (
-              <Box key={field.name} flexBasis='32%' flexGrow={1}>
-                {field.type === 'select' ? (
-                  <FormSelect
-                    name={field.name}
-                    label={field.label}
-                    value={String(formik.values[field.name as keyof typeof initialValues])}
-                    options={field.options || []}
-                    handleChange={formik.handleChange}
-                    handleBlur={formik.handleBlur}
-                    slotProps={{
-                      inputLabel: { shrink: true, sx: { fontSize: '14px' } },
-                      input: { sx: { fontSize: '14px' } },
-                    }}
-                    sx={{
-                      '& .MuiInputBase-root': { height: 36 },
-                      '& .MuiInputBase-input': { padding: '8px 12px' },
-                    }}
-                  />
-                ) : (
-                  <FormField
-                    name={field.name}
-                    label={field.label}
-                    type={field.type || 'text'}
-                    value={String(formik.values[field.name as keyof typeof initialValues])}
-                    handleChange={formik.handleChange}
-                    handleBlur={formik.handleBlur}
-                    slotProps={{
-                      inputLabel: { shrink: true, sx: { fontSize: '14px' } },
-                      input: { sx: { fontSize: '14px' } },
-                    }}
-                    sx={{
-                      '& .MuiInputBase-root': { height: 36 },
-                      '& .MuiInputBase-input': { padding: '8px 12px' },
-                    }}
-                  />
-                )}
-              </Box>
-            ))}
+        {/* Form  Section */}
+        <Box width='100%'>
+          {activeStep === 0 && (
+            <CreateStudentForm formik={formik} preview={preview} setPreview={setPreview} />
+          )}
+          {activeStep > 0 && <UserFormPreview values={formik.values} preview={preview} />}
+        </Box>
+      </Stack>
+      <Box
+        mt={3}
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: 2,
+        }}
+      >
+        {activeStep > 0 && (
+          <Button
+            type='submit'
+            onClick={() => setActiveStep(0)}
+            variant='text'
+            sx={{
+              color: 'rgb(119, 119, 119)',
+              minWidth: 150,
+              textTransform: 'capitalize',
+            }}
+          >
+            Previous
+          </Button>
+        )}
 
-            {/* Address Full Width with 2-line height */}
-            <Box flexBasis='100%'>
-              <FormField
-                name='address'
-                label='Address'
-                multiline
-                value={formik.values.address || ''}
-                handleChange={formik.handleChange}
-                handleBlur={formik.handleBlur}
-                slotProps={{
-                  inputLabel: { shrink: true, sx: { fontSize: '14px' } },
-                  input: { sx: { fontSize: '14px' } },
-                }}
-                sx={{
-                  '& .MuiInputBase-root': { minHeight: 60 },
-                  '& .MuiInputBase-input': { padding: '8px 12px' },
-                }}
-              />
-            </Box>
-          </Box>
-        </form>
-      </FormikProvider>
+        <Button
+          type='submit'
+          onClick={() => formik.handleSubmit()}
+          variant='contained'
+          sx={{ background: '#3e6614', minWidth: 150, textTransform: 'capitalize' }}
+          disabled={isPending}
+          endIcon={isPending ? <CircularProgress size={20} color='inherit' /> : null}
+        >
+          {activeStep === 0 ? 'Next' : 'Finish'}
+        </Button>
+      </Box>
     </Modal>
   );
 };
 
-export default CreateStaff;
+export default CreateStudent;

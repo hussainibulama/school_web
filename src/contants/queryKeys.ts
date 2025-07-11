@@ -1,3 +1,5 @@
+export const QUERY_STALE_TIME = 1000 * 60 * 5; // 5 minutes;
+
 export const FETCH_USER_INFO = 'FETCH_USER_INFO';
 export const FETCH_STAFF_LIST = 'FETCH_STAFF_LIST';
 export const FETCH_STUDENT_LIST = 'FETCH_STUDENT_LIST';

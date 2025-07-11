@@ -1,12 +1,12 @@
 import { Box, Typography, Avatar } from '@mui/material';
 import { Person } from '@mui/icons-material';
 
-interface IStaffFormPreviewProps {
+interface IUserFormPreviewProps {
   values: any;
   preview?: string | null;
 }
 
-export default function StaffFormPreview({ values, preview }: IStaffFormPreviewProps) {
+export default function UserFormPreview({ values, preview }: IUserFormPreviewProps) {
   const fields = [
     { label: 'Full Name', value: `${values.firstName} ${values.middleName} ${values.lastName}` },
     { label: 'Email', value: values.email },
@@ -36,7 +36,7 @@ export default function StaffFormPreview({ values, preview }: IStaffFormPreviewP
           <Avatar src={preview || undefined} sx={{ width: 80, height: 80, mb: 1 }}>
             {!preview && <Person />}
           </Avatar>
-          <Typography variant='subtitle2'>Staff Photo</Typography>
+          <Typography variant='subtitle2'>Photo</Typography>
         </Box>
 
         {/* Staff Fields */}

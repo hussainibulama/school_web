@@ -1,33 +1,42 @@
-import { ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
-import { CircularProgress, Box } from '@mui/material';
+import { useEffect, useState, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from '../../hooks';
+import { ReLogin, Loader } from '../';
 
-import { AUTH_STORAGE_KEY } from '../../contants';
 const Auth = ({ children }: { children: ReactNode }) => {
+  const navigate = useNavigate();
+  const [isLoginRequired, setIsLoginRequired] = useState(false);
+
   const { data: user, isLoading, isError } = useUserInfo();
+  const email = user?.data?.email;
+  const schoolId = user?.data?.schoolId;
 
-  if (isLoading) {
-    return (
-      <Box
-        display='flex'
-        minHeight='100dvh'
-        width='100%'
-        alignItems='center'
-        justifyContent='center'
-      >
-        <CircularProgress />
-      </Box>
-    );
-  }
+  // Listen for global auth expiration
+  useEffect(() => {
+    const handleAuthExpired = () => setIsLoginRequired(true);
 
-  if (isError || !user) {
-    // Invalid or expired token
-    localStorage.removeItem(AUTH_STORAGE_KEY);
-    return <Navigate to='/' replace />;
-  }
+    window.addEventListener('auth:expired', handleAuthExpired);
+    return () => window.removeEventListener('auth:expired', handleAuthExpired);
+  }, [email, schoolId]);
 
-  return <>{children}</>;
+  if (isError || !user) navigate('/', { replace: true });
+  console.log(isError, isLoginRequired, 'isError');
+  // Fallback: if user info is missing entirely, redirect
+  if (isLoading) return <Loader />;
+
+  return (
+    <>
+      {children}
+      {isLoginRequired && (
+        <ReLogin
+          open={isLoginRequired}
+          onClose={() => setIsLoginRequired(false)}
+          email={email}
+          schoolId={schoolId}
+        />
+      )}
+    </>
+  );
 };
 
 export default Auth;

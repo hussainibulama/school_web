@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useFetchUserById } from '../../hooks';
 import { ViewProfile, BreadcrumbHeader } from '../../container';
 import { Box } from '@mui/material';
-import { UpdateStaff } from '../staff/components';
 import { CustomTabs } from '../../components';
+import { UpdateStudent } from '../student/components';
 
-export default function ViewStaff() {
+export default function ViewStudent() {
   const { id: userId } = useParams();
 
   const { data: user, isLoading } = useFetchUserById(userId);
@@ -28,7 +28,7 @@ export default function ViewStaff() {
         <CustomTabs initialIndex={0} tabs={[{ label: 'Class', content: <></> }]} />
       </Box>
 
-      <UpdateStaff open={openUpdate} userId={userId} onClose={() => setOpenUpdate(false)} />
+      <UpdateStudent open={openUpdate} userId={userId} onClose={() => setOpenUpdate(false)} />
     </>
   );
 }

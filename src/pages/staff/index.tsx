@@ -4,7 +4,6 @@ import { Box, Typography, Button, Stack } from '@mui/material';
 import {
   CreateStaff,
   UpdateStaff,
-  ViewStaff,
   GenderProgress,
   StatusProgress,
   StaffProgress,
@@ -101,7 +100,7 @@ const Staff = () => {
 
       <Box
         mb={2}
-        p={2}
+        py={2}
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -210,11 +209,6 @@ const Staff = () => {
       <CreateStaff open={openModal && actionType.type === undefined} onClose={closeModal} />
       <UpdateStaff
         open={openModal && actionType.type === 'edit'}
-        userId={actionType.userId}
-        onClose={closeModal}
-      />
-      <ViewStaff
-        open={openModal && actionType.type === 'view'}
         userId={actionType.userId}
         onClose={closeModal}
       />

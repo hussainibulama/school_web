@@ -15,7 +15,7 @@ import { useCreateUsers } from '../../../../hooks';
 
 import { useSnackbar } from '../../../../hoc/snack-bar';
 import { CreateStaffSchema, getStaffInitialValues } from '../../../../schema';
-import { CreateStaffForm, StaffFormPreview } from '../../../../container';
+import { CreateStaffForm, UserFormPreview } from '../../../../container';
 import { RoundedIcon } from '../../../../assets';
 
 const CreateStaff = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
@@ -114,7 +114,7 @@ const CreateStaff = ({ open, onClose }: { open: boolean; onClose: () => void }) 
           {activeStep === 0 && (
             <CreateStaffForm formik={formik} preview={preview} setPreview={setPreview} />
           )}
-          {activeStep > 0 && <StaffFormPreview values={formik.values} preview={preview} />}
+          {activeStep > 0 && <UserFormPreview values={formik.values} preview={preview} />}
         </Box>
       </Stack>
       <Box

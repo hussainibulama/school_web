@@ -36,7 +36,8 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response?.status === (401 | 403)) {
       localStorage.removeItem(AUTH_STORAGE_KEY);
-      window.location.href = '/';
+      window.dispatchEvent(new CustomEvent('auth:expired'));
+      // window.location.href = '/';
     }
     return Promise.reject(error);
   },

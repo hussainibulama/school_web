@@ -5,3 +5,5 @@ export { default as Staff } from './staff';
 export { default as Parent } from './parent';
 export { default as Student } from './student';
 export { default as ViewStaff } from './view-staff';
+export { default as ViewStudent } from './view-student';
+export { default as ViewParent } from './view-parent';

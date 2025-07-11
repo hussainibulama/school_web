@@ -15,7 +15,7 @@ import { useUpdateUserById, useFetchUserById } from '../../../../hooks';
 
 import { useSnackbar } from '../../../../hoc/snack-bar';
 import { UpdateStaffSchema, getStaffInitialValues } from '../../../../schema';
-import { CreateStaffForm, StaffFormPreview } from '../../../../container';
+import { CreateStaffForm, UserFormPreview } from '../../../../container';
 import { RoundedIcon } from '../../../../assets';
 
 const UpdateStaff = ({
@@ -134,7 +134,7 @@ const UpdateStaff = ({
               withPassword={false}
             />
           )}
-          {activeStep > 0 && <StaffFormPreview values={formik.values} preview={preview} />}
+          {activeStep > 0 && <UserFormPreview values={formik.values} preview={preview} />}
         </Box>
       </Stack>
       <Box

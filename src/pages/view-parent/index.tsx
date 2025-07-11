@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 import { useFetchUserById } from '../../hooks';
 import { ViewProfile, BreadcrumbHeader } from '../../container';
 import { Box } from '@mui/material';
-import { UpdateStaff } from '../staff/components';
 import { CustomTabs } from '../../components';
+import { UpdateStudent } from '../student/components';
 
-export default function ViewStaff() {
+export default function ViewParent() {
   const { id: userId } = useParams();
 
   const { data: user, isLoading } = useFetchUserById(userId);
@@ -25,10 +25,10 @@ export default function ViewStaff() {
         values={user?.data || {}}
       />
       <Box my={3}>
-        <CustomTabs initialIndex={0} tabs={[{ label: 'Class', content: <></> }]} />
+        <CustomTabs initialIndex={0} tabs={[{ label: 'Childrens', content: <></> }]} />
       </Box>
 
-      <UpdateStaff open={openUpdate} userId={userId} onClose={() => setOpenUpdate(false)} />
+      <UpdateStudent open={openUpdate} userId={userId} onClose={() => setOpenUpdate(false)} />
     </>
   );
 }

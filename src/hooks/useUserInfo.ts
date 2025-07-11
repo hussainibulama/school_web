@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axiosInstance from '../api/axios';
-import { FETCH_USER_INFO } from '../contants';
+import { FETCH_USER_INFO, QUERY_STALE_TIME } from '../contants';
 
 const fetchUserInfo = async () => {
   const { data } = await axiosInstance.get('/user');
@@ -10,7 +10,8 @@ export default function useUserInfo() {
   return useQuery({
     queryKey: [FETCH_USER_INFO],
     queryFn: fetchUserInfo,
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    staleTime: QUERY_STALE_TIME,
     refetchOnWindowFocus: false,
+    retry: false,
   });
 }
