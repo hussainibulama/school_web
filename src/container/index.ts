@@ -4,3 +4,4 @@ export { default as LoginForm } from './login-form';
 export { default as SignForm } from './signup-form';
 export { default as NeedHelp } from './need-help';
 export { default as SignupMessage } from './signup-message';
+export { default as ActivateUserModal } from './active-user-modal';

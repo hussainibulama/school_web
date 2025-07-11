@@ -1,5 +1,5 @@
 import React from 'react';
-import { ErrorMessage } from 'formik';
+import { ErrorMessage, useFormikContext } from 'formik';
 import {
   FormControl,
   FormLabel,
@@ -23,7 +23,6 @@ interface Props {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   error?: boolean;
-  helperText?: string;
   row?: boolean;
 }
 
@@ -35,10 +34,18 @@ function RadioGroup({
   handleChange,
   handleBlur,
   error,
-  helperText,
   row = true,
 }: Props) {
   const theme = useTheme();
+
+  let isInsideFormik = false;
+
+  try {
+    const formik = useFormikContext();
+    if (formik) isInsideFormik = true;
+  } catch {
+    isInsideFormik = false;
+  }
 
   return (
     <FormControl
@@ -76,7 +83,7 @@ function RadioGroup({
                   fontFamily: theme.typography.fontFamily,
                   color: 'rgb(56, 58, 63)',
                   ...(error && {
-                    color: theme.palette.error.main, // set red color for the label
+                    color: theme.palette.error.main,
                   }),
                 },
               },
@@ -84,14 +91,17 @@ function RadioGroup({
           />
         ))}
       </MuiRadioGroup>
-      <ErrorMessage
-        name={name}
-        render={(msg) => (
-          <Typography variant='caption' color='error'>
-            {msg}
-          </Typography>
-        )}
-      />
+
+      {isInsideFormik && (
+        <ErrorMessage
+          name={name}
+          render={(msg) => (
+            <Typography variant='caption' color='error'>
+              {msg}
+            </Typography>
+          )}
+        />
+      )}
     </FormControl>
   );
 }

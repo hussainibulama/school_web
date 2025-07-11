@@ -15,3 +15,20 @@ export interface SignupPayload {
   gender: string;
   role: string;
 }
+
+export interface UpdateUserByIdPayload {
+  userId: string;
+  email?: string;
+  firstName?: string;
+  middleName?: string;
+  lastName?: string;
+  gender?: string;
+  role?: string;
+  address?: string;
+  accountNumber?: string;
+  bankName?: string;
+  admissionNumber?: string;
+  phone?: string;
+  dob?: string;
+  active?: boolean;
+}

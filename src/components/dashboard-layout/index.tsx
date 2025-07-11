@@ -1,25 +1,41 @@
 import { Box, CssBaseline } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { SideNav, TopNav } from '../index';
+import { SideNav, TopNav } from '..';
 
 const DashboardLayout = () => {
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box sx={{ display: 'flex', height: '100vh', width: '100vw', overflow: 'hidden' }}>
       <CssBaseline />
-      <SideNav />
+
+      {/* SideNav must allow shrink */}
+      <Box sx={{ flexShrink: 0 }}>
+        <SideNav />
+      </Box>
+
+      {/* Main Content */}
       <Box
         component='main'
-        width='100%'
         sx={{
           display: 'flex',
           flexDirection: 'column',
           flexGrow: 1,
-          // marginLeft: "240px", // Offset for SideNav (if it's permanent)
-          zIndex: 1, // Ensure the main content is above the SideNav
+          minWidth: 0, // ✅ prevents overflow in flex layouts
+          width: '100%',
+          overflow: 'hidden', // prevent scroll overflow here
+          zIndex: 1,
         }}
       >
         <TopNav />
-        <Box component='main' sx={{ flexGrow: 1, p: 2, width: '100%' }}>
+
+        <Box
+          component='main'
+          sx={{
+            flexGrow: 1,
+            p: 2,
+            minWidth: 0,
+            overflow: 'auto', // ✅ scrolls inside instead of full screen
+          }}
+        >
           <Outlet />
         </Box>
       </Box>

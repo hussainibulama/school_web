@@ -4,7 +4,7 @@ import { Box, Avatar, CircularProgress } from '@mui/material';
 import { Person } from '@mui/icons-material';
 import { useFormik, FormikProvider } from 'formik';
 import { FormField, FormSelect } from '../../../../components';
-import { useFetchUserById } from '../../../../hooks/useUserHook';
+import { useFetchUserById } from '../../../../hooks';
 
 const ViewStaff = ({
   userId,

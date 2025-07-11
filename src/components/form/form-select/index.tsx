@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, TextField, Typography, MenuItem, TextFieldProps, useTheme } from '@mui/material';
-import { ErrorMessage } from 'formik';
+import { ErrorMessage, useFormikContext } from 'formik';
 
 interface Option {
   value: string;
@@ -28,6 +28,15 @@ const FormSelect = ({
 }: FormSelectProps) => {
   const theme = useTheme();
 
+  let isInsideFormik = false;
+
+  try {
+    const formik = useFormikContext();
+    if (formik) isInsideFormik = true;
+  } catch {
+    isInsideFormik = false;
+  }
+
   return (
     <Box>
       <TextField
@@ -38,7 +47,7 @@ const FormSelect = ({
         label={label}
         value={value}
         onChange={handleChange}
-        onBlur={handleBlur}
+        {...(handleBlur && { onBlur: handleBlur })}
         sx={{ backgroundColor: 'white', fontFamily: theme.typography.fontFamily }}
         slotProps={{
           inputLabel: {
@@ -60,14 +69,17 @@ const FormSelect = ({
           </MenuItem>
         ))}
       </TextField>
-      <ErrorMessage
-        name={name}
-        render={(msg) => (
-          <Typography variant='caption' color='error'>
-            {msg}
-          </Typography>
-        )}
-      />
+
+      {isInsideFormik && (
+        <ErrorMessage
+          name={name}
+          render={(msg) => (
+            <Typography variant='caption' color='error'>
+              {msg}
+            </Typography>
+          )}
+        />
+      )}
     </Box>
   );
 };

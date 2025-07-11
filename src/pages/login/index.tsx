@@ -6,7 +6,7 @@ import { Formik, FormikHelpers } from 'formik';
 import { AUTH_STORAGE_KEY, AUTH_EMAIL_PERSIST_KEY } from '../../contants';
 import { LoginForm, NeedHelp } from '../../container';
 import { useInitUser, useLogin } from '../../hooks';
-import { useSnackbar } from '../../hoc/snack-bar';
+import { useSnackbar } from '../../hoc';
 import { LoginSchema } from '../../schema';
 import { LoginPayload } from '../../interface';
 

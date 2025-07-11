@@ -1,5 +1,13 @@
 import { Form } from 'formik';
-import { Box, Button, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Stack,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { FormField, RadioGroup } from '../../components';
 
 interface ILoginFormProps {
@@ -162,10 +170,10 @@ export default function SignForm({
           onClick={handleSubmit}
           sx={{
             textTransform: 'none',
-            color: '#fff',
             fontSize: '16px',
             fontFamily: theme.typography.fontFamily,
           }}
+          endIcon={isPending ? <CircularProgress size={20} color='inherit' /> : null}
         >
           Get Started
         </Button>

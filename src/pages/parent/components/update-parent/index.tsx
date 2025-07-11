@@ -5,13 +5,10 @@ import { Person } from '@mui/icons-material';
 import { useFormik, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import { FormField, FormSelect } from '../../../../components';
-import {
-  useFetchUserById,
-  useUpdateUserById,
-  UpdateUserByIdPayload,
-} from '../../../../hooks/useUserHook';
-
+import { useFetchUserById } from '../../../../hooks';
+import { useUpdateUserById } from '../../../../hooks';
 import { useSnackbar } from '../../../../hoc/snack-bar';
+import { UpdateUserByIdPayload } from '../../../../interface';
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required('First name is required'),
@@ -68,7 +65,7 @@ const UpdateStaff = ({
           showSnackbar(res?.message || 'User data updated', 'success');
           handleClose();
         },
-        onError: (err) => {
+        onError: (err: any) => {
           showSnackbar(err?.response?.data?.message || 'Unable to update user', 'error');
         },
         onSettled: () => actions.setSubmitting(false),

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, TextField, Typography, TextFieldProps, useTheme } from '@mui/material';
-import { ErrorMessage } from 'formik';
+import { ErrorMessage, useFormikContext } from 'formik';
 
 interface FormFieldProps
   extends Omit<TextFieldProps, 'name' | 'label' | 'value' | 'onChange' | 'onBlur'> {
@@ -9,7 +9,7 @@ interface FormFieldProps
   type?: string;
   value: string;
   handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  handleBlur: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  handleBlur?: React.FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
 const FormField = ({
@@ -23,6 +23,16 @@ const FormField = ({
 }: FormFieldProps) => {
   const theme = useTheme();
 
+  let isInsideFormik = false;
+
+  try {
+    // Try getting Formik context
+    const formik = useFormikContext();
+    if (formik) isInsideFormik = true;
+  } catch (e) {
+    isInsideFormik = false;
+  }
+
   return (
     <Box>
       <TextField
@@ -33,7 +43,7 @@ const FormField = ({
         type={type}
         value={value}
         onChange={handleChange}
-        onBlur={handleBlur}
+        {...(handleBlur && { onBlur: handleBlur })}
         sx={{ backgroundColor: 'white', fontFamily: theme.typography.fontFamily }}
         slotProps={{
           inputLabel: {
@@ -43,16 +53,18 @@ const FormField = ({
             sx: { fontSize: '0.8rem' },
           },
         }}
-        {...rest} // <-- Add all additional TextField props here
+        {...rest}
       />
-      <ErrorMessage
-        name={name}
-        render={(msg) => (
-          <Typography variant='caption' color='error'>
-            {msg}
-          </Typography>
-        )}
-      />
+      {isInsideFormik && (
+        <ErrorMessage
+          name={name}
+          render={(msg) => (
+            <Typography variant='caption' color='error'>
+              {msg}
+            </Typography>
+          )}
+        />
+      )}
     </Box>
   );
 };

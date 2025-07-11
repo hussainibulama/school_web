@@ -6,6 +6,7 @@ interface ConfirmationModalProps {
   onClose: () => void;
   onConfirm: () => void;
   isSubmitting?: boolean;
+  isLoading?: boolean;
   title?: string;
   message?: string;
   confirmText?: string;
@@ -17,6 +18,7 @@ const ConfirmationModal = ({
   onClose,
   onConfirm,
   isSubmitting,
+  isLoading,
   title = '',
   message = '',
   confirmText = '',
@@ -29,6 +31,7 @@ const ConfirmationModal = ({
       onSubmit={onConfirm}
       isSubmitting={isSubmitting}
       submitText={confirmText}
+      isLoading={isLoading}
       title={title}
       error={error}
     >

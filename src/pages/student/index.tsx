@@ -13,10 +13,9 @@ import {
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CreateStaff, UpdateStaff, ViewStaff } from './components';
-import { UpdateUserByIdPayload, useStudentList, useUpdateUserById } from '../../hooks/useUserHook';
+import { useStudentList } from '../../hooks/useUserHook';
 import SummaryCard from '../../components/summary-card';
-import { ConfirmationModal } from '../../components';
-import { useSnackbar } from '../../hoc/snack-bar';
+import { ActivateUserModal } from '../../container';
 
 type ActionType = {
   type: 'view' | 'edit' | 'confirm' | undefined;
@@ -24,8 +23,6 @@ type ActionType = {
   active?: boolean;
 };
 const Staff = () => {
-  const { showSnackbar } = useSnackbar();
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [menuRowId, setMenuRowId] = React.useState<number | null>(null);
   const [openModal, setOpenModal] = React.useState(false);
@@ -33,7 +30,6 @@ const Staff = () => {
     type: undefined,
     userId: undefined,
   });
-  const { mutate: updateUser, isPending: isSubmitting } = useUpdateUserById();
   const { data: student, isLoading } = useStudentList();
 
   const studentList = student?.data;
@@ -118,24 +114,6 @@ const Staff = () => {
     setOpenModal(true);
     setActionType({ type: 'confirm', userId, active });
     handleMenuClose();
-  };
-  const deactivateUser = () => {
-    updateUser(
-      {
-        userId: actionType?.userId || '',
-        active: !actionType?.active,
-      } as UpdateUserByIdPayload,
-      {
-        onSuccess: (res: any) => {
-          showSnackbar(res?.message || 'User Deactivated', 'success');
-          setOpenModal(false);
-          handleResetAction();
-        },
-        onError: (err) => {
-          showSnackbar(err?.response?.data?.message || 'Unable to deactivate user', 'error');
-        },
-      },
-    );
   };
 
   const columns: GridColDef[] = [
@@ -253,18 +231,13 @@ const Staff = () => {
           handleResetAction();
         }}
       />
-      <ConfirmationModal
+      <ActivateUserModal
+        userId={actionType.userId}
         open={openModal && actionType.type === 'confirm'}
-        onClose={() => {
+        closeModal={() => {
           setOpenModal(false);
           handleResetAction();
         }}
-        onConfirm={deactivateUser}
-        isSubmitting={isSubmitting}
-        error={actionType?.active || false}
-        title={`${actionType?.active ? 'Deactivate' : 'Activate'}  User`}
-        message={`Are you sure you want to ${actionType?.active ? 'deactivate' : 'activate'} this user?`}
-        confirmText={actionType?.active ? 'Deactivate' : 'Activate'}
       />
     </Box>
   );

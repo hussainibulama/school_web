@@ -9,9 +9,12 @@ import {
   Box,
   Button,
   DialogProps,
+  useTheme,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CircularProgress from '@mui/material/CircularProgress';
+import AbsoluteCenterWrapper from '../absolute-center-wrapper';
+import Loader from '../loader';
 
 interface ModalProps extends Partial<DialogProps> {
   open: boolean;
@@ -21,6 +24,7 @@ interface ModalProps extends Partial<DialogProps> {
   onSubmit?: () => void;
   submitText?: string;
   isSubmitting?: boolean;
+  isLoading?: boolean;
   hideActions?: boolean;
   error?: boolean;
 }
@@ -34,9 +38,12 @@ const Modal = ({
   submitText = 'Submit',
   isSubmitting = false,
   hideActions = false,
+  isLoading,
   error,
   ...dialogProps // ⬅️ capture extra DialogProps
 }: ModalProps) => {
+  const theme = useTheme();
+
   return (
     <Dialog
       open={open}
@@ -59,6 +66,11 @@ const Modal = ({
         },
       }}
     >
+      {isLoading && (
+        <AbsoluteCenterWrapper>
+          <Loader />
+        </AbsoluteCenterWrapper>
+      )}
       <DialogTitle>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Typography variant='h6'>{title}</Typography>
@@ -75,24 +87,20 @@ const Modal = ({
           <Box display='flex' width='100%' gap={1}>
             <Button
               onClick={onClose}
-              color='primary'
+              variant='contained'
               disabled={isSubmitting}
               fullWidth
               sx={{
                 flex: 1,
                 background: 'white',
-                fontFamily: `"Inter", sans-serif`,
-                fontSize: '0.8rem',
+                fontFamily: theme.typography.fontFamily,
                 textTransform: 'capitalize',
-                height: '32px',
                 color: 'black',
-                border: '1px solid #ccc',
-                '&:hover': {
-                  backgroundColor: '#f0f0f0', // Light gray on hover
-                },
+                border: 'none',
+                boxShadow: 'none',
                 '&:disabled': {
-                  backgroundColor: '#e0e0e0', // Disabled background color
-                  color: '#a0a0a0', // Disabled text color
+                  backgroundColor: '#e0e0e0',
+                  color: '#a0a0a0',
                 },
               }}
             >
@@ -100,20 +108,14 @@ const Modal = ({
             </Button>
             <Button
               onClick={onSubmit}
-              color='primary'
+              variant='contained'
               disabled={isSubmitting}
               fullWidth
               sx={{
                 flex: 1,
-                background: error ? '#e57373' : '#4d8cec',
-                fontFamily: `"Inter", sans-serif`,
-                fontSize: '0.8rem',
+                background: error ? '#e57373' : 'auto',
+                fontFamily: theme.typography.fontFamily,
                 textTransform: 'capitalize',
-                height: '32px',
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: error ? "#d32f2f'" : '#357ab7',
-                },
                 '&:disabled': {
                   backgroundColor: '#8aacc8',
                 },

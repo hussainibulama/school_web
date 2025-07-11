@@ -6,29 +6,30 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
-import { SnackbarProvider } from './hoc/snack-bar';
-import { ThemeWrapper } from './hoc';
+import { ThemeWrapper, GeneralProvider, SnackbarProvider } from './hoc';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
-    <ThemeWrapper>
-      <SnackbarProvider>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter
-            future={{
-              v7_relativeSplatPath: true,
-            }}
-          >
-            <HelmetProvider>
-              <App />
-            </HelmetProvider>
-          </BrowserRouter>
-        </QueryClientProvider>
-      </SnackbarProvider>
-    </ThemeWrapper>
+    <GeneralProvider>
+      <ThemeWrapper>
+        <SnackbarProvider>
+          <QueryClientProvider client={queryClient}>
+            <BrowserRouter
+              future={{
+                v7_relativeSplatPath: true,
+              }}
+            >
+              <HelmetProvider>
+                <App />
+              </HelmetProvider>
+            </BrowserRouter>
+          </QueryClientProvider>
+        </SnackbarProvider>
+      </ThemeWrapper>
+    </GeneralProvider>
   </React.StrictMode>,
 );
 

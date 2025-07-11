@@ -5,7 +5,7 @@ import { Formik, FormikHelpers } from 'formik';
 import { AUTH_STORAGE_KEY } from '../../contants';
 import { SignForm, SignupMessage } from '../../container';
 import { useSignup, useLogin } from '../../hooks';
-import { useSnackbar } from '../../hoc/snack-bar';
+import { useSnackbar } from '../../hoc';
 import { SignupSchema } from '../../schema';
 import { SignupPayload } from '../../interface';
 

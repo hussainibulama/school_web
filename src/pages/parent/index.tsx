@@ -13,10 +13,12 @@ import {
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CreateStaff, UpdateStaff, ViewStaff } from './components';
-import { UpdateUserByIdPayload, useParentList, useUpdateUserById } from '../../hooks/useUserHook';
+import { useUpdateUserById } from '../../hooks';
+import { useParentList } from '../../hooks/useUserHook';
 import SummaryCard from '../../components/summary-card';
 import { ConfirmationModal } from '../../components';
 import { useSnackbar } from '../../hoc/snack-bar';
+import { UpdateUserByIdPayload } from '../../interface';
 
 type ActionType = {
   type: 'view' | 'edit' | 'confirm' | undefined;
@@ -132,7 +134,7 @@ const Staff = () => {
           setOpenModal(false);
           handleResetAction();
         },
-        onError: (err) => {
+        onError: (err: any) => {
           showSnackbar(err?.response?.data?.message || 'Unable to deactivate user', 'error');
         },
       },
