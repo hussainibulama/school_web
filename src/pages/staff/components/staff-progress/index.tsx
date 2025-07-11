@@ -8,15 +8,14 @@ export default function StaffProgress() {
 
   const stats = staffList?.reduce(
     (acc: any, user: any) => {
-      // Role count
-      if (['teacher', 'proprietor'].includes(user.role)) acc.Academic++;
-      if (user.role === 'admin') acc.Admin++;
+      if (['teacher', 'proprietor'].includes(user.role)) acc['Academic']++;
+      if (user.role === 'admin') acc['Non Academic']++;
 
       return acc;
     },
     {
       Academic: 0,
-      Admin: 0,
+      'Non Academic': 0,
     },
   );
   return (

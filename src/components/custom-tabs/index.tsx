@@ -29,6 +29,7 @@ export default function CustomTabs({ tabs, initialIndex = 0, fullWidth = false }
         textColor='primary'
         indicatorColor='primary'
         sx={{
+          minHeight: 0,
           margin: 0,
           padding: 0,
         }}
@@ -37,13 +38,15 @@ export default function CustomTabs({ tabs, initialIndex = 0, fullWidth = false }
           <Tab
             key={tab.label + index}
             label={tab.label}
+            disableRipple
             sx={{
               textTransform: 'capitalize',
-              minHeight: 'auto',
+              minHeight: 0,
               minWidth: 'auto',
-              bgcolor: 'transparent',
+              padding: '8px 8px', // smaller padding to bring it closer
+              fontWeight: 500,
               color: 'black',
-              fontWeight: '500',
+              bgcolor: 'transparent',
               '&:hover': {
                 backgroundColor: 'transparent',
               },
@@ -56,7 +59,7 @@ export default function CustomTabs({ tabs, initialIndex = 0, fullWidth = false }
         ))}
       </Tabs>
 
-      <Divider />
+      <Divider sx={{ margin: 0 }} />
 
       <Box sx={{ mt: 2 }}>{tabs[activeTab]?.content}</Box>
     </Box>

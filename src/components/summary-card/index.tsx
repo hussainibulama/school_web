@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box, Typography, Card, CardContent, Stack, Grid } from '@mui/material';
+import { Box, Typography, Card, CardContent, Stack } from '@mui/material';
 
-// Reusable SummaryCard Component
 const SummaryCard = ({
   title,
   value,
@@ -11,16 +10,17 @@ const SummaryCard = ({
   value?: number;
   items: { label: string; value?: number }[];
 }) => (
-  <Grid container spacing={1} sx={{ flexGrow: 1 }}>
+  <Box sx={{ flexGrow: 1 }}>
     <Card
       sx={{
         backgroundColor: '#fff',
-        boxShadow: 3,
-        borderRadius: 3,
+        boxShadow: 0,
+        borderRadius: 2,
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        border: '1px solid rgb(216, 216, 227)',
         p: 0.1,
         flexGrow: 1,
       }}
@@ -51,6 +51,7 @@ const SummaryCard = ({
         </Stack>
       </CardContent>
     </Card>
-  </Grid>
+  </Box>
 );
+
 export default SummaryCard;
