@@ -2,6 +2,7 @@ import { useEffect, useState, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from '../../hooks';
 import { ReLogin, Loader } from '../';
+import { CUSTOM_EVENT_TOKEN_EXPIRE } from '../../contants';
 
 const Auth = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
@@ -15,8 +16,8 @@ const Auth = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const handleAuthExpired = () => setIsLoginRequired(true);
 
-    window.addEventListener('auth:expired', handleAuthExpired);
-    return () => window.removeEventListener('auth:expired', handleAuthExpired);
+    window.addEventListener(CUSTOM_EVENT_TOKEN_EXPIRE, handleAuthExpired);
+    return () => window.removeEventListener(CUSTOM_EVENT_TOKEN_EXPIRE, handleAuthExpired);
   }, [email, schoolId]);
 
   if (isError || !user) navigate('/', { replace: true });

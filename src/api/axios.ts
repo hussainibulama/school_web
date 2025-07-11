@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_STORAGE_KEY } from '../contants';
+import { AUTH_STORAGE_KEY, CUSTOM_EVENT_TOKEN_EXPIRE } from '../contants';
 // Your base URL
 const baseURL = 'http://localhost:3112/api/v1';
 
@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response?.status === (401 | 403)) {
       localStorage.removeItem(AUTH_STORAGE_KEY);
-      window.dispatchEvent(new CustomEvent('auth:expired'));
+      window.dispatchEvent(new CustomEvent(CUSTOM_EVENT_TOKEN_EXPIRE));
       // window.location.href = '/';
     }
     return Promise.reject(error);
