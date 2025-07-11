@@ -11,3 +11,6 @@ export { ReactComponent as StaffIcon } from './svg/staff.svg';
 export { ReactComponent as ParentIcon } from './svg/parent.svg';
 export { ReactComponent as ClassIcon } from './svg/class.svg';
 export { ReactComponent as TeacherIcon } from './svg/teacher.svg';
+export { ReactComponent as RoundedIcon } from './svg/rounded.svg';
+export { ReactComponent as LessThan } from './svg/less-than.svg';
+export { ReactComponent as PencilIcon } from './svg/pencil.svg';

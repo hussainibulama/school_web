@@ -7,6 +7,7 @@ export { default as useUserInfo } from './useUserInfo';
 export { default as useGetStaffList } from './useGetStaffList';
 export { default as useFetchUserById } from './useFetchUserById';
 export { default as useUpdateUserById } from './useUpdateUserById';
+export { default as useCreateUsers } from './useCreateUsers';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';

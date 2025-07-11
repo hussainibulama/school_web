@@ -5,3 +5,7 @@ export { default as SignForm } from './signup-form';
 export { default as NeedHelp } from './need-help';
 export { default as SignupMessage } from './signup-message';
 export { default as ActivateUserModal } from './active-user-modal';
+export { default as StaffFormPreview } from './staff-form-preview';
+export { default as CreateStaffForm } from './create-staff-form';
+export { default as BreadcrumbHeader } from './bread-crumb-header';
+export { default as ViewProfile } from './view-profile';

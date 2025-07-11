@@ -56,7 +56,11 @@ function RadioGroup({
       {label && (
         <FormLabel
           component='legend'
-          sx={{ fontFamily: theme.typography.fontFamily, fontWeight: 600 }}
+          sx={{
+            fontFamily: theme.typography.fontFamily,
+            fontSize: '13px',
+            color: 'rgba(0, 0, 0, 0.6)',
+          }}
         >
           {label}
         </FormLabel>

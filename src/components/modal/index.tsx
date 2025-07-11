@@ -10,10 +10,10 @@ import {
   Button,
   DialogProps,
   useTheme,
+  Breakpoint,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CircularProgress from '@mui/material/CircularProgress';
-import AbsoluteCenterWrapper from '../absolute-center-wrapper';
 import Loader from '../loader';
 
 interface ModalProps extends Partial<DialogProps> {
@@ -27,6 +27,8 @@ interface ModalProps extends Partial<DialogProps> {
   isLoading?: boolean;
   hideActions?: boolean;
   error?: boolean;
+  maxWidth?: Breakpoint | false;
+  dividers?: boolean;
 }
 
 const Modal = ({
@@ -38,8 +40,11 @@ const Modal = ({
   submitText = 'Submit',
   isSubmitting = false,
   hideActions = false,
+  dividers = true,
   isLoading,
   error,
+  maxWidth = 'xs',
+
   ...dialogProps // ⬅️ capture extra DialogProps
 }: ModalProps) => {
   const theme = useTheme();
@@ -49,8 +54,7 @@ const Modal = ({
       open={open}
       onClose={onClose}
       fullWidth
-      maxWidth='xs'
-      {...dialogProps}
+      maxWidth={maxWidth}
       sx={{
         '& .MuiDialog-paper': {
           width: '100%',
@@ -65,12 +69,9 @@ const Modal = ({
           },
         },
       }}
+      {...dialogProps}
     >
-      {isLoading && (
-        <AbsoluteCenterWrapper>
-          <Loader />
-        </AbsoluteCenterWrapper>
-      )}
+      {isLoading && <Loader />}
       <DialogTitle>
         <Box display='flex' justifyContent='space-between' alignItems='center'>
           <Typography variant='h6'>{title}</Typography>
@@ -80,14 +81,14 @@ const Modal = ({
         </Box>
       </DialogTitle>
 
-      <DialogContent dividers>{children}</DialogContent>
+      <DialogContent dividers={dividers}>{children}</DialogContent>
 
       {!hideActions && (
         <DialogActions>
           <Box display='flex' width='100%' gap={1}>
             <Button
               onClick={onClose}
-              variant='contained'
+              variant='text'
               disabled={isSubmitting}
               fullWidth
               sx={{
@@ -96,8 +97,6 @@ const Modal = ({
                 fontFamily: theme.typography.fontFamily,
                 textTransform: 'capitalize',
                 color: 'black',
-                border: 'none',
-                boxShadow: 'none',
                 '&:disabled': {
                   backgroundColor: '#e0e0e0',
                   color: '#a0a0a0',

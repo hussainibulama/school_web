@@ -16,6 +16,7 @@ import { CustomDataGrid, FormField, FormSelect } from '../../components';
 import { ActivateUserModal } from '../../container';
 import { mapUserTableData, handleExport } from '../../util';
 import { getColumns } from './constants';
+import { useNavigate } from 'react-router-dom';
 
 type ActionType = {
   type: 'view' | 'edit' | 'confirm' | undefined;
@@ -29,6 +30,8 @@ const Staff = () => {
 
   const [nameFilter, setNameFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+
+  const navigate = useNavigate();
 
   const {
     anchorEl,
@@ -52,6 +55,10 @@ const Staff = () => {
       userId?: string,
       active?: boolean,
     ) => {
+      if (type === 'view') {
+        navigate(`${userId}`);
+        return;
+      }
       handleOpenModalWithType(type, { userId, active });
     },
   });
@@ -83,7 +90,7 @@ const Staff = () => {
       <Box mb={3}>
         <Stack direction='row' spacing={2} flexWrap='wrap' useFlexGap>
           {summaryCards.map((Card, index) => (
-            <Box key={index} sx={{ minWidth: index > 0 ? 280 : 'auto', flexGrow: 1 }}>
+            <Box key={index} sx={{ minWidth: index > 0 ? 200 : 'auto', flexGrow: 1 }}>
               {Card}
             </Box>
           ))}

@@ -17,6 +17,8 @@ import { ArrowDropDownCircle } from '@mui/icons-material';
 import { useUserInfo } from '../../hooks';
 import { PanelLeftIcon } from '../../assets';
 import { useGeneralContext } from '../../hoc';
+import { Helmet } from 'react-helmet-async';
+import { APP_NAME } from '../../contants';
 
 const TopNav = () => {
   const theme = useTheme();
@@ -46,7 +48,29 @@ const TopNav = () => {
     handleMenuClose();
   };
 
-  const currentPage = location.pathname.split('/').pop()?.replaceAll('-', ' ');
+  const pathSegments = location.pathname.split('/').filter(Boolean);
+
+  // Helper function to detect likely ID (UUID or numeric ID)
+  const isLikelyId = (segment: string) => {
+    return (
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(segment) ||
+      /^\d+$/.test(segment)
+    );
+  };
+
+  let currentPage = '';
+
+  if (pathSegments.length === 0) {
+    currentPage = 'Dashboard';
+  } else if (isLikelyId(pathSegments[pathSegments.length - 1])) {
+    // If last segment is an ID, use the one before it
+    currentPage = pathSegments[pathSegments.length - 2];
+  } else {
+    currentPage = pathSegments[pathSegments.length - 1];
+  }
+
+  // Format: replace dashes and capitalize
+  currentPage = currentPage?.replace(/-/g, ' ')?.replace(/\b\w/g, (char) => char.toUpperCase());
   const textStyles = {
     fontFamily: theme.typography.fontFamily,
     color: 'rgb(56, 58, 63)',
@@ -65,6 +89,11 @@ const TopNav = () => {
         width: '100%',
       }}
     >
+      <Helmet>
+        <title>
+          {currentPage} | {APP_NAME} Cloud Based SIMS
+        </title>
+      </Helmet>
       <Toolbar
         sx={{
           display: 'flex',

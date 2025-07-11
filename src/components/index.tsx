@@ -9,4 +9,6 @@ export { default as CustomDataGrid } from './custom-data-grid';
 export { default as DualProgressCircle } from './dual-progress-circle';
 export { default as HoverShadowWrapper } from './hover-shadow-wrapper';
 export { default as Loader } from './loader';
-export { default as AbsoluteCenterWrapper } from './absolute-center-wrapper';
+export { default as CustomStepper } from './stepper';
+export { default as CustomSwitch } from './custom-switch';
+export { default as CustomTabs } from './custom-tabs';

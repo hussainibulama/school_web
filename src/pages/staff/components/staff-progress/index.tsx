@@ -27,11 +27,8 @@ export default function StaffProgress() {
           p: 2,
         }}
       >
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <DualProgressCircle data={stats} colors={['#68aa22', 'rgb(91, 13, 38)']} />
-        )}
+        {isLoading && <Loader />}
+        <DualProgressCircle data={stats} colors={['#68aa22', 'rgb(91, 13, 38)']} />
       </Box>
     </HoverShadowWrapper>
   );

@@ -25,7 +25,8 @@ export default function StatusProgress() {
           p: 2,
         }}
       >
-        {isLoading ? <Loader /> : <DualProgressCircle data={stats} />}
+        {isLoading && <Loader />}
+        <DualProgressCircle data={stats} />
       </Box>
     </HoverShadowWrapper>
   );

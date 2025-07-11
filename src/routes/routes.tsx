@@ -1,4 +1,4 @@
-import { Login, Signup, Dashboard, Staff, Student, Parent } from '../pages';
+import { Login, Signup, Dashboard, Staff, Student, Parent, ViewStaff } from '../pages';
 import { DashboardLayout } from '../components';
 import Auth from '../components/auth';
 
@@ -25,6 +25,7 @@ export const routes = [
     children: [
       { index: true, element: <Dashboard /> },
       { path: 'staff', element: <Staff /> },
+      { path: 'staff/:id', element: <ViewStaff /> },
       { path: 'student', element: <Student /> },
       { path: 'parent', element: <Parent /> },
       { path: 'fees', element: <Dashboard /> },

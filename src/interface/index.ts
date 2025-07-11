@@ -32,3 +32,19 @@ export interface UpdateUserByIdPayload {
   dob?: string;
   active?: boolean;
 }
+
+export interface CreateNewUserPayload {
+  email: string;
+  password: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  gender: string;
+  role: string;
+  address?: string;
+  accountNumber?: string;
+  bankName?: string;
+  admissionNumber?: string;
+  phone?: string;
+  dob?: string;
+}

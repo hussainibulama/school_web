@@ -82,10 +82,30 @@ export const getColumns = ({
             <IconButton onClick={(e) => handleMenuOpen(e, row.id)}>
               <MoreVertIcon />
             </IconButton>
-            <Menu anchorEl={anchorEl} open={menuRowId === row.id} onClose={handleMenuClose}>
+            <Menu
+              anchorEl={anchorEl}
+              open={menuRowId === row.id}
+              onClose={handleMenuClose}
+              slotProps={{
+                paper: {
+                  sx: (theme) => ({
+                    fontFamily: theme.typography.fontFamily,
+                    m: 0,
+                    '& .MuiMenuItem-root': {
+                      fontSize: '14px',
+                    },
+                  }),
+                },
+              }}
+            >
               <MenuItem onClick={() => handleOpenModalWithType('view', row.userId)}>View</MenuItem>
               <MenuItem onClick={() => handleOpenModalWithType('edit', row.userId)}>Edit</MenuItem>
-              <MenuItem onClick={() => handleOpenModalWithType('confirm', row.userId, row.active)}>
+              <MenuItem
+                onClick={() => handleOpenModalWithType('confirm', row.userId, row.active)}
+                sx={(theme) => ({
+                  color: row.active ? theme.palette.error.main : theme.palette.text.primary,
+                })}
+              >
                 {row.active ? 'Deactivate' : 'Activate'}
               </MenuItem>
             </Menu>
