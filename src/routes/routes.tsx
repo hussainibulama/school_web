@@ -9,8 +9,7 @@ import {
   ViewStudent,
   ViewParent,
 } from '../pages';
-import { DashboardLayout } from '../components';
-import Auth from '../components/auth';
+import { DashboardLayout, AuthWrapper } from '../components';
 
 export const routes = [
   {
@@ -28,9 +27,9 @@ export const routes = [
   {
     path: '/dashboard',
     element: (
-      <Auth>
+      <AuthWrapper>
         <DashboardLayout />
-      </Auth>
+      </AuthWrapper>
     ),
     children: [
       { index: true, element: <Dashboard /> },

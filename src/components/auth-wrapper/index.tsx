@@ -1,10 +1,10 @@
-import { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useState, ReactNode, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from '../../hooks';
-import { ReLogin, Loader } from '../';
+import { ReLogin, Loader } from '..';
 import { CUSTOM_EVENT_TOKEN_EXPIRE } from '../../contants';
 
-const Auth = ({ children }: { children: ReactNode }) => {
+const AuthWrapper = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const [isLoginRequired, setIsLoginRequired] = useState(false);
 
@@ -23,10 +23,10 @@ const Auth = ({ children }: { children: ReactNode }) => {
   if (isError || !user) navigate('/', { replace: true });
   console.log(isError, isLoginRequired, 'isError');
   // Fallback: if user info is missing entirely, redirect
-  if (isLoading) return <Loader />;
 
   return (
-    <>
+    <Fragment>
+      {isLoading && <Loader />}
       {children}
       {isLoginRequired && (
         <ReLogin
@@ -36,8 +36,8 @@ const Auth = ({ children }: { children: ReactNode }) => {
           schoolId={schoolId}
         />
       )}
-    </>
+    </Fragment>
   );
 };
 
-export default Auth;
+export default AuthWrapper;

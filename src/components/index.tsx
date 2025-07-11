@@ -1,4 +1,5 @@
 export * from './form';
+export { default as AuthWrapper } from './auth-wrapper';
 export { default as SideNav } from './side-nav';
 export { default as DashboardLayout } from './dashboard-layout';
 export { default as TopNav } from './top-nav';
