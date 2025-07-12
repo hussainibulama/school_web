@@ -100,7 +100,7 @@ const SideNav = () => {
           <List>
             <SideNavItem
               label={'Settings'}
-              path={'/settings'}
+              path={'settings'}
               icon={<SettingsIcon {...iconStyle} />}
             />
           </List>

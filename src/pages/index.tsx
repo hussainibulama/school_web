@@ -7,3 +7,7 @@ export { default as Student } from './student';
 export { default as ViewStaff } from './view-staff';
 export { default as ViewStudent } from './view-student';
 export { default as ViewParent } from './view-parent';
+export { default as Settings } from './settings';
+export { default as ClassArms } from './class-arms';
+export { default as ClassLevels } from './class-levels';
+export { default as Subjects } from './subjects';

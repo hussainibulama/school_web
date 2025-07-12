@@ -8,6 +8,10 @@ import {
   ViewStaff,
   ViewStudent,
   ViewParent,
+  Settings,
+  ClassArms,
+  ClassLevels,
+  Subjects,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
@@ -47,6 +51,10 @@ export const routes = [
       { path: 'messaging', element: <Dashboard /> },
       { path: 'time-table', element: <Dashboard /> },
       { path: 'assessment', element: <Dashboard /> },
+      { path: 'settings', element: <Settings /> },
+      { path: 'settings/class-arms', element: <ClassArms /> },
+      { path: 'settings/class-levels', element: <ClassLevels /> },
+      { path: 'settings/subjects', element: <Subjects /> },
     ],
   },
 ];

@@ -8,21 +8,23 @@ const AuthWrapper = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const [isLoginRequired, setIsLoginRequired] = useState(false);
 
-  const { data: user, isLoading, isError } = useUserInfo();
+  const { data: user, isLoading } = useUserInfo();
   const email = user?.data?.email;
   const schoolId = user?.data?.schoolId;
 
   // Listen for global auth expiration
   useEffect(() => {
-    const handleAuthExpired = () => setIsLoginRequired(true);
+    const handleAuthExpired = () => {
+      if (!email || !schoolId) {
+        navigate('/', { replace: true });
+        return;
+      }
+      setIsLoginRequired(true);
+    };
 
     window.addEventListener(CUSTOM_EVENT_TOKEN_EXPIRE, handleAuthExpired);
     return () => window.removeEventListener(CUSTOM_EVENT_TOKEN_EXPIRE, handleAuthExpired);
-  }, [email, schoolId]);
-
-  if (isError || !user) navigate('/', { replace: true });
-  console.log(isError, isLoginRequired, 'isError');
-  // Fallback: if user info is missing entirely, redirect
+  }, [email, schoolId, navigate]);
 
   return (
     <Fragment>

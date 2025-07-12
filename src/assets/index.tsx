@@ -15,3 +15,6 @@ export { ReactComponent as RoundedIcon } from './svg/rounded.svg';
 export { ReactComponent as LessThan } from './svg/less-than.svg';
 export { ReactComponent as PencilIcon } from './svg/pencil.svg';
 export { ReactComponent as ParentKidIcon } from './svg/parentKid.svg';
+export { ReactComponent as ClassArmIcon } from './svg/class-arm.svg';
+export { ReactComponent as ClassSectionIcon } from './svg/class-section.svg';
+export { ReactComponent as SubjectsIcon } from './svg/subjects.svg';

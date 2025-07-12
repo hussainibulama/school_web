@@ -150,8 +150,9 @@ const TopNav = () => {
           {[
             { label: 'Profile', onClick: handleProfile },
             { label: 'Logout', onClick: handleLogout },
-          ].map((entry) => (
+          ].map((entry, index) => (
             <MenuItem
+              key={index}
               onClick={entry.onClick}
               sx={{ fontFamily: theme.typography.fontFamily, fontSize: '12px' }}
             >

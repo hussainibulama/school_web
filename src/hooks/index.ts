@@ -10,6 +10,10 @@ export { default as useUpdateUserById } from './useUpdateUserById';
 export { default as useCreateUsers } from './useCreateUsers';
 export { default as useStudentList } from './useStudentList';
 export { default as useParentList } from './useParentList';
+export { default as useGetClassArms } from './useGetClassArms';
+export { default as useCreateArms } from './useCreateArms';
+export { default as useUpdateArms } from './useUpdateArms';
+export { default as useDeleteArms } from './useDeleteArms';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';
