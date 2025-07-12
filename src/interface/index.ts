@@ -48,3 +48,7 @@ export interface CreateNewUserPayload {
   phone?: string;
   dob?: string;
 }
+export interface CreateClassPayload {
+  classId: string;
+  label: string;
+}

@@ -1,5 +1,5 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { Box, IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, Chip, IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React from 'react';
 
@@ -24,6 +24,13 @@ export const getColumns = ({
 }: IGetColumns): GridColDef[] => {
   return [
     {
+      field: 'id',
+      headerName: 'ID',
+      flex: 1,
+      minWidth: 150,
+      disableColumnMenu: true,
+    },
+    {
       field: 'classArmName',
       headerName: 'Arm Name',
       flex: 1,
@@ -43,7 +50,15 @@ export const getColumns = ({
       minWidth: 150,
       disableColumnMenu: true,
     },
-
+    {
+      field: 'status',
+      headerName: 'Status',
+      flex: 1,
+      minWidth: 150,
+      filterable: false,
+      disableColumnMenu: true,
+      renderCell: ({ value }) => <Chip label={'Active'} color='success' size='small' />,
+    },
     {
       field: 'actions',
       headerName: 'Actions',

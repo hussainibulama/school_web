@@ -101,7 +101,7 @@ export default function ClassArms() {
 
       {/* Data Grid */}
 
-      <Box sx={{ height: 400, width: '100%', overflowX: 'auto' }}>
+      <Box sx={{ minHeight: 400, width: '100%', overflowX: 'auto' }}>
         <CustomDataGrid rows={rows} columns={columns} loading={isLoading} />
       </Box>
 

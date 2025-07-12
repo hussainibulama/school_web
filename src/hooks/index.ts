@@ -14,6 +14,9 @@ export { default as useGetClassArms } from './useGetClassArms';
 export { default as useCreateArms } from './useCreateArms';
 export { default as useUpdateArms } from './useUpdateArms';
 export { default as useDeleteArms } from './useDeleteArms';
+export { default as useGetSchoolClass } from './useGetSchoolClass';
+export { default as useGetGeneralClass } from './useGetGeneralClass';
+export { default as useCreateSchoolClass } from './useCreateSchoolClass';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';
