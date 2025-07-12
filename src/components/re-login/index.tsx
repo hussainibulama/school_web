@@ -49,7 +49,7 @@ export default function ReLogin({ open, onClose, email, schoolId }: IReloginProp
       }}
       onSubmit={formik.handleSubmit}
       isSubmitting={isPending}
-      submitText='Relogin'
+      submitText='Re-Login'
       title='Session Expired'
       error={false}
       maxWidth='xs'
