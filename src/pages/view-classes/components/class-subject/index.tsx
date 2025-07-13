@@ -21,7 +21,6 @@ export default function ClassSubjects({ schoolClassId }: { schoolClassId?: strin
       minWidth: 150,
     },
   ];
-  console.log(classes, classRoom, classRoom?.subjects, 'hahah');
   return (
     <Box>
       <Box sx={{ minHeight: 400, width: '100%', overflowX: 'auto' }}>
