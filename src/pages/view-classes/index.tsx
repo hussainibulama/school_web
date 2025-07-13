@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useGetSchoolClass } from '../../hooks';
 import { BreadcrumbHeader } from '../../container';
 import { Box } from '@mui/material';
-import { CustomTabs } from '../../components';
-import { ClassBanner, FormTeacherCard } from './components';
+import { CustomTabs, ClassBanner } from '../../components';
+import { FormTeacherCard } from './components';
 
 export default function ViewClasses() {
   const { id: schoolClassId } = useParams();

@@ -1,12 +1,14 @@
+import { ReactNode } from 'react';
 import { Box, Typography } from '@mui/material';
-import { Loader } from '../../../../components';
+import Loader from '../loader';
 
 interface IClassBannerProps {
   label: string;
   isLoading: boolean;
+  children?: ReactNode;
 }
 
-export default function ClassBanner({ label, isLoading }: IClassBannerProps) {
+export default function ClassBanner({ label, isLoading, children }: IClassBannerProps) {
   return (
     <Box
       sx={{
@@ -16,7 +18,8 @@ export default function ClassBanner({ label, isLoading }: IClassBannerProps) {
         height: 170,
         borderRadius: 2,
         display: 'flex',
-        alignItems: 'center',
+        flexDirection: 'column',
+        justifyContent: 'center',
         overflow: 'hidden',
 
         '&::before': {
@@ -45,6 +48,7 @@ export default function ClassBanner({ label, isLoading }: IClassBannerProps) {
       >
         {label}
       </Typography>
+      {children}
     </Box>
   );
 }

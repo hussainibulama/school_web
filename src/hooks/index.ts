@@ -19,6 +19,7 @@ export { default as useGetGeneralClass } from './useGetGeneralClass';
 export { default as useCreateSchoolClass } from './useCreateSchoolClass';
 export { default as useAssignTeacher } from './useAssignTeacher';
 export { default as useGetGeneralSubjects } from './useGetGeneralSubjects';
+export { default as useAddClassSubjects } from './useAddClassSubjects';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';

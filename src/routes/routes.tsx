@@ -14,6 +14,7 @@ import {
   Subjects,
   Classes,
   ViewClasses,
+  ClassSubjects,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
@@ -58,6 +59,7 @@ export const routes = [
       { path: 'settings/class-arms', element: <ClassArms /> },
       { path: 'settings/class-levels', element: <ClassLevels /> },
       { path: 'settings/subjects', element: <Subjects /> },
+      { path: 'settings/subjects/:id', element: <ClassSubjects /> },
     ],
   },
 ];
