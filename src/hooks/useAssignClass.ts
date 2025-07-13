@@ -5,6 +5,7 @@ import {
   FETCH_PARENT_LIST,
   FETCH_STUDENT_LIST,
   FETCH_CLASS_STUDENTS_BY_ID,
+  FETCH_PARENTS_LINK_BY_ID,
 } from '../contants';
 
 const assignClass = async ({
@@ -41,6 +42,7 @@ export default function useAssignClass() {
             FETCH_PARENT_LIST,
             FETCH_SCHOOL_CLASS,
             FETCH_CLASS_STUDENTS_BY_ID,
+            FETCH_PARENTS_LINK_BY_ID,
           ].some((key) => query.queryKey.includes(key)),
       });
     },

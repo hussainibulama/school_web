@@ -4,7 +4,7 @@ import { useFetchUserById } from '../../hooks';
 import { ViewProfile, BreadcrumbHeader } from '../../container';
 import { Box } from '@mui/material';
 import { UpdateStaff } from '../staff/components';
-import { CustomTabs } from '../../components';
+// import { CustomTabs } from '../../components';
 
 export default function ViewStaff() {
   const { id: userId } = useParams();
@@ -24,9 +24,9 @@ export default function ViewStaff() {
         onEdit={() => setOpenUpdate(true)}
         values={user?.data || {}}
       />
-      <Box my={3}>
+      {/* <Box my={3}>
         <CustomTabs initialIndex={0} tabs={[{ label: 'Class', content: <></> }]} />
-      </Box>
+      </Box> */}
 
       <UpdateStaff open={openUpdate} userId={userId} onClose={() => setOpenUpdate(false)} />
     </>

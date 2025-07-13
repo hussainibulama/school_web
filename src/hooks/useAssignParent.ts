@@ -1,6 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '../api/axios';
-import { FETCH_SCHOOL_CLASS, FETCH_PARENT_LIST, FETCH_STUDENT_LIST } from '../contants';
+import {
+  FETCH_PARENTS_LINK_BY_ID,
+  FETCH_SCHOOL_CLASS,
+  FETCH_PARENT_LIST,
+  FETCH_STUDENT_LIST,
+} from '../contants';
 
 const assignParent = async ({
   parentId,
@@ -31,9 +36,12 @@ export default function useAssignParent() {
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (query) =>
-          [FETCH_STUDENT_LIST, FETCH_PARENT_LIST, FETCH_SCHOOL_CLASS].some((key) =>
-            query.queryKey.includes(key),
-          ),
+          [
+            FETCH_PARENTS_LINK_BY_ID,
+            FETCH_STUDENT_LIST,
+            FETCH_PARENT_LIST,
+            FETCH_SCHOOL_CLASS,
+          ].some((key) => query.queryKey.includes(key)),
       });
     },
   });

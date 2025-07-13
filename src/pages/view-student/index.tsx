@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useFetchUserById } from '../../hooks';
 import { ViewProfile, BreadcrumbHeader } from '../../container';
 import { Box } from '@mui/material';
-import { CustomTabs } from '../../components';
+// import { CustomTabs } from '../../components';
 import { UpdateStudent } from '../student/components';
 
 export default function ViewStudent() {
@@ -24,9 +24,9 @@ export default function ViewStudent() {
         onEdit={() => setOpenUpdate(true)}
         values={user?.data || {}}
       />
-      <Box my={3}>
+      {/* <Box my={3}>
         <CustomTabs initialIndex={0} tabs={[{ label: 'Class', content: <></> }]} />
-      </Box>
+      </Box> */}
 
       <UpdateStudent open={openUpdate} userId={userId} onClose={() => setOpenUpdate(false)} />
     </>

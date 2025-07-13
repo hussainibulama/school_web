@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { SettingsCard, SettingsHeader } from '../../components';
-import { ClassArmIcon, ClassSectionIcon, SubjectsIcon } from '../../assets';
+import { ClassArmIcon, ClassSectionIcon, SubjectsIcon, SessionIcon } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 
 export default function Settings() {
@@ -10,6 +10,7 @@ export default function Settings() {
     {
       title: 'General',
       cards: [
+        { label: 'Session & Terms', icon: SessionIcon, onClick: () => navigate('class-levels') },
         { label: 'Class Level', icon: ClassSectionIcon, onClick: () => navigate('class-levels') },
         { label: 'Class Arms', icon: ClassArmIcon, onClick: () => navigate('class-arms') },
       ],

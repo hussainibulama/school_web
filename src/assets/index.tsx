@@ -18,3 +18,4 @@ export { ReactComponent as ParentKidIcon } from './svg/parentKid.svg';
 export { ReactComponent as ClassArmIcon } from './svg/class-arm.svg';
 export { ReactComponent as ClassSectionIcon } from './svg/class-section.svg';
 export { ReactComponent as SubjectsIcon } from './svg/subjects.svg';
+export { ReactComponent as SessionIcon } from './svg/session.svg';

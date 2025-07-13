@@ -23,6 +23,7 @@ export { default as useAddClassSubjects } from './useAddClassSubjects';
 export { default as useAssignClass } from './useAssignClass';
 export { default as useAssignParent } from './useAssignParent';
 export { default as useGetClassStudentById } from './useGetClassStudentById';
+export { default as useGetParentLinksById } from './useGetParentLinksById';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';

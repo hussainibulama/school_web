@@ -3,16 +3,13 @@ import { Chip, IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React from 'react';
 
+type ModalType = 'view' | 'edit' | 'confirm' | 'assign-student' | undefined;
 type IGetColumns = {
   anchorEl: HTMLElement | null;
   menuRowId: number | null;
   handleMenuOpen: (event: React.MouseEvent<HTMLButtonElement>, rowId: number) => void;
   handleMenuClose: () => void;
-  handleOpenModalWithType: (
-    type: 'view' | 'edit' | 'confirm',
-    userId?: string,
-    active?: boolean,
-  ) => void;
+  handleOpenModalWithType: (type: ModalType, userId?: string, active?: boolean) => void;
 };
 
 export const getColumns = ({
@@ -100,6 +97,9 @@ export const getColumns = ({
             >
               <MenuItem onClick={() => handleOpenModalWithType('view', row.userId)}>View</MenuItem>
               <MenuItem onClick={() => handleOpenModalWithType('edit', row.userId)}>Edit</MenuItem>
+              <MenuItem onClick={() => handleOpenModalWithType('assign-student', row.userId)}>
+                Link Student
+              </MenuItem>
               <MenuItem
                 onClick={() => handleOpenModalWithType('confirm', row.userId, row.active)}
                 sx={(theme) => ({
