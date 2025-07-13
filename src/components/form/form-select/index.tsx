@@ -66,6 +66,7 @@ const FormSelect = ({
         sx={{
           backgroundColor: 'white',
           fontFamily: theme.typography.fontFamily,
+          textTransform: 'capitalize',
         }}
         slotProps={{
           inputLabel: {
@@ -114,6 +115,7 @@ const FormSelect = ({
             sx={{
               fontFamily: theme.typography.fontFamily,
               fontSize: '0.8rem',
+              textTransform: 'capitalize',
             }}
           >
             {opt.label}

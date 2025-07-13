@@ -7,6 +7,8 @@ import {
   GenderProgress,
   StatusProgress,
   Student as StudentIconComponent,
+  AssignClass,
+  AssignParent,
 } from './components';
 
 import { useActionsManager, useStudentList } from '../../hooks';
@@ -16,8 +18,9 @@ import { mapUserTableData, handleExport } from '../../util';
 import { getColumns } from './constants';
 import { useNavigate } from 'react-router-dom';
 
+type ModalType = 'view' | 'edit' | 'confirm' | 'assign-parent' | 'assign-class' | undefined;
 type ActionType = {
-  type: 'view' | 'edit' | 'confirm' | undefined;
+  type: ModalType;
   userId?: string;
   active?: boolean;
 };
@@ -48,11 +51,7 @@ const Student = () => {
     menuRowId,
     handleMenuOpen,
     handleMenuClose,
-    handleOpenModalWithType: (
-      type: 'view' | 'edit' | 'confirm',
-      userId?: string,
-      active?: boolean,
-    ) => {
+    handleOpenModalWithType: (type: ModalType, userId?: string, active?: boolean) => {
       if (type === 'view') {
         navigate(`${userId}`);
         return;
@@ -206,6 +205,16 @@ const Student = () => {
 
       {/* Modals */}
       <CreateStudent open={openModal && actionType.type === undefined} onClose={closeModal} />
+      <AssignClass
+        open={openModal && actionType.type === 'assign-class'}
+        onClose={closeModal}
+        userId={actionType.userId}
+      />
+      <AssignParent
+        open={openModal && actionType.type === 'assign-parent'}
+        onClose={closeModal}
+        userId={actionType.userId}
+      />
       <UpdateStudent
         open={openModal && actionType.type === 'edit'}
         userId={actionType.userId}
