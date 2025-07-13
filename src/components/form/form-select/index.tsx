@@ -1,6 +1,16 @@
-import React from 'react';
-import { Box, TextField, Typography, MenuItem, TextFieldProps, useTheme } from '@mui/material';
+import React, { useState, useMemo } from 'react';
+import {
+  Box,
+  TextField,
+  Typography,
+  MenuItem,
+  ListSubheader,
+  InputAdornment,
+  TextFieldProps,
+  useTheme,
+} from '@mui/material';
 import { ErrorMessage, useFormikContext } from 'formik';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Option {
   value: string;
@@ -21,21 +31,26 @@ const FormSelect = ({
   name,
   label,
   value,
-  options,
+  options = [],
   handleChange,
   handleBlur,
   ...rest
 }: FormSelectProps) => {
   const theme = useTheme();
+  const [searchText, setSearchText] = useState('');
 
   let isInsideFormik = false;
-
   try {
     const formik = useFormikContext();
     if (formik) isInsideFormik = true;
   } catch {
     isInsideFormik = false;
   }
+
+  const filteredOptions = useMemo(() => {
+    if (!searchText) return options;
+    return options.filter((opt) => opt.label.toLowerCase().includes(searchText.toLowerCase()));
+  }, [options, searchText]);
 
   return (
     <Box>
@@ -48,7 +63,10 @@ const FormSelect = ({
         value={value}
         onChange={handleChange}
         {...(handleBlur && { onBlur: handleBlur })}
-        sx={{ backgroundColor: 'white', fontFamily: theme.typography.fontFamily }}
+        sx={{
+          backgroundColor: 'white',
+          fontFamily: theme.typography.fontFamily,
+        }}
         slotProps={{
           inputLabel: {
             sx: { fontSize: '0.8rem' },
@@ -57,13 +75,46 @@ const FormSelect = ({
             sx: { fontSize: '0.8rem' },
           },
         }}
+        SelectProps={{
+          MenuProps: {
+            disableAutoFocusItem: true,
+          },
+        }}
         {...rest}
       >
-        {options?.map((opt) => (
+        {options.length > 10 && (
+          <ListSubheader>
+            <TextField
+              size='small'
+              autoFocus
+              placeholder='Type to search...'
+              fullWidth
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key !== 'Escape') {
+                  e.stopPropagation();
+                }
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </ListSubheader>
+        )}
+
+        {filteredOptions.map((opt) => (
           <MenuItem
             key={opt.value}
             value={opt.value}
-            sx={{ fontFamily: theme.typography.fontFamily, fontSize: '0.8rem' }}
+            sx={{
+              fontFamily: theme.typography.fontFamily,
+              fontSize: '0.8rem',
+            }}
           >
             {opt.label}
           </MenuItem>

@@ -26,7 +26,7 @@ export default function StatusProgress() {
         }}
       >
         {isLoading && <Loader />}
-        <DualProgressCircle data={stats} />
+        <DualProgressCircle data={stats} colors={['rgb(44, 218, 157)', 'rgb(148, 147, 152)']} />
       </Box>
     </HoverShadowWrapper>
   );

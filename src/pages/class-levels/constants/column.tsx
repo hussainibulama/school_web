@@ -26,14 +26,14 @@ export const getColumns = ({
       disableColumnMenu: true,
     },
     {
-      field: 'class',
+      field: 'label',
       headerName: 'Level Name',
       flex: 1,
       minWidth: 150,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <Box component='span' textTransform='capitalize'>
-            {params.row.label}
+            {params.value}
           </Box>
         );
       },
@@ -66,7 +66,7 @@ export const getColumns = ({
       minWidth: 150,
       filterable: false,
       disableColumnMenu: true,
-      renderCell: ({ value }) => <Chip label={'Active'} color='success' size='small' />,
+      renderCell: () => <Chip label={'Active'} color='success' size='small' />,
     },
     // {
     //   field: 'actions',

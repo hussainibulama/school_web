@@ -12,6 +12,8 @@ import {
   ClassArms,
   ClassLevels,
   Subjects,
+  Classes,
+  ViewClasses,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
@@ -44,7 +46,8 @@ export const routes = [
       { path: 'parent', element: <Parent /> },
       { path: 'parent/:id', element: <ViewParent /> },
       { path: 'fees', element: <Dashboard /> },
-      { path: 'classes', element: <Dashboard /> },
+      { path: 'classes', element: <Classes /> },
+      { path: 'classes/:id', element: <ViewClasses /> },
       { path: 'broadsheet', element: <Dashboard /> },
       { path: 'cbt', element: <Dashboard /> },
       { path: 'lesson-plan', element: <Dashboard /> },

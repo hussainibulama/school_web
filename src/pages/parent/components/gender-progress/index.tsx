@@ -26,7 +26,7 @@ export default function GenderProgress() {
         }}
       >
         {isLoading && <Loader />}
-        <DualProgressCircle data={stats} colors={['rgb(44, 218, 157)', 'rgb(148, 147, 152)']} />
+        <DualProgressCircle data={stats} />
       </Box>
     </HoverShadowWrapper>
   );

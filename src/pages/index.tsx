@@ -11,3 +11,5 @@ export { default as Settings } from './settings';
 export { default as ClassArms } from './class-arms';
 export { default as ClassLevels } from './class-levels';
 export { default as Subjects } from './subjects';
+export { default as Classes } from './classes';
+export { default as ViewClasses } from './view-classes';

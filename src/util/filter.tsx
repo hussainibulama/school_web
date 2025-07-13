@@ -12,3 +12,7 @@ export function mapUserTableData(data: any[] = []) {
     status: item.active === true ? 'Active' : 'Deactivated',
   }));
 }
+
+export const capitalize = (s: string) => {
+  return s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s;
+};
