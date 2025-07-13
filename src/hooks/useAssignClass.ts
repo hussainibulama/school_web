@@ -1,6 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '../api/axios';
-import { FETCH_SCHOOL_CLASS, FETCH_PARENT_LIST, FETCH_STUDENT_LIST } from '../contants';
+import {
+  FETCH_SCHOOL_CLASS,
+  FETCH_PARENT_LIST,
+  FETCH_STUDENT_LIST,
+  FETCH_CLASS_STUDENTS_BY_ID,
+} from '../contants';
 
 const assignClass = async ({
   studentIds,
@@ -31,9 +36,12 @@ export default function useAssignClass() {
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (query) =>
-          [FETCH_STUDENT_LIST, FETCH_PARENT_LIST, FETCH_SCHOOL_CLASS].some((key) =>
-            query.queryKey.includes(key),
-          ),
+          [
+            FETCH_STUDENT_LIST,
+            FETCH_PARENT_LIST,
+            FETCH_SCHOOL_CLASS,
+            FETCH_CLASS_STUDENTS_BY_ID,
+          ].some((key) => query.queryKey.includes(key)),
       });
     },
   });

@@ -3,7 +3,7 @@ import { useGetSchoolClass } from '../../hooks';
 import { BreadcrumbHeader } from '../../container';
 import { Box } from '@mui/material';
 import { CustomTabs, ClassBanner } from '../../components';
-import { FormTeacherCard } from './components';
+import { FormTeacherCard, MembersList, ClassSubjects } from './components';
 
 export default function ViewClasses() {
   const { id: schoolClassId } = useParams();
@@ -22,8 +22,8 @@ export default function ViewClasses() {
         <CustomTabs
           initialIndex={0}
           tabs={[
-            { label: 'Class Members', content: <></> },
-            { label: 'Subjects', content: <></> },
+            { label: 'Class Members', content: <MembersList schoolClassId={schoolClassId} /> },
+            { label: 'Subjects', content: <ClassSubjects schoolClassId={schoolClassId} /> },
             {
               label: 'Form Teacher',
               content: <FormTeacherCard schoolClassId={schoolClassId || ''} />,
