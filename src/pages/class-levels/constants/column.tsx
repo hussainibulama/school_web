@@ -1,6 +1,7 @@
 import React from 'react';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Chip } from '@mui/material';
+import { formatDate } from '../../../util';
 
 type IGetColumns = {
   anchorEl: HTMLElement | null;
@@ -58,6 +59,7 @@ export const getColumns = ({
       flex: 1,
       minWidth: 150,
       disableColumnMenu: true,
+      renderCell: ({ value }) => <>{formatDate(value)}</>,
     },
     {
       field: 'status',

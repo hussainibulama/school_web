@@ -13,14 +13,14 @@ export default function ViewProfile({ values, preview, onEdit, isLoading }: IVie
   const fields = [
     {
       label: 'Full Name',
-      value: `${values.firstName} ${values?.middleName || ''} ${values.lastName}`,
+      value: `${values?.firstName || ''} ${values?.middleName || ''} ${values?.lastName || ''}`,
     },
-    { label: 'Email', value: values.email },
-    { label: 'Phone Number', value: values.phone },
+    { label: 'Email', value: values?.email || '' },
+    { label: 'Phone Number', value: values?.phone || '' },
     { label: 'Gender', value: values.gender === 'm' ? 'Male' : 'Female' },
-    { label: 'Date of Birth', value: values.dob },
-    { label: 'Role', value: values.role },
-    { label: 'Address', value: values.address },
+    { label: 'Date of Birth', value: values?.dob || '' },
+    { label: 'Role', value: values?.role || '' },
+    { label: 'Address', value: values?.address || '' },
   ];
 
   return (
@@ -58,7 +58,7 @@ export default function ViewProfile({ values, preview, onEdit, isLoading }: IVie
 
             <Box display='flex' flexDirection='column'>
               <Typography variant='h6' sx={{ fontWeight: 600 }} textTransform='capitalize'>
-                {`${values.firstName} ${values?.middleName || ''} ${values.lastName}`}
+                {`${values?.firstName || ''} ${values?.middleName || ''} ${values?.lastName || ''}`}
               </Typography>
               <Typography variant='body2' color='textSecondary' textTransform='capitalize'>
                 {values.role === 'proprietor' ? '⭐ Super Admin' : values.role || 'N/A'}

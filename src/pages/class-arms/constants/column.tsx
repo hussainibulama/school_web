@@ -2,6 +2,7 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Box, Chip, IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React from 'react';
+import { formatDate } from '../../../util';
 
 type IGetColumns = {
   anchorEl: HTMLElement | null;
@@ -49,6 +50,7 @@ export const getColumns = ({
       flex: 1,
       minWidth: 150,
       disableColumnMenu: true,
+      renderCell: ({ value }) => <>{formatDate(value)}</>,
     },
     {
       field: 'status',
