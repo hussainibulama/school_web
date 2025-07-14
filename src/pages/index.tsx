@@ -14,3 +14,4 @@ export { default as Subjects } from './subjects';
 export { default as Classes } from './classes';
 export { default as ViewClasses } from './view-classes';
 export { default as ClassSubjects } from './class-subjects';
+export { default as Session } from './session';

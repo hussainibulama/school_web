@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useMemo } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -9,71 +9,97 @@ import {
   Button,
   Box,
   useMediaQuery,
-  Stack,
   useTheme,
 } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowDropDownCircle } from '@mui/icons-material';
-import { useUserInfo } from '../../hooks';
-import { PanelLeftIcon } from '../../assets';
-import { useGeneralContext } from '../../hoc';
 import { Helmet } from 'react-helmet-async';
-import { APP_NAME } from '../../contants';
+
+import { useGetSchoolSessions, useUserInfo } from '../../hooks';
+import { PanelLeftIcon, SessionIcon } from '../../assets';
+import { useGeneralContext } from '../../hoc';
+import { APP_NAME, AUTH_STORAGE_KEY, TERM_SHORT_CUTS } from '../../contants';
+import { getCurrentPage } from '../../util';
 
 const TopNav = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const { data: user } = useUserInfo();
   const location = useLocation();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'));
+  const navigate = useNavigate();
 
+  const { data: session } = useGetSchoolSessions();
+  const { data: user } = useUserInfo();
   const { setShowIconsOnly } = useGeneralContext();
 
-  const handleMenuOpen = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  const currentSession = session?.data?.find((entry: any) => entry.isCurrent);
+
+  const termText = useMemo(
+    () => TERM_SHORT_CUTS[currentSession?.currentTerm || 1],
+    [currentSession?.currentTerm],
+  );
+
+  const academicYear = useMemo(
+    () => currentSession?.academicYear?.replace('/', '-') || '',
+    [currentSession?.academicYear],
+  );
+
+  const handleMenuOpen = (event: MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
 
   const handleLogout = () => {
-    console.log('Logging out...');
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    navigate('/', { replace: true });
     handleMenuClose();
   };
 
   const handleProfile = () => {
-    console.log('Going to profile...');
+    navigate(`/dashboard/staff/${user?.data?.userId}`);
     handleMenuClose();
   };
 
-  const pathSegments = location.pathname.split('/').filter(Boolean);
-
-  // Helper function to detect likely ID (UUID or numeric ID)
-  const isLikelyId = (segment: string) => {
+  const renderSessionTerm = () => {
+    if (academicYear === '') return <></>;
     return (
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(segment) ||
-      /^\d+$/.test(segment)
+      <Box
+        display={!isMobile ? 'flex' : 'none'}
+        alignItems='center'
+        color='rgb(56, 58, 63)'
+        gap={1}
+      >
+        <SessionIcon height={12} width={12} />
+        <Typography variant='body2' sx={{ fontSize: 12, textTransform: 'capitalize' }}>
+          {termText} / {academicYear}
+        </Typography>
+      </Box>
     );
   };
 
-  let currentPage = '';
-
-  if (pathSegments.length === 0) {
-    currentPage = 'Dashboard';
-  } else if (isLikelyId(pathSegments[pathSegments.length - 1])) {
-    // If last segment is an ID, use the one before it
-    currentPage = pathSegments[pathSegments.length - 2];
-  } else {
-    currentPage = pathSegments[pathSegments.length - 1];
-  }
-
-  // Format: replace dashes and capitalize
-  currentPage = currentPage?.replace(/-/g, ' ')?.replace(/\b\w/g, (char) => char.toUpperCase());
-  const textStyles = {
-    fontFamily: theme.typography.fontFamily,
-    color: 'rgb(56, 58, 63)',
+  const renderUserInfo = () => {
+    const name = `${user?.data?.firstName || ''} ${user?.data?.middleName || ''} ${user?.data?.lastName || ''}`;
+    return (
+      <Box display='flex' alignItems='center'>
+        <Avatar
+          sx={{
+            width: 30,
+            height: 30,
+            marginRight: 1,
+            backgroundColor: 'rgb(157, 157, 183)',
+          }}
+        />
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Typography sx={{ fontSize: 12, color: 'rgb(56, 58, 63)' }}>{name}</Typography>
+          <Typography sx={{ fontSize: 10, color: 'rgba(105, 105, 114, 1)' }}>
+            {user?.data?.email || ''}
+          </Typography>
+        </Box>
+        <Button onClick={handleMenuOpen} sx={{ padding: 0, minWidth: 'auto', ml: 1 }}>
+          <ArrowDropDownCircle sx={{ color: 'rgb(157, 157, 183)' }} />
+        </Button>
+      </Box>
+    );
   };
 
   return (
@@ -84,82 +110,59 @@ const TopNav = () => {
         backgroundColor: 'white',
         boxShadow: 'none',
         borderBottom: '1px solid #ddd',
-        top: 0,
         transition: 'all 0.3s ease-in-out',
-        width: '100%',
       }}
     >
       <Helmet>
-        <title>
-          {currentPage} | {APP_NAME} Cloud Based SIMS
-        </title>
+        <title>{`${getCurrentPage(location)} | ${APP_NAME} Cloud Based SIMS`}</title>
       </Helmet>
-      <Toolbar
-        sx={{
-          display: 'flex',
-          justifyContent: !isMobile ? 'space-between' : 'flex-end',
-        }}
-      >
-        <Stack spacing={2} direction='row'>
+
+      <Toolbar sx={{ justifyContent: isMobile ? 'flex-end' : 'space-between' }}>
+        {/* Left Section */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {!isMobile && (
             <Button
-              sx={{
-                cursor: 'pointer',
-                color: 'black',
-                minWidth: 'fit-content',
-                p: 0,
-                m: 0,
-              }}
               onClick={() => setShowIconsOnly((prev) => !prev)}
+              sx={{ color: 'black', minWidth: 'fit-content', p: 0 }}
             >
               <PanelLeftIcon />
             </Button>
           )}
           <Typography
             variant='h6'
-            component='div'
+            display={!isMobile ? 'flex' : 'none'}
             sx={{
               color: 'rgb(56, 58, 63)',
-              fontFamily: theme.typography.fontFamily,
-              fontSize: '16px',
+              fontSize: 16,
               fontWeight: 'bold',
               textTransform: 'capitalize',
             }}
           >
-            {currentPage}
+            {getCurrentPage(location)}
           </Typography>
-        </Stack>
-        {!isMobile && (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Avatar sx={{ width: 30, height: 30, marginRight: 1 }} />
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography sx={{ ...textStyles, fontSize: '12px' }}>
-                {`${user?.data?.firstName} ${user?.data?.middleName} ${user?.data?.lastName}`}
-              </Typography>
-              <Typography sx={{ ...textStyles, fontSize: '11px' }}>{user?.data?.email}</Typography>
-            </Box>
-            <Button
-              onClick={handleMenuOpen}
-              sx={{ display: 'flex', alignItems: 'center', padding: 0 }}
-            >
-              <ArrowDropDownCircle sx={{ color: 'rgb(216, 216, 227)' }} />
-            </Button>
+        </Box>
+
+        {/* Right Section */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          {renderSessionTerm()}
+          <Box>
+            {renderUserInfo()}
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+              {[
+                { label: 'Profile', onClick: handleProfile },
+                { label: 'Logout', onClick: handleLogout },
+              ].map((item, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={item.onClick}
+                  sx={{ fontSize: 12, fontFamily: theme.typography.fontFamily, py: 0.5 }}
+                >
+                  {item.label}
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
-        )}
-        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-          {[
-            { label: 'Profile', onClick: handleProfile },
-            { label: 'Logout', onClick: handleLogout },
-          ].map((entry, index) => (
-            <MenuItem
-              key={index}
-              onClick={entry.onClick}
-              sx={{ fontFamily: theme.typography.fontFamily, fontSize: '12px' }}
-            >
-              {entry.label}
-            </MenuItem>
-          ))}
-        </Menu>
+        </Box>
       </Toolbar>
     </AppBar>
   );

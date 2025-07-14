@@ -24,6 +24,10 @@ export { default as useAssignClass } from './useAssignClass';
 export { default as useAssignParent } from './useAssignParent';
 export { default as useGetClassStudentById } from './useGetClassStudentById';
 export { default as useGetParentLinksById } from './useGetParentLinksById';
+export { default as useGetSchoolSessions } from './useGetSchoolSessions';
+export { default as useAddSchoolSession } from './useAddSchoolSession';
+export { default as useUpdateSchoolSession } from './useUpdateSchoolSession';
+export { default as useGetAcademicYears } from './useGetAcademicYears';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';

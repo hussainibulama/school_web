@@ -25,7 +25,11 @@ const AuthWrapper = ({ children }: { children: ReactNode }) => {
     window.addEventListener(CUSTOM_EVENT_TOKEN_EXPIRE, handleAuthExpired);
     return () => window.removeEventListener(CUSTOM_EVENT_TOKEN_EXPIRE, handleAuthExpired);
   }, [email, schoolId, navigate]);
-
+  useEffect(() => {
+    if (!email && !isLoading) {
+      navigate('/', { replace: true });
+    }
+  }, [email, navigate, isLoading]);
   return (
     <Fragment>
       {isLoading && <Loader />}

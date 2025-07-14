@@ -13,7 +13,7 @@ import { ErrorMessage, useFormikContext } from 'formik';
 import SearchIcon from '@mui/icons-material/Search';
 
 interface Option {
-  value: string;
+  value: string | number | any;
   label: string;
 }
 

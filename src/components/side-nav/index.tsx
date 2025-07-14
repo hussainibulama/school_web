@@ -81,12 +81,12 @@ const SideNav = () => {
           <Box
             sx={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              justifyContent: 'flex-start',
+              width: '100%',
               p: 2,
             }}
           >
-            <LogoVireo logoSize={40} hideName={showIconsOnly} />
+            <LogoVireo logoSize={40} gap={2} nameSize={30} />
           </Box>
           <List>
             {menuItems.map((item) => (

@@ -10,7 +10,7 @@ export default function Settings() {
     {
       title: 'General',
       cards: [
-        { label: 'Session & Terms', icon: SessionIcon, onClick: () => navigate('class-levels') },
+        { label: 'Session & Terms', icon: SessionIcon, onClick: () => navigate('session') },
         { label: 'Class Level', icon: ClassSectionIcon, onClick: () => navigate('class-levels') },
         { label: 'Class Arms', icon: ClassArmIcon, onClick: () => navigate('class-arms') },
       ],

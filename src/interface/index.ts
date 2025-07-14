@@ -52,3 +52,14 @@ export interface CreateClassPayload {
   classId: string;
   label: string;
 }
+export interface CreateSessionPayload {
+  academicYear: string;
+  firstTermStart?: Date;
+  firstTermEnd?: Date;
+  secondTermStart?: Date;
+  secondTermEnd?: Date;
+  thirdTermStart?: Date;
+  thirdTermEnd?: Date;
+  currentTerm?: number;
+  isCurrent?: boolean;
+}

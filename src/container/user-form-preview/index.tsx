@@ -8,13 +8,16 @@ interface IUserFormPreviewProps {
 
 export default function UserFormPreview({ values, preview }: IUserFormPreviewProps) {
   const fields = [
-    { label: 'Full Name', value: `${values.firstName} ${values.middleName} ${values.lastName}` },
-    { label: 'Email', value: values.email },
-    { label: 'Phone Number', value: values.phone },
+    {
+      label: 'Full Name',
+      value: `${values?.firstName || ''} ${values?.middleName || ''} ${values?.lastName || ''}`,
+    },
+    { label: 'Email', value: values?.email || '' },
+    { label: 'Phone Number', value: values?.phone || '' },
     { label: 'Gender', value: values.gender === 'm' ? 'Male' : 'Female' },
-    { label: 'Date of Birth', value: values.dob },
-    { label: 'Role', value: values.role },
-    { label: 'Address', value: values.address },
+    { label: 'Date of Birth', value: values?.dob || '' },
+    { label: 'Role', value: values?.role || '' },
+    { label: 'Address', value: values?.address || '' },
   ];
 
   return (

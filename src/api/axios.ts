@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AUTH_STORAGE_KEY, CUSTOM_EVENT_TOKEN_EXPIRE } from '../contants';
 // Your base URL
-const baseURL = 'http://localhost:3112/api/v1';
+const baseURL = ' https://2ca56bc11b33.ngrok-free.app/api/v1';
 
 // Create axios instance
 const axiosInstance = axios.create({

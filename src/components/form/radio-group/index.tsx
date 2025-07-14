@@ -12,13 +12,13 @@ import {
 
 interface RadioOption {
   label: string;
-  value: string;
+  value: string | boolean | any;
 }
 
 interface Props {
   name: string;
   label?: string;
-  value: string;
+  value: string | any;
   options: RadioOption[];
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
