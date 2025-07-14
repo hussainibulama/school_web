@@ -28,6 +28,7 @@ export { default as useGetSchoolSessions } from './useGetSchoolSessions';
 export { default as useAddSchoolSession } from './useAddSchoolSession';
 export { default as useUpdateSchoolSession } from './useUpdateSchoolSession';
 export { default as useGetAcademicYears } from './useGetAcademicYears';
+export { default as useGetStudentsLinkWithClass } from './useGetStudentsLinkWithClass';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';

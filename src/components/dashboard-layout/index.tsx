@@ -31,7 +31,7 @@ const DashboardLayout = () => {
           component='main'
           sx={{
             flexGrow: 1,
-            p: 4,
+            p: { xs: 2, sm: 4 },
             minWidth: 0,
             overflow: 'auto', // ✅ scrolls inside instead of full screen
           }}
