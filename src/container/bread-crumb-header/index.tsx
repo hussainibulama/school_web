@@ -4,9 +4,10 @@ import { LessThan } from '../../assets';
 
 interface BreadcrumbHeaderProps {
   title?: string;
+  backTitle?: string;
 }
 
-export default function BreadcrumbHeader({ title }: BreadcrumbHeaderProps) {
+export default function BreadcrumbHeader({ title, backTitle }: BreadcrumbHeaderProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -53,7 +54,7 @@ export default function BreadcrumbHeader({ title }: BreadcrumbHeaderProps) {
           },
         }}
       >
-        {secondLastSegment}
+        {backTitle ? backTitle : secondLastSegment}
       </Button>
       {title && (
         <Typography

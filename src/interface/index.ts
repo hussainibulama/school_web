@@ -63,3 +63,14 @@ export interface CreateSessionPayload {
   currentTerm?: number;
   isCurrent?: boolean;
 }
+export interface CreateStudentResultPayload {
+  schoolClassId: string;
+  subjectId: string;
+  academicYear: string;
+  academicTerm: string;
+  studentId: string;
+  firstCaScore?: number;
+  secondCaScore?: number;
+  examScore?: number;
+  remark?: string;
+}

@@ -18,7 +18,7 @@ export default function ViewParent() {
     <>
       <Box py={4}>
         <BreadcrumbHeader
-          title={`${user?.data?.firstName} ${user?.data?.middleName || ''} ${user?.data?.lastName}`}
+          title={`${user?.data?.firstName || ''} ${user?.data?.middleName || ''} ${user?.data?.lastName || ''}`}
         />
       </Box>
 

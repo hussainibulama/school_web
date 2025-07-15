@@ -15,3 +15,6 @@ export { default as Classes } from './classes';
 export { default as ViewClasses } from './view-classes';
 export { default as ClassSubjects } from './class-subjects';
 export { default as Session } from './session';
+export { default as Assessment } from './assessment';
+export { default as ViewAssessmentSubjects } from './view-assessment-subjects';
+export { default as AddSubjectScore } from './add-subject-score';

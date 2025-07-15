@@ -28,19 +28,18 @@ export const getCurrentPage = (location: any) => {
     );
   };
 
-  let currentPage = '';
+  let currentPage = ''; // default
 
-  if (pathSegments.length === 0) {
-    currentPage = 'Dashboard';
-  } else if (isLikelyId(pathSegments[pathSegments.length - 1])) {
-    // If last segment is an ID, use the one before it
-    currentPage = pathSegments[pathSegments.length - 2];
-  } else {
-    currentPage = pathSegments[pathSegments.length - 1];
+  // Loop backwards to find the first non-ID segment
+  for (let i = pathSegments.length - 1; i >= 0; i--) {
+    if (!isLikelyId(pathSegments[i])) {
+      currentPage = pathSegments[i];
+      break;
+    }
   }
 
   // Format: replace dashes and capitalize
-  currentPage = currentPage?.replace(/-/g, ' ')?.replace(/\b\w/g, (char) => char.toUpperCase());
+  currentPage = currentPage.replace(/-/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 
   return currentPage;
 };

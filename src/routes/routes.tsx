@@ -16,6 +16,9 @@ import {
   ViewClasses,
   ClassSubjects,
   Session,
+  Assessment,
+  ViewAssessmentSubjects,
+  AddSubjectScore,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
@@ -55,7 +58,9 @@ export const routes = [
       { path: 'lesson-plan', element: <Dashboard /> },
       { path: 'messaging', element: <Dashboard /> },
       { path: 'time-table', element: <Dashboard /> },
-      { path: 'assessment', element: <Dashboard /> },
+      { path: 'assessment', element: <Assessment /> },
+      { path: 'assessment/:schoolClassId', element: <ViewAssessmentSubjects /> },
+      { path: 'assessment/:schoolClassId/:subjectId', element: <AddSubjectScore /> },
       { path: 'settings', element: <Settings /> },
       { path: 'settings/class-arms', element: <ClassArms /> },
       { path: 'settings/class-levels', element: <ClassLevels /> },

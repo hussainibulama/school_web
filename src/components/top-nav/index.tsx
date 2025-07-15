@@ -86,7 +86,7 @@ const TopNav = () => {
             width: 30,
             height: 30,
             marginRight: 1,
-            backgroundColor: 'rgb(157, 157, 183)',
+            backgroundColor: 'rgba(210, 210, 219, 1)',
           }}
         />
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -96,7 +96,7 @@ const TopNav = () => {
           </Typography>
         </Box>
         <Button onClick={handleMenuOpen} sx={{ padding: 0, minWidth: 'auto', ml: 1 }}>
-          <ArrowDropDownCircle sx={{ color: 'rgb(157, 157, 183)' }} />
+          <ArrowDropDownCircle sx={{ color: 'rgba(210, 210, 219, 1)' }} />
         </Button>
       </Box>
     );
