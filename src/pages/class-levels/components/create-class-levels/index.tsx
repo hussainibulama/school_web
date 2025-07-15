@@ -13,9 +13,14 @@ import { useEffect, useState, useMemo, useRef } from 'react';
 interface ICreateClassLevelsProps {
   open: boolean;
   onClose: () => void;
+  isOnboarding?: boolean;
 }
 
-export default function CreateClassLevels({ open, onClose }: ICreateClassLevelsProps) {
+export default function CreateClassLevels({
+  open,
+  onClose,
+  isOnboarding,
+}: ICreateClassLevelsProps) {
   const { data: classArms, isLoading } = useGetClassArms();
   const { data: classes, isLoading: _isLoading } = useGetGeneralClass();
   const { data: schoolClasses, isLoading: __isLoading } = useGetSchoolClass();
@@ -206,7 +211,13 @@ export default function CreateClassLevels({ open, onClose }: ICreateClassLevelsP
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={
+        isOnboarding
+          ? () => {
+              /* intentionally empty */
+            }
+          : onClose
+      }
       onSubmit={handleSubmit}
       isSubmitting={isPending}
       isLoading={isLoading || _isLoading || __isLoading}

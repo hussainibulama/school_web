@@ -17,3 +17,4 @@ export { default as ReLogin } from './re-login';
 export { default as SettingsCard } from './settings-card';
 export { default as SettingsHeader } from './settings-header';
 export { default as ClassBanner } from './class-banner';
+export { default as FinishSetup } from './finish-setup';

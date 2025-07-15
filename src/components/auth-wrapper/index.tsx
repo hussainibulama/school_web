@@ -1,7 +1,7 @@
 import { useEffect, useState, ReactNode, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserInfo } from '../../hooks';
-import { ReLogin, Loader } from '..';
+import { ReLogin, Loader, FinishSetup } from '..';
 import { CUSTOM_EVENT_TOKEN_EXPIRE } from '../../contants';
 
 const AuthWrapper = ({ children }: { children: ReactNode }) => {
@@ -42,6 +42,7 @@ const AuthWrapper = ({ children }: { children: ReactNode }) => {
           schoolId={schoolId}
         />
       )}
+      <FinishSetup />
     </Fragment>
   );
 };

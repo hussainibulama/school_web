@@ -8,9 +8,10 @@ import { useEffect, useMemo, useState } from 'react';
 interface ICreateUpdateArmProps {
   open: boolean;
   onClose: () => void;
+  isOnboarding?: boolean;
 }
 
-export default function TemplateModal({ open, onClose }: ICreateUpdateArmProps) {
+export default function TemplateModal({ open, onClose, isOnboarding }: ICreateUpdateArmProps) {
   const { data: classArms, isLoading } = useGetClassArms();
 
   const existingArms = useMemo(() => {
@@ -71,7 +72,13 @@ export default function TemplateModal({ open, onClose }: ICreateUpdateArmProps) 
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={
+        isOnboarding
+          ? () => {
+              /* intentionally empty */
+            }
+          : onClose
+      }
       onSubmit={handleSubmit}
       isSubmitting={isPending}
       isLoading={isLoading}

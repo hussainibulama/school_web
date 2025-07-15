@@ -17,7 +17,15 @@ const UpdateSessionSchema = Yup.object().shape({
   isCurrent: Yup.boolean().required('Is Current is required'),
 });
 
-const CreateSession = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const CreateSession = ({
+  open,
+  onClose,
+  isOnboarding,
+}: {
+  open: boolean;
+  onClose: () => void;
+  isOnboarding?: boolean;
+}) => {
   const { data: academicYears, isLoading } = useGetAcademicYears();
   const { mutate: addSession, isPending } = useAddSchoolSession();
   const { showSnackbar } = useSnackbar();
@@ -38,7 +46,7 @@ const CreateSession = ({ open, onClose }: { open: boolean; onClose: () => void }
       thirdTermStart: '',
       thirdTermEnd: '',
       currentTerm: 1,
-      isCurrent: false,
+      isCurrent: isOnboarding ? true : false,
     },
     validationSchema: UpdateSessionSchema,
     enableReinitialize: true,
@@ -66,7 +74,13 @@ const CreateSession = ({ open, onClose }: { open: boolean; onClose: () => void }
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={
+        isOnboarding
+          ? () => {
+              /* intentionally empty */
+            }
+          : handleClose
+      }
       isSubmitting={isPending}
       title='Create Session'
       onSubmit={formik.handleSubmit}
@@ -198,7 +212,7 @@ const CreateSession = ({ open, onClose }: { open: boolean; onClose: () => void }
                 sx={{ '& .MuiSelect-select': { fontSize: '0.875rem' } }}
               />
             </Box>
-            <Box flexBasis='100%'>
+            <Box flexBasis='100%' display={isOnboarding ? 'none' : 'flex'}>
               <RadioGroup
                 name='isCurrent'
                 label='Is Current Session?'
