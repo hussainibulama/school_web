@@ -32,9 +32,8 @@ const Login = () => {
       //Persist email rememberMe
       localStorage.setItem(AUTH_EMAIL_PERSIST_KEY, values?.email);
     }
-    if (hasSchools) {
-      // Login flow
-      loginUser(values, {
+    const logUser = (schoolId?: string) => {
+      loginUser(schoolId ? { ...values, schoolId } : values, {
         onSuccess: (res) => {
           localStorage.setItem(AUTH_STORAGE_KEY, res?.data?.token);
           showSnackbar(res?.message || 'Success', 'success');
@@ -47,10 +46,19 @@ const Login = () => {
         },
         onSettled: () => actions.setSubmitting(false),
       });
+    };
+    if (hasSchools) {
+      // Login flow
+      logUser();
     } else {
       // School initialization flow
       initializeEmail(values.email, {
         onSuccess: (res) => {
+          if (res?.data?.length === 1) {
+            // if email associated to just one school, then skip 2 and login
+            logUser(res.data[0]?.schoolId);
+            return;
+          }
           showSnackbar('User found, please select school to proceed', 'success');
           setSchools(res.data ?? []);
         },
