@@ -46,8 +46,10 @@ const Signup = () => {
   };
   const handleSubmit = (values: SignupPayload, actions: FormikHelpers<SignupPayload>) => {
     showSnackbar('Registering...', 'success');
-
-    signUpUser(values, {
+    const filtered = Object.fromEntries(
+      Object.entries(values).filter(([_, value]) => value !== ''),
+    );
+    signUpUser(filtered as any, {
       onSuccess: (res) => {
         showSnackbar('Registered Successfully, logging you in....', 'success');
         // if successfully signup, log user in
