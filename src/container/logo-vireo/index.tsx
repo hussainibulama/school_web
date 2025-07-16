@@ -8,6 +8,7 @@ type LogoVireoProps = {
   logoSize?: number; // width in px
   nameSize?: number | string; // e.g. '24px' or 24
   centered?: boolean;
+  textColor?: string;
   gap?: number;
 };
 
@@ -18,6 +19,7 @@ export default function LogoVireo({
   nameSize = 36,
   centered = false,
   gap = 1,
+  textColor,
 }: LogoVireoProps) {
   const theme = useTheme();
 
@@ -49,7 +51,7 @@ export default function LogoVireo({
             fontFamily: theme.typography.fontFamily,
             fontSize: nameSize,
             fontWeight: 600,
-            color: '#514744',
+            color: textColor || '#514744',
           }}
         >
           {APP_NAME}

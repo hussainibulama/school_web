@@ -19,13 +19,14 @@ import {
   Assessment,
   ViewAssessmentSubjects,
   AddSubjectScore,
+  HomePage,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
 export const routes = [
   {
     path: '/',
-    element: <Login />,
+    element: <HomePage />,
   },
   {
     path: '/login',

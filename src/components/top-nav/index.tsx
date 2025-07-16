@@ -51,7 +51,7 @@ const TopNav = () => {
 
   const handleLogout = () => {
     localStorage.removeItem(AUTH_STORAGE_KEY);
-    navigate('/', { replace: true });
+    navigate('/login', { replace: true });
     handleMenuClose();
   };
 

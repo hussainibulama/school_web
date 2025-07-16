@@ -1,5 +1,6 @@
 // png
 export { default as Logo } from './png/logo-vireo.png';
+export { default as LandingPageMainBg } from './png/bg2.jpg';
 
 //svg
 export { ReactComponent as DashboardIcon } from './svg/dashboard.svg';

@@ -16,7 +16,7 @@ const AuthWrapper = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const handleAuthExpired = () => {
       if (!email || !schoolId) {
-        navigate('/', { replace: true });
+        navigate('/login', { replace: true });
         return;
       }
       setIsLoginRequired(true);
@@ -25,11 +25,13 @@ const AuthWrapper = ({ children }: { children: ReactNode }) => {
     window.addEventListener(CUSTOM_EVENT_TOKEN_EXPIRE, handleAuthExpired);
     return () => window.removeEventListener(CUSTOM_EVENT_TOKEN_EXPIRE, handleAuthExpired);
   }, [email, schoolId, navigate]);
+
   useEffect(() => {
     if (!email && !isLoading) {
-      navigate('/', { replace: true });
+      navigate('/login', { replace: true });
     }
   }, [email, navigate, isLoading]);
+
   return (
     <Fragment>
       {isLoading && <Loader />}
