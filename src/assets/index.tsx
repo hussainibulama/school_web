@@ -6,6 +6,7 @@ export { default as LandingPageMainBg } from './png/bg2.jpg';
 export { ReactComponent as DashboardIcon } from './svg/dashboard.svg';
 export { ReactComponent as SettingsIcon } from './svg/settings.svg';
 export { ReactComponent as AssessmentIcon } from './svg/assessment.svg';
+export { ReactComponent as AttendanceIcon } from './svg/attendance.svg';
 export { ReactComponent as PanelLeftIcon } from './svg/panel-left.svg';
 export { ReactComponent as StudentIcon } from './svg/student.svg';
 export { ReactComponent as StaffIcon } from './svg/staff.svg';

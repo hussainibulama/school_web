@@ -10,6 +10,7 @@ import {
   StudentIcon,
   ParentIcon,
   StaffIcon,
+  AttendanceIcon,
 } from '../../assets';
 import { useGeneralContext } from '../../hoc';
 import { SideNavItem } from './component';
@@ -28,6 +29,7 @@ const menuItems = [
   { label: 'Student', path: 'student', icon: <StudentIcon {...iconStyle} /> },
   { label: 'Parent', path: 'parent', icon: <ParentIcon {...iconStyle} /> },
   { label: 'Classes', path: 'classes', icon: <ClassIcon {...iconStyle} /> },
+  { label: 'Attendace', path: 'attendance', icon: <AttendanceIcon {...iconStyle} /> },
   { label: 'Assessment', path: 'assessment', icon: <AssessmentIcon {...iconStyle} /> },
 ];
 

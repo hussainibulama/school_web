@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { AUTH_STORAGE_KEY, CUSTOM_EVENT_TOKEN_EXPIRE } from '../contants';
 // Your base URL
-const baseURL = ' https://api.vireoschool.com/api/v1';
-
+const baseURL = process.env.REACT_APP_API_URL;
 // Create axios instance
 const axiosInstance = axios.create({
   baseURL,

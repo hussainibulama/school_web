@@ -31,6 +31,8 @@ export { default as useGetAcademicYears } from './useGetAcademicYears';
 export { default as useGetStudentsLinkWithClass } from './useGetStudentsLinkWithClass';
 export { default as useCreateStudentResult } from './useCreateStudentResult';
 export { default as useGetStudentResultById } from './useGetStudentResultById';
+export { default as useCreateAttendance } from './useCreateAttendance';
+export { default as useGetAttendance } from './useGetAttendance';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';

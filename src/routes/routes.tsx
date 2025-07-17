@@ -20,6 +20,8 @@ import {
   ViewAssessmentSubjects,
   AddSubjectScore,
   HomePage,
+  Attendace,
+  ViewAttendanceStudents,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
@@ -55,6 +57,8 @@ export const routes = [
       { path: 'classes', element: <Classes /> },
       { path: 'classes/:id', element: <ViewClasses /> },
       { path: 'broadsheet', element: <Dashboard /> },
+      { path: 'attendance', element: <Attendace /> },
+      { path: 'attendance/:schoolClassId', element: <ViewAttendanceStudents /> },
       { path: 'cbt', element: <Dashboard /> },
       { path: 'lesson-plan', element: <Dashboard /> },
       { path: 'messaging', element: <Dashboard /> },
