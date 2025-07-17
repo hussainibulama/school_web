@@ -22,3 +22,4 @@ export { ReactComponent as ClassSectionIcon } from './svg/class-section.svg';
 export { ReactComponent as SubjectsIcon } from './svg/subjects.svg';
 export { ReactComponent as SessionIcon } from './svg/session.svg';
 export { ReactComponent as IdCardIcon } from './svg/id-card.svg';
+export { ReactComponent as ChangePasswordIcon } from './svg/change-password.svg';

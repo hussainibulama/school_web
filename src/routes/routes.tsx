@@ -22,6 +22,7 @@ import {
   HomePage,
   Attendace,
   ViewAttendanceStudents,
+  ChangePassword,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
@@ -72,6 +73,7 @@ export const routes = [
       { path: 'settings/subjects', element: <Subjects /> },
       { path: 'settings/subjects/:id', element: <ClassSubjects /> },
       { path: 'settings/session', element: <Session /> },
+      { path: 'settings/change-password', element: <ChangePassword /> },
     ],
   },
 ];

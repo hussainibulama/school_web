@@ -1,6 +1,12 @@
 import { Box } from '@mui/material';
 import { SettingsCard, SettingsHeader } from '../../components';
-import { ClassArmIcon, ClassSectionIcon, SubjectsIcon, SessionIcon } from '../../assets';
+import {
+  ClassArmIcon,
+  ClassSectionIcon,
+  SubjectsIcon,
+  SessionIcon,
+  ChangePasswordIcon,
+} from '../../assets';
 import { useNavigate } from 'react-router-dom';
 
 export default function Settings() {
@@ -18,6 +24,16 @@ export default function Settings() {
     {
       title: 'Academics',
       cards: [{ label: 'Subjects', icon: SubjectsIcon, onClick: () => navigate('subjects') }],
+    },
+    {
+      title: 'Profile',
+      cards: [
+        {
+          label: 'Change Password',
+          icon: ChangePasswordIcon,
+          onClick: () => navigate('change-password'),
+        },
+      ],
     },
   ];
 

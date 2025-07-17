@@ -21,3 +21,4 @@ export { default as AddSubjectScore } from './add-subject-score';
 export { default as HomePage } from './home-page';
 export { default as Attendace } from './attendance';
 export { default as ViewAttendanceStudents } from './view-attendance-student';
+export { default as ChangePassword } from './change-password';
