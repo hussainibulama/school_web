@@ -1,10 +1,17 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { Chip, IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, Chip, IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React from 'react';
 import { formatDate } from '../../../util';
 
-type ModalType = 'view' | 'edit' | 'confirm' | 'assign-parent' | 'assign-class' | undefined;
+type ModalType =
+  | 'view'
+  | 'edit'
+  | 'confirm'
+  | 'assign-parent'
+  | 'assign-class'
+  | 'bulk'
+  | undefined;
 type IGetColumns = {
   anchorEl: HTMLElement | null;
   menuRowId: number | null;
@@ -21,31 +28,62 @@ export const getColumns = ({
   handleOpenModalWithType,
 }: IGetColumns): GridColDef[] => {
   return [
-    { field: 'name', headerName: 'Name', flex: 1, minWidth: 150 },
-    { field: 'gender', headerName: 'Gender', flex: 1, minWidth: 80, disableColumnMenu: true },
     {
-      field: 'type',
-      headerName: 'Type',
+      field: 'name',
+      headerName: 'Name',
+      flex: 1,
+      minWidth: 150,
+      renderCell: ({ value }) => (
+        <Box component='span' textTransform='capitalize'>
+          {value}
+        </Box>
+      ),
+    },
+    {
+      field: 'gender',
+      headerName: 'Gender',
+      flex: 1,
+      minWidth: 80,
+      disableColumnMenu: true,
+      renderCell: ({ value }) => (
+        <Box component='span' textTransform='capitalize'>
+          {value}
+        </Box>
+      ),
+    },
+    {
+      field: 'phone',
+      headerName: 'Phone',
       flex: 1,
       minWidth: 90,
       disableColumnMenu: true,
       sortable: false,
     },
     {
-      field: 'phone',
-      headerName: 'Phone',
-      flex: 1,
-      minWidth: 120,
-      disableColumnMenu: true,
-      sortable: false,
-    },
-    {
-      field: 'email',
-      headerName: 'Email',
+      field: 'class',
+      headerName: 'Class Level',
       flex: 1,
       minWidth: 150,
       disableColumnMenu: true,
       sortable: false,
+      renderCell: ({ value }) => (
+        <Box component='span' textTransform='capitalize'>
+          {value}
+        </Box>
+      ),
+    },
+    {
+      field: 'parent',
+      headerName: 'Parent/Guardian',
+      flex: 1,
+      minWidth: 150,
+      disableColumnMenu: true,
+      sortable: false,
+      renderCell: ({ value }) => (
+        <Box component='span' textTransform='capitalize'>
+          {value}
+        </Box>
+      ),
     },
     {
       field: 'created',
@@ -59,7 +97,7 @@ export const getColumns = ({
       field: 'status',
       headerName: 'Status',
       flex: 1,
-      minWidth: 150,
+      minWidth: 90,
       filterable: false,
       disableColumnMenu: true,
       renderCell: ({ value }) => (

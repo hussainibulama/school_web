@@ -29,8 +29,8 @@ export const getStudentInitialValues = (user?: any, userId?: string) => ({
   firstName: user?.data?.firstName || '',
   middleName: user?.data?.middleName || '',
   lastName: user?.data?.lastName || '',
-  email: user?.data?.email || '',
-  password: '', // Only relevant for create
+  email: user?.data?.email || `${Date.now()}@gmail.com`,
+  password: userId ? '' : `123456`, // Only relevant for create
   phone: user?.data?.phone || '',
   gender: user?.data?.gender || '',
   role: 'student',

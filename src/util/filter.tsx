@@ -12,7 +12,27 @@ export function mapUserTableData(data: any[] = []) {
     status: item.active === true ? 'Active' : 'Deactivated',
   }));
 }
-
+export function mapStudentsTableData(data: any[] = []) {
+  return data.map((item, index) => ({
+    id: index + 1,
+    userId: item.userId,
+    name: [item.firstName, item.middleName, item.lastName].filter(Boolean).join(' '),
+    gender: item.gender,
+    type: item.role,
+    phone: item.phone,
+    class: item?.classes[0]?.class?.label || '',
+    parent: [
+      item.parents[0]?.parent?.first_name,
+      item.parents[0]?.parent?.middle_name,
+      item.parents[0]?.parent?.last_name,
+    ]
+      .filter(Boolean)
+      .join(' '),
+    created: item.createdAt,
+    active: item.active,
+    status: item.active === true ? 'Active' : 'Deactivated',
+  }));
+}
 export const capitalize = (s: string) => {
   return s ? s[0].toUpperCase() + s.slice(1).toLowerCase() : s;
 };

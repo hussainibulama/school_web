@@ -127,14 +127,9 @@ const UpdateStudent = ({
         {/* Form  Section */}
         <Box width='100%'>
           {activeStep === 0 && (
-            <CreateStudentForm
-              formik={formik}
-              preview={preview}
-              setPreview={setPreview}
-              withPassword={false}
-            />
+            <CreateStudentForm formik={formik} preview={preview} setPreview={setPreview} />
           )}
-          {activeStep > 0 && <UserFormPreview values={formik.values} preview={preview} />}
+          {activeStep > 0 && <UserFormPreview isStudent values={formik.values} preview={preview} />}
         </Box>
       </Stack>
       <Box

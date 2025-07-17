@@ -8,6 +8,7 @@ import {
   StatusProgress,
   StaffProgress,
   Teacher,
+  BulkUpload,
 } from './components';
 
 import { useActionsManager, useGetStaffList } from '../../hooks';
@@ -18,7 +19,7 @@ import { getColumns } from './constants';
 import { useNavigate } from 'react-router-dom';
 
 type ActionType = {
-  type: 'view' | 'edit' | 'confirm' | undefined;
+  type: 'view' | 'edit' | 'confirm' | 'bulk' | undefined;
   userId?: string;
   active?: boolean;
 };
@@ -50,7 +51,7 @@ const Staff = () => {
     handleMenuOpen,
     handleMenuClose,
     handleOpenModalWithType: (
-      type: 'view' | 'edit' | 'confirm',
+      type: 'view' | 'edit' | 'confirm' | 'bulk',
       userId?: string,
       active?: boolean,
     ) => {
@@ -181,8 +182,21 @@ const Staff = () => {
             alignItems: 'center',
             flexGrow: { xs: 1, sm: 0 },
             width: { xs: '100%', sm: 'auto' },
+            gap: 2,
           }}
         >
+          <Button
+            variant='outlined'
+            color='primary'
+            onClick={() => handleOpenModalWithType('bulk')}
+            sx={{
+              textTransform: 'capitalize',
+              whiteSpace: 'nowrap',
+              width: '100%',
+            }}
+          >
+            Bulk Upload
+          </Button>
           <Button
             variant='contained'
             color='primary'
@@ -207,6 +221,8 @@ const Staff = () => {
 
       {/* Modals */}
       <CreateStaff open={openModal && actionType.type === undefined} onClose={closeModal} />
+      <BulkUpload open={openModal && actionType.type === 'bulk'} onClose={closeModal} />
+
       <UpdateStaff
         open={openModal && actionType.type === 'edit'}
         userId={actionType.userId}

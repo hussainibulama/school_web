@@ -15,7 +15,7 @@ import { useUpdateUserById, useFetchUserById } from '../../../../hooks';
 
 import { useSnackbar } from '../../../../hoc/snack-bar';
 import { UpdateParentSchema, getParentInitialValues } from '../../../../schema';
-import { CreateStudentForm, UserFormPreview } from '../../../../container';
+import { CreateParentForm, UserFormPreview } from '../../../../container';
 import { RoundedIcon } from '../../../../assets';
 
 const UpdateParent = ({
@@ -127,7 +127,7 @@ const UpdateParent = ({
         {/* Form  Section */}
         <Box width='100%'>
           {activeStep === 0 && (
-            <CreateStudentForm
+            <CreateParentForm
               formik={formik}
               preview={preview}
               setPreview={setPreview}

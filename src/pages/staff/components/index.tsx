@@ -4,3 +4,4 @@ export { default as StatusProgress } from './status-progress';
 export { default as GenderProgress } from './gender-progress';
 export { default as StaffProgress } from './staff-progress';
 export { default as Teacher } from './teacher';
+export { default as BulkUpload } from './bulk-upload';

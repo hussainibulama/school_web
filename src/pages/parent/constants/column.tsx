@@ -1,5 +1,5 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { Chip, IconButton, Menu, MenuItem } from '@mui/material';
+import { Box, Chip, IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import React from 'react';
 import { formatDate } from '../../../util';
@@ -21,15 +21,28 @@ export const getColumns = ({
   handleOpenModalWithType,
 }: IGetColumns): GridColDef[] => {
   return [
-    { field: 'name', headerName: 'Name', flex: 1, minWidth: 150 },
-    { field: 'gender', headerName: 'Gender', flex: 1, minWidth: 80, disableColumnMenu: true },
     {
-      field: 'type',
-      headerName: 'Type',
+      field: 'name',
+      headerName: 'Name',
       flex: 1,
-      minWidth: 90,
+      minWidth: 150,
+      renderCell: ({ value }) => (
+        <Box component='span' textTransform='capitalize'>
+          {value}
+        </Box>
+      ),
+    },
+    {
+      field: 'gender',
+      headerName: 'Gender',
+      flex: 1,
+      minWidth: 80,
       disableColumnMenu: true,
-      sortable: false,
+      renderCell: ({ value }) => (
+        <Box component='span' textTransform='capitalize'>
+          {value}
+        </Box>
+      ),
     },
     {
       field: 'phone',

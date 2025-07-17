@@ -3,42 +3,18 @@ import axiosInstance from '../api/axios';
 import { CreateNewUserPayload } from '../interface';
 import { FETCH_PARENT_LIST, FETCH_STAFF_LIST, FETCH_STUDENT_LIST } from '../contants';
 
-const createUser = async ({
-  email,
-  password,
-  firstName,
-  middleName,
-  lastName,
-  gender,
-  role,
-  address,
-  accountNumber,
-  bankName,
-  admissionNumber,
-  phone,
-  dob,
-}: CreateNewUserPayload): Promise<Response> => {
-  const response = await axiosInstance.post(`/user`, {
-    email,
-    password,
-    firstName,
-    middleName,
-    lastName,
-    gender,
-    role,
-    address,
-    accountNumber,
-    bankName,
-    admissionNumber,
-    phone,
-    dob,
-  });
+// Accepts single or multiple user payloads
+const createUser = async (
+  payload: CreateNewUserPayload | CreateNewUserPayload[],
+): Promise<Response> => {
+  const response = await axiosInstance.post('/user', payload);
   return response.data;
 };
 
 export default function useCreateUsers() {
   const queryClient = useQueryClient();
-  return useMutation<Response, Error, CreateNewUserPayload>({
+
+  return useMutation<Response, Error, CreateNewUserPayload | CreateNewUserPayload[]>({
     mutationFn: createUser,
     onSuccess: () => {
       queryClient.invalidateQueries({

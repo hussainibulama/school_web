@@ -4,17 +4,19 @@ import { Person } from '@mui/icons-material';
 import { FormField, FormSelect, RadioGroup } from '../../components';
 import { getTomorrow } from '../../util';
 
-interface ICreateStudentFormProps<T extends FormikValues> {
+interface ICreateParentFormProps<T extends FormikValues> {
   formik: FormikContextType<T>;
   preview: string | null;
   setPreview: (url: string) => void;
+  withPassword?: boolean;
 }
 
-export default function CreateStudentForm<T extends FormikValues>({
+export default function CreateParentForm<T extends FormikValues>({
   formik,
   preview,
   setPreview,
-}: ICreateStudentFormProps<T>) {
+  withPassword = true,
+}: ICreateParentFormProps<T>) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -43,6 +45,8 @@ export default function CreateStudentForm<T extends FormikValues>({
         },
       },
     },
+    { name: 'email', label: 'Email' },
+    ...(withPassword ? [{ name: 'password', label: 'Password', type: 'password' }] : []),
     {
       name: 'address',
       label: 'Address',

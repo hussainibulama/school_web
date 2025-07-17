@@ -8,5 +8,6 @@ export { default as ActivateUserModal } from './active-user-modal';
 export { default as UserFormPreview } from './user-form-preview';
 export { default as CreateStaffForm } from './create-staff-form';
 export { default as CreateStudentForm } from './create-student-form';
+export { default as CreateParentForm } from './create-parent-form';
 export { default as BreadcrumbHeader } from './bread-crumb-header';
 export { default as ViewProfile } from './view-profile';

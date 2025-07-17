@@ -4,15 +4,20 @@ import { Person } from '@mui/icons-material';
 interface IUserFormPreviewProps {
   values: any;
   preview?: string | null;
+  isStudent?: boolean;
 }
 
-export default function UserFormPreview({ values, preview }: IUserFormPreviewProps) {
+export default function UserFormPreview({
+  values,
+  preview,
+  isStudent = false,
+}: IUserFormPreviewProps) {
   const fields = [
     {
       label: 'Full Name',
       value: `${values?.firstName || ''} ${values?.middleName || ''} ${values?.lastName || ''}`,
     },
-    { label: 'Email', value: values?.email || '' },
+    ...(isStudent ? [] : [{ label: 'Email', value: values?.email || '' }]),
     { label: 'Phone Number', value: values?.phone || '' },
     { label: 'Gender', value: values.gender === 'm' ? 'Male' : 'Female' },
     { label: 'Date of Birth', value: values?.dob || '' },

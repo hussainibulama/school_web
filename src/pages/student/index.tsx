@@ -9,16 +9,24 @@ import {
   Student as StudentIconComponent,
   AssignClass,
   AssignParent,
+  BulkUpload,
 } from './components';
 
 import { useActionsManager, useStudentList } from '../../hooks';
 import { CustomDataGrid, FormField, FormSelect } from '../../components';
 import { ActivateUserModal } from '../../container';
-import { mapUserTableData, handleExport } from '../../util';
+import { mapStudentsTableData, handleExport } from '../../util';
 import { getColumns } from './constants';
 import { useNavigate } from 'react-router-dom';
 
-type ModalType = 'view' | 'edit' | 'confirm' | 'assign-parent' | 'assign-class' | undefined;
+type ModalType =
+  | 'view'
+  | 'edit'
+  | 'confirm'
+  | 'assign-parent'
+  | 'assign-class'
+  | 'bulk'
+  | undefined;
 type ActionType = {
   type: ModalType;
   userId?: string;
@@ -66,7 +74,7 @@ const Student = () => {
   );
 
   // Map and filter staff data
-  const mappedData = mapUserTableData(studentList);
+  const mappedData = mapStudentsTableData(studentList);
 
   const filteredRows = mappedData.filter((row) => {
     const matchesName = row.name.toLowerCase().includes(nameFilter.toLowerCase());
@@ -179,8 +187,21 @@ const Student = () => {
             alignItems: 'center',
             flexGrow: { xs: 1, sm: 0 },
             width: { xs: '100%', sm: 'auto' },
+            gap: 2,
           }}
         >
+          <Button
+            variant='outlined'
+            color='primary'
+            onClick={() => handleOpenModalWithType('bulk')}
+            sx={{
+              textTransform: 'capitalize',
+              whiteSpace: 'nowrap',
+              width: '100%',
+            }}
+          >
+            Bulk Upload
+          </Button>
           <Button
             variant='contained'
             color='primary'
@@ -205,6 +226,7 @@ const Student = () => {
 
       {/* Modals */}
       <CreateStudent open={openModal && actionType.type === undefined} onClose={closeModal} />
+      <BulkUpload open={openModal && actionType.type === 'bulk'} onClose={closeModal} />
       <AssignClass
         open={openModal && actionType.type === 'assign-class'}
         onClose={closeModal}

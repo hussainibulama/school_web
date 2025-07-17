@@ -114,7 +114,7 @@ const CreateStudent = ({ open, onClose }: { open: boolean; onClose: () => void }
           {activeStep === 0 && (
             <CreateStudentForm formik={formik} preview={preview} setPreview={setPreview} />
           )}
-          {activeStep > 0 && <UserFormPreview values={formik.values} preview={preview} />}
+          {activeStep > 0 && <UserFormPreview isStudent values={formik.values} preview={preview} />}
         </Box>
       </Stack>
       <Box

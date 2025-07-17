@@ -15,7 +15,7 @@ import { useCreateUsers } from '../../../../hooks';
 
 import { useSnackbar } from '../../../../hoc/snack-bar';
 import { CreateParentSchema, getParentInitialValues } from '../../../../schema';
-import { CreateStudentForm, UserFormPreview } from '../../../../container';
+import { CreateParentForm, UserFormPreview } from '../../../../container';
 import { RoundedIcon } from '../../../../assets';
 
 const CreateParent = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
@@ -112,7 +112,7 @@ const CreateParent = ({ open, onClose }: { open: boolean; onClose: () => void })
         {/* Form  Section */}
         <Box width='100%'>
           {activeStep === 0 && (
-            <CreateStudentForm formik={formik} preview={preview} setPreview={setPreview} />
+            <CreateParentForm formik={formik} preview={preview} setPreview={setPreview} />
           )}
           {activeStep > 0 && <UserFormPreview values={formik.values} preview={preview} />}
         </Box>
