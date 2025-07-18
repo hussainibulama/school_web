@@ -3,12 +3,65 @@ import {
   StarterPricing,
   ProfessionalPricingCard,
   EnterprisePricingCard,
+  FeatureCard,
 } from './container';
 import { Box, Button, Divider, Typography, darken } from '@mui/material';
 import { LandingPageMainBg } from '../../assets';
 import { LogoVireo } from '../../container';
 import { useNavigate } from 'react-router';
+import {
+  LandingPageIcon1,
+  LandingPageIcon2,
+  LandingPageIcon3,
+  LandingPageIcon4,
+  LandingPageIcon5,
+  LandingPageIcon6,
+} from '../../assets';
 
+const features = [
+  {
+    title: 'Student Management',
+    label:
+      'Comprehensive student profiles, enrollment tracking, and academic history management in one centralized system.',
+    icon: LandingPageIcon1,
+    color: '#DBEAFE',
+  },
+  {
+    title: 'Grade Management',
+    label:
+      'Streamlined grading system with automated calculations, report cards, and progress tracking for all students.',
+    icon: LandingPageIcon2,
+    color: '#DCFCE7',
+  },
+  {
+    title: 'Schedule Management',
+    label:
+      'Intelligent timetable creation, class scheduling, and resource allocation with conflict detection.',
+    icon: LandingPageIcon3,
+    color: '#F3E8FF',
+  },
+  {
+    title: 'Analytics & Reports',
+    label:
+      'Detailed insights into student performance, attendance patterns, and institutional metrics.',
+    icon: LandingPageIcon4,
+    color: '#FFEDD5',
+  },
+  {
+    title: 'Curriculum Planning',
+    label:
+      'Organize lesson plans, track curriculum progress, and manage educational resources effectively.',
+    icon: LandingPageIcon5,
+    color: '#E0E7FF',
+  },
+  {
+    title: 'Secure & Compliant',
+    label:
+      'Enterprise-grade security with FERPA compliance and role-based access control for data protection.',
+    icon: LandingPageIcon6,
+    color: '#FEE2E2',
+  },
+];
 export default function HomePage() {
   const navigate = useNavigate();
 
@@ -222,7 +275,63 @@ export default function HomePage() {
           />
         </Box>
       </Box>
-
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          justifySelf: 'center',
+          textAlign: 'center',
+          width: { sm: '60%', xs: '95%' },
+          py: 5,
+        }}
+      >
+        <Typography
+          sx={{
+            fontFamily: '"DM Sans", sans-serif',
+            color: 'rgb(17, 24, 39)',
+            fontWeight: 700,
+            fontSize: { sm: '2rem', xs: '1.475rem' },
+            lineHeight: '2rem',
+            mb: 2,
+          }}
+        >
+          Everything You Need to Manage Your School
+        </Typography>
+        <Typography
+          sx={{
+            fontFamily: '"DM Sans", sans-serif',
+            color: 'rgb(75, 85, 99)',
+            fontSize: { sm: '1rem', xs: '1rem' },
+            lineHeight: '1.55rem',
+          }}
+        >
+          Our comprehensive platform provides all the tools you need to streamline operations,
+          improve communication, and enhance the educational experience.
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          px: { sm: 5, xs: 3 },
+          gap: 5,
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {features.map((item, key) => (
+          <FeatureCard
+            key={key}
+            title={item.title}
+            label={item.label}
+            color={item.color}
+            icon={item.icon}
+          />
+        ))}
+      </Box>
       <Box
         sx={{
           display: 'flex',
@@ -237,7 +346,7 @@ export default function HomePage() {
         <Typography
           sx={{
             color: 'rgb(17, 24, 39)',
-            fontSize: { sm: '2.2rem', xs: '1.475rem' },
+            fontSize: { sm: '2rem', xs: '1.475rem' },
             fontFamily: '"DM Sans", sans-serif',
             textAlign: 'center',
             fontWeight: 700,
@@ -250,7 +359,7 @@ export default function HomePage() {
           variant='body2'
           sx={{
             color: 'rgb(75, 85, 99)',
-            fontSize: { sm: '1.25rem', xs: '1rem' },
+            fontSize: { sm: '1rem', xs: '1rem' },
             lineHeight: 1.625,
             fontFamily: '"DM Sans", sans-serif',
             textAlign: 'center',
@@ -268,6 +377,7 @@ export default function HomePage() {
             gap: { sm: 2, xs: 4 },
             alignItems: 'center',
             justifyContent: 'center',
+            flexWrap: 'wrap',
             mt: 4,
           }}
         >

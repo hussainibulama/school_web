@@ -19,7 +19,7 @@ const StarterPricingCard: React.FC = () => {
   return (
     <Card
       sx={{
-        width: 350,
+        width: { sm: 350, xs: '100%' },
         height: { sm: 520, xs: '100%' },
         borderRadius: 4,
         boxShadow: 0,

@@ -24,7 +24,7 @@ const ProfessionalPricingCard: React.FC = () => {
       sx={{
         position: 'relative',
         overflow: 'visible',
-        width: 350,
+        width: { sm: 350, xs: '100%' },
         height: { sm: 545, xs: '100%' },
         borderRadius: 4,
         boxShadow: 0,
