@@ -11,6 +11,7 @@ import {
   ParentIcon,
   StaffIcon,
   AttendanceIcon,
+  BroadsheetIcon,
 } from '../../assets';
 import { useGeneralContext } from '../../hoc';
 import { SideNavItem } from './component';
@@ -30,6 +31,7 @@ const menuItems = [
   { label: 'Parent', path: 'parent', icon: <ParentIcon {...iconStyle} /> },
   { label: 'Classes', path: 'classes', icon: <ClassIcon {...iconStyle} /> },
   { label: 'Attendace', path: 'attendance', icon: <AttendanceIcon {...iconStyle} /> },
+  { label: 'Broadsheet', path: 'broadsheet', icon: <BroadsheetIcon {...iconStyle} /> },
   { label: 'Assessment', path: 'assessment', icon: <AssessmentIcon {...iconStyle} /> },
 ];
 

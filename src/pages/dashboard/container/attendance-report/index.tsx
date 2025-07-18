@@ -138,7 +138,7 @@ const AttendanceSummary = () => {
         id: index + 1,
         fullName:
           `${record.student?.firstName || ''} ${record.student?.middleName || ''} ${record.student?.lastName || ''}`.trim(),
-        email: record.student?.email || '',
+        date: record.date || '',
         status: record.status.charAt(0).toUpperCase() + record.status.slice(1),
         class:
           schoolClasses?.data.find((c: any) => c.schoolClassId === record.schoolClassId)?.label ||
@@ -148,7 +148,7 @@ const AttendanceSummary = () => {
 
   const columns = [
     { field: 'fullName', headerName: 'Student Name', flex: 1 },
-    { field: 'email', headerName: 'Email', flex: 1 },
+    { field: 'date', headerName: 'Date', flex: 1 },
     { field: 'status', headerName: 'Status', flex: 1 },
     {
       field: 'class',

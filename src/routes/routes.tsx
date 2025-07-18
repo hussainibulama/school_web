@@ -23,6 +23,8 @@ import {
   Attendace,
   ViewAttendanceStudents,
   ChangePassword,
+  BroadSheet,
+  ViewBroadSheet,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
@@ -57,7 +59,8 @@ export const routes = [
       { path: 'fees', element: <Dashboard /> },
       { path: 'classes', element: <Classes /> },
       { path: 'classes/:id', element: <ViewClasses /> },
-      { path: 'broadsheet', element: <Dashboard /> },
+      { path: 'broadsheet', element: <BroadSheet /> },
+      { path: 'broadsheet/:schoolClassId', element: <ViewBroadSheet /> },
       { path: 'attendance', element: <Attendace /> },
       { path: 'attendance/:schoolClassId', element: <ViewAttendanceStudents /> },
       { path: 'cbt', element: <Dashboard /> },

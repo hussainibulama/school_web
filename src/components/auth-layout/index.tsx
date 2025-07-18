@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Box, Stack, useTheme, useMediaQuery } from '@mui/material';
 import { LogoVireo, TermsAndCondition } from '../../container';
 import { APP_NAME } from '../../contants';
+import { useNavigate } from 'react-router';
 
 interface AuthLayoutProps {
   title: string;
@@ -10,6 +11,8 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout = ({ title, children }: AuthLayoutProps) => {
+  const navigate = useNavigate();
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -37,7 +40,7 @@ const AuthLayout = ({ title, children }: AuthLayoutProps) => {
         py={4}
       >
         {/* Logo */}
-        <LogoVireo />
+        <LogoVireo onClick={() => navigate('/')} />
 
         {children}
 
