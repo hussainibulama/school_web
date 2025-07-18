@@ -276,41 +276,51 @@ export default function HomePage() {
         </Box>
       </Box>
       <Box
+        width={'100%'}
         sx={{
           display: 'flex',
-          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          justifySelf: 'center',
-          textAlign: 'center',
-          width: { sm: '60%', xs: '95%' },
-          py: 5,
         }}
       >
-        <Typography
+        <Box
           sx={{
-            fontFamily: '"DM Sans", sans-serif',
-            color: 'rgb(17, 24, 39)',
-            fontWeight: 700,
-            fontSize: { sm: '2rem', xs: '1.475rem' },
-            lineHeight: '2rem',
-            mb: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            justifySelf: 'center',
+            textAlign: 'center',
+            width: { sm: '50%', xs: '95%' },
+            py: 5,
           }}
         >
-          Everything You Need to Manage Your School
-        </Typography>
-        <Typography
-          sx={{
-            fontFamily: '"DM Sans", sans-serif',
-            color: 'rgb(75, 85, 99)',
-            fontSize: { sm: '1rem', xs: '1rem' },
-            lineHeight: '1.55rem',
-          }}
-        >
-          Our comprehensive platform provides all the tools you need to streamline operations,
-          improve communication, and enhance the educational experience.
-        </Typography>
+          <Typography
+            sx={{
+              fontFamily: '"DM Sans", sans-serif',
+              color: 'rgb(17, 24, 39)',
+              fontWeight: 700,
+              fontSize: { sm: '2rem', xs: '1.475rem' },
+              lineHeight: '2rem',
+              mb: 2,
+            }}
+          >
+            Everything You Need to Manage Your School
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: '"DM Sans", sans-serif',
+              color: 'rgb(75, 85, 99)',
+              fontSize: { sm: '1rem', xs: '1rem' },
+              lineHeight: '1.55rem',
+            }}
+          >
+            Our comprehensive platform provides all the tools you need to streamline operations,
+            improve communication, and enhance the educational experience.
+          </Typography>
+        </Box>
       </Box>
+
       <Box
         sx={{
           display: 'flex',
