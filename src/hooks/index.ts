@@ -34,6 +34,8 @@ export { default as useGetStudentResultById } from './useGetStudentResultById';
 export { default as useCreateAttendance } from './useCreateAttendance';
 export { default as useGetAttendance } from './useGetAttendance';
 export { default as useChangePassword } from './useChangePassword';
+export { default as useGetSchoolInfo } from './useGetSchoolInfo';
+export { default as useGenerateResult } from './useGenerateResult';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';

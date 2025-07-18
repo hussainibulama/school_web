@@ -42,8 +42,8 @@ export default function ScoreForm({ studentId = '' }: { studentId?: string }) {
   const { data: results, isLoading: __isLoading } = useGetStudentResultById({
     studentId,
     subjectId,
-    academicYear: `${currentSession?.currentTerm || 1}`,
-    academicTerm: currentSession?.academicYear || '',
+    academicYear: currentSession?.academicYear || '',
+    academicTerm: `${currentSession?.currentTerm || 1}`,
   });
 
   const [scores, setScores] = useState<ScoreFields>({
