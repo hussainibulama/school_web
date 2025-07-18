@@ -36,6 +36,7 @@ export { default as useGetAttendance } from './useGetAttendance';
 export { default as useChangePassword } from './useChangePassword';
 export { default as useGetSchoolInfo } from './useGetSchoolInfo';
 export { default as useGenerateResult } from './useGenerateResult';
+export { default as useUpdateSchoolInfo } from './useUpdateSchoolInfo';
 
 //Other Resubale Hooks
 export { default as useActionsManager } from './useActionsManager';

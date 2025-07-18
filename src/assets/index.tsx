@@ -24,3 +24,4 @@ export { ReactComponent as SessionIcon } from './svg/session.svg';
 export { ReactComponent as IdCardIcon } from './svg/id-card.svg';
 export { ReactComponent as ChangePasswordIcon } from './svg/change-password.svg';
 export { ReactComponent as BroadsheetIcon } from './svg/broadsheet.svg';
+export { ReactComponent as UpdateProfileIcon } from './svg/update-profile.svg';

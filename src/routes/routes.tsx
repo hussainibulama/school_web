@@ -25,6 +25,7 @@ import {
   ChangePassword,
   BroadSheet,
   ViewBroadSheet,
+  UpdateSchoolProfile,
 } from '../pages';
 import { DashboardLayout, AuthWrapper } from '../components';
 
@@ -77,6 +78,7 @@ export const routes = [
       { path: 'settings/subjects/:id', element: <ClassSubjects /> },
       { path: 'settings/session', element: <Session /> },
       { path: 'settings/change-password', element: <ChangePassword /> },
+      { path: 'settings/update-profile', element: <UpdateSchoolProfile /> },
     ],
   },
 ];

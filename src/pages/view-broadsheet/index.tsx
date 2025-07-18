@@ -59,7 +59,7 @@ export default function ViewBroadSheet() {
     const currentSession = session?.data?.find((entry: any) => entry.isCurrent);
     setAcademicYear(currentSession?.academicYear || '');
     setAcademicTerm(currentSession?.currentTerm || 1);
-  }, [academicYears]);
+  }, [academicYears, session]);
 
   const printRef = useRef<HTMLDivElement>(null);
 

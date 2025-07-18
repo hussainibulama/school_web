@@ -24,3 +24,4 @@ export { default as ViewAttendanceStudents } from './view-attendance-student';
 export { default as ChangePassword } from './change-password';
 export { default as BroadSheet } from './broadsheet';
 export { default as ViewBroadSheet } from './view-broadsheet';
+export { default as UpdateSchoolProfile } from './update-school-profile';

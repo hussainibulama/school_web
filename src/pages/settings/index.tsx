@@ -6,6 +6,7 @@ import {
   SubjectsIcon,
   SessionIcon,
   ChangePasswordIcon,
+  UpdateProfileIcon,
 } from '../../assets';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,6 +29,11 @@ export default function Settings() {
     {
       title: 'Profile',
       cards: [
+        {
+          label: 'Upadate School Profile',
+          icon: UpdateProfileIcon,
+          onClick: () => navigate('update-profile'),
+        },
         {
           label: 'Change Password',
           icon: ChangePasswordIcon,
